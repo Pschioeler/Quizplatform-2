@@ -50,6 +50,4 @@ A design breif of max 3 pages, a logbook of the development phases of approx. 2 
 
 <div id="teamet" align="center">
 
-
-| :---: | :---: | :---: | :---: | :---: |
 | [Maja](https://github.com/radclim) | [Mathias](https://github.com/Ullefar95) | [Nicklas](https://github.com/nicklas99x) | [Philip](https://github.com/Pschioeler) | [Tobias](https://github.com/walocial) |
