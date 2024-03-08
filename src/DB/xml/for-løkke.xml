@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<topic>for-løkke</topic>
+<question>
+<id>1</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad repræsenterer "i" normalt i en <b>for-</b>løkke?]]></questiontext>
+<answer>
+<answertext><![CDATA[Antal gentagelser]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Indeksvariablen for løkken]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Længden af et array]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[En konstant værdi]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>2</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er betingelsen for at et en <b>for</b>-løkke fortsætter med at køre?]]></questiontext>
+<answer>
+<answertext><![CDATA[At betingelsen i parenteserne er sand]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At betingelsen i parenteserne er falsk]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At variablen er mindre end 0]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At variablen er lig med 0]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>3</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilket af følgende udsagn er sandt med hensyn til scopen af en variabel erklæret med var i initialiseringssætningen af en for-løkke?]]></questiontext>
+<answer>
+<answertext><![CDATA[Variablen er kun tilgængelig i løkkens body.]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Variablen er tilgængelig både inden for og uden for løkken.]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Variablen er kun tilgængelig mens løkken kører.]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Variablen er utilgængelig, efter at løkken er fuldført.]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>4</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Kig følgende for-lykke igennem og marker de tal der opfylder if betingelsenfor (var i = 2; i <= 10; i += 2) { if (i % 3 === 0) { console.log(i + " kan dividers med 3"); } else { console.log(i + " kan ikke dividers med 3"); }}]]></questiontext>
+<answer>
+<answertext><![CDATA[3]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[4]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[6]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[10]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>5</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad gør <b>break</b>-statementet?]]></questiontext>
+<answer>
+<answertext><![CDATA[Afslutter hele programmet]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Afslutter løkken og forsætter med koden efter løkken]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Springer en iteration over]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Starter en ny iteration]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>6</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad gør <b>continue</b>-statementet?]]></questiontext>
+<answer>
+<answertext><![CDATA[Afslutter løkken]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Springer en iteration over]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Starter en ny iteration]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Ignorer kontrollen af betingelsen]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>7</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvordan skrives en <b>for</b>-løkke i JavaScript, der kører 5 gange?]]></questiontext>
+<answer>
+<answertext><![CDATA[for (var i = 0; i <= 5; i++)]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[for (var i = 0; i < 5; i++)]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[(var i = 1; i <= 5; i++)]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[(var i = 1; i < 5; i++)]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>8</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilket element er ikke en del af en traditionel <b>for</b>-løkke?]]></questiontext>
+<answer>
+<answertext><![CDATA[Initialisering]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Betingelse]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Inkrementering]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Return statement]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>9</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er formålet med opdateringsudtrykket i en <b>for</b>-løkke i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[Angiver startværdien]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Kontrollerer udførelsesbetingelsen]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Opdaterer kontrolvariablen]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Specificerer løkkens varighed]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>10</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er outputtet af følgende?<b>for (i=0; i < 5; i++) {console.log(i);}</b>]]></questiontext>
+<answer>
+<answertext><![CDATA[1 2 3 4 5]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[0 1 2 3 4 5]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[1 2 3 4]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[0 1 2 3 4 ]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+</quiz>

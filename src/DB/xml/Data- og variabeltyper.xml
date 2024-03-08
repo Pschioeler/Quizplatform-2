@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<topic>Data- og variabeltyper</topic>
+<question>
+<id>1</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad betyder følgende sammenligningsoperator: <b>!==</b>]]></questiontext>
+<answer>
+<answertext><![CDATA[Lig med værdien og typen]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Ikke lig med ]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Lig med typen, men ikke værdien]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Ikke lige med værdien eller typen]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>2</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilke variabeldeklarationer findes der i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[var]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[int]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[let]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[const]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>3</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Javascript er?]]></questiontext>
+<answer>
+<answertext><![CDATA[Weakly typed]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Strongly typed]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Dynamically typed]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Statically typed]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>4</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvor mange fundamentale datatyper er der i Javascript?]]></questiontext>
+<answer>
+<answertext><![CDATA[7]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[8]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[9]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[10]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>5</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er standarddatatypen for en variabel deklareret med <b>var x = 42;</b> i de fleste moderne programmeringssprog?]]></questiontext>
+<answer>
+<answertext><![CDATA[String]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Integer]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Boolean]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Float]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>6</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilken datatype bruges til at gemme decimaltal?]]></questiontext>
+<answer>
+<answertext><![CDATA[String]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Integer]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Float]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Char]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>7</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Markér alle primitive datatyper i JavaScript.]]></questiontext>
+<answer>
+<answertext><![CDATA[String]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Array]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Boolean]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Null]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>8</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilken datatype bruges til at repræsentere hele tal i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[Float]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Number]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Integer]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Decimal]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>9</id>
+<type>shortanswer</type>
+<questiontext><![CDATA[Hvad angives med []]]></questiontext>
+<answer>
+<answertext><![CDATA[array]]></answertext>
+<casesensitive>False</casesensitive>
+</answer>
+<answer>
+<answertext><![CDATA[arrays]]></answertext>
+<casesensitive>False</casesensitive>
+</answer>
+</question>
+<question>
+<id>10</id>
+<type>shortanswer</type>
+<questiontext><![CDATA[Skriv en statisk metode som outputter en besked til konsollen]]></questiontext>
+<answer>
+<answertext><![CDATA[console.log()]]></answertext>
+<casesensitive>True</casesensitive>
+</answer>
+</question>
+<question>
+<id>11</id>
+<type>shortanswer</type>
+<questiontext><![CDATA[Hvilket nøgleord bruger man til at definere block-scoped variabler?]]></questiontext>
+<answer>
+<answertext><![CDATA[let]]></answertext>
+<casesensitive>True</casesensitive>
+</answer>
+</question>
+</quiz>

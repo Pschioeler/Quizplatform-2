@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<topic>if statement</topic>
+<question>
+<id>1</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad sker der hvis koden i <b>if-</b>erklæringen er falsk, og der ikke er nogen <b>else</b>-erklæring?]]></questiontext>
+<answer>
+<answertext><![CDATA[Koden i if-blokken udføres alligevel]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Koden i else-blokken udføres]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Du får en fejlmeddelelse]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Koden i if-blokken udføres ikke, og kontrol flytter videre til næste kodeblok]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>2</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er formålet med <b>else if</b> i et <b>if</b>-statement?]]></questiontext>
+<answer>
+<answertext><![CDATA[At introducere en ny if-betingelse uanset resultatet af den foregående betingelse]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At afslutte if-betingelsen]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At håndtere flere betingelser sekventielt, hvis den foregående betingelse ikke er opfyldt]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At angive en standardværdi i tilfælde at hverken if-betingelsen eller else-betingelsen opfyldes]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>3</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilket output giver følgende statement?: <b>var time = 18; if (time < 10) {console.log("Morgen");}else if (time = 12) {console.log("Middag");}else if (time > 12 && time <= 18) {console.log("Eftermiddag");}else {console.log("God aften");}</b>]]></questiontext>
+<answer>
+<answertext><![CDATA[Morgen]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Middag]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Eftermiddag]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Aften]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>4</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilke af følgende værdier er falsy?]]></questiontext>
+<answer>
+<answertext><![CDATA[undefined]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[0]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Null]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA["NaN"]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>5</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad gør <b>if</b>?]]></questiontext>
+<answer>
+<answertext><![CDATA[Håndterer fejl]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Udfører en blok af kode flere gange]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Udfører en blok af kode ud fra en bestemt betingelse]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Opretter en ny variabel]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>6</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er forskellen på <b>==</b> og <b>===</b> i en <b>if</b>-betingelse?]]></questiontext>
+<answer>
+<answertext><![CDATA[Der er ingen forskel udover et ekstra tegn]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[=== er specielt brugt kun til <b>if</b>]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[=== sammenligner kun værdier og == sammenligner kun datatyper]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[== sammenligner værdier og === sammenligner både datatyper og værdier]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>7</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilket udsagn evalueres i en <b>if</b>-betingelse?]]></questiontext>
+<answer>
+<answertext><![CDATA[En streng]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Et helt tal]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[En sandhedsværdi]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[En funktion]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>8</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad sker der, hvis betingelsen i et <b>if-</b>statement er falsk?]]></questiontext>
+<answer>
+<answertext><![CDATA[Koden i <b>else</b>-blokken eksekveres]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Programmet stopper]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Koden i <b>if</b>-blokken eksekveres]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Ingen af ovenstående]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>9</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilken situation kræver brugen af et <b>if-</b>statement i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[At oprette en variabel]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At gentage en handling et bestemt antal gange]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At vælge mellem to eller flere handlinger baseret på en betingelse]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At udføre en handling hvis en bestemt betingelse er sand]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>10</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilken operator skal bruges i JavaScript for at oprette et "OR" udtryk ("eller"-udtryk) i et <b>if-</b>statement?]]></questiontext>
+<answer>
+<answertext><![CDATA[&&]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[||]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[==]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[!]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>11</id>
+<type>shortanswer</type>
+<questiontext><![CDATA[Hvilken operator bruger man for at kombinere to eller flere betingelser i et statement, der alle skal være true?]]></questiontext>
+<answer>
+<answertext><![CDATA[&&]]></answertext>
+<casesensitive>False</casesensitive>
+</answer>
+</question>
+<question>
+<id>12</id>
+<type>shortanswer</type>
+<questiontext><![CDATA[Bliver følgende betingelse i <b>if</b>-statementet opfyldt?<b>let x = 7;if(x != 10) {//eksekver kode}</b>]]></questiontext>
+<answer>
+<answertext><![CDATA[ja]]></answertext>
+<casesensitive>False</casesensitive>
+</answer>
+</question>
+<question>
+<id>13</id>
+<type>shortanswer</type>
+<questiontext><![CDATA[Hvad bliver præcist logget i konsollen i følgende kodestykke?let fact = true;fact = !fact;if (fact) console.log("That's right!"); else console.log("That's not right!");]]></questiontext>
+<answer>
+<answertext><![CDATA[That's not right!]]></answertext>
+<casesensitive>False</casesensitive>
+</answer>
+</question>
+</quiz>

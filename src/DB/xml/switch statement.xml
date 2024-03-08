@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<topic>switch statement</topic>
+<question>
+<id>1</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad bruges til at hoppe ud af en <b>case</b> i et <b>switch</b>-statementcase når en forekomst er fundet?]]></questiontext>
+<answer>
+<answertext><![CDATA[end;]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[stop;]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[break;]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[return;]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>2</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilken rolle spiller <b>default</b> i en <b>switch</b> <b>case</b> i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[Det repræsenterer standardværdien for variablen]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Det angiver en standardværdi der skal returneres]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Det bruges til at håndtere enhver situation, der ikke finder nogle af de definerede cases]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Det bruges til at springe til næste case uden at udføre koden for den aktuelle case]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>3</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilke af følgende udsagn vedrørende JavaScript-<b>switch</b>-udsagn er sande?]]></questiontext>
+<answer>
+<answertext><![CDATA[Switch-statement kan kun bruges til at sammenligne numeriske værdier.]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Break; er valgfrit. Hvis det udelades, vil switch-sætningen automatisk breake]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Case værdien skal være af samme datatype som det udtryk, der evalueres.]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Switch-statement kan kun have én case-blok.]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>4</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Skal man inkludere en <b>default</b> case når man laver en <b>switch</b>?]]></questiontext>
+<answer>
+<answertext><![CDATA[Ja, fordi den ikke kan køre uden]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Ja, fordi det er god kodeskik]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Nej, der er ikke krav om at have default for at køre koden]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Man kan ikke bruge default i switch]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>5</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvordan fungerer en <b>switch</b> i forhold til en <b>if/else</b>]]></questiontext>
+<answer>
+<answertext><![CDATA[Switch er mere fleksibel og læsbar når der skal håndteres mange sammenligninger]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Switch kan kun opfylde numeriske betingelser]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Switch kan ikke opfylde betingelser]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Der er ikke nogen forskel. De gør det samme]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>6</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvordan afslutter man typisk en <b>case</b> i et <b>switch</b>-statement?]]></questiontext>
+<answer>
+<answertext><![CDATA[break]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[continue]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[exit]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[return]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>7</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er formålet med <b>default</b> i et switch statement?]]></questiontext>
+<answer>
+<answertext><![CDATA[At angive standardværdien]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At tage fejl]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At køre hvis ingen cases matcher]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At afslutte switch statements]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>8</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilke udsagn er korrekte om <b>switch</b>-statements i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[Hver "case" skal afsluttes med et "break" statement.]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[switch kan kun sammenligne strenge]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA["default" er valgfrit i et "switch" statement]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Der kan være et uendeligt antal cases i et "switch" statement]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>9</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad sker der, hvis der ikke er noget <b>break</b>-statement i en <b>case-</b>blok i en <b>switch</b>-erklæring i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[Der opstår en fejl, og programmet stopper med at køre.]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Koden fortsætter med at udføre den efterfølgende "case"-blok uanset om dennes betingelse er opfyldt eller ej.]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Det påvirker ikke programmets udførelse, og "switch" fungerer normalt.]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Koden springer over den pågældende "case" og fortsætter med den næste linje efter "switch".]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>10</id>
+<type>shortanswer</type>
+<questiontext><![CDATA[Hvordan udfører man en standardhandling hvis der ikke er nogle cases der bliver opfyldt?]]></questiontext>
+<answer>
+<answertext><![CDATA[default]]></answertext>
+<casesensitive>True</casesensitive>
+</answer>
+</question>
+</quiz>

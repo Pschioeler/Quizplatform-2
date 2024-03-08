@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<topic>while, do...while-statement</topic>
+<question>
+<id>1</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er kendetegnet ved en <b>while</b>-løkke?]]></questiontext>
+<answer>
+<answertext><![CDATA[Løkken udføres mindst én gang uanset betingelsen]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Betingelsen evalueres først, og løkken udføres kun hvis betingelsen er sand]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Betingelsen evalueres efter, at løkken er blevet udført mindst én gang]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Løkken kan kun udføres et betsemt antal gange]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>2</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvornår evalueres betingelsen i en <b>do-while-</b>løkke?]]></questiontext>
+<answer>
+<answertext><![CDATA[Før hver iteration af løkken]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Kun én gang før udførelsen af løkken]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Betingelsen evalueres ikke i en <b>do-while</b> løkke]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Efter hver iteration af løkken]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>3</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvor mange gange kører følgende løkke?<b>var x = 0;do { x++;} while (x <= 5);</b>]]></questiontext>
+<answer>
+<answertext><![CDATA[0 gange]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[1 gange]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[6 gange]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Den kører uendeligt]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>4</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvornår stopper en <b>while</b>-loop?]]></questiontext>
+<answer>
+<answertext><![CDATA[Senest efter 1 min]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Når den har kørt et maximum af 1000 gange]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Når dens betingelse ikke længere er opfyldt]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Det gør det aldrig]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>5</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er resultatet af en <b>while-</b>løkke, hvis betingelsen altid er sand?]]></questiontext>
+<answer>
+<answertext><![CDATA[Løkken kører uendeligt]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Løkken stopper straks]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Løkken kører aldrig]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[En fejl opstår]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>6</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er forskellen mellem <b>while</b> og <b>do...while</b> løkker i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[Ingen forskel]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[<b>do...while</b> løkken tjekker betingelsen før løkkestart]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[<b>while</b> løkken kører altid mindst en gang]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[<b>do...while</b> løkken kører altid mindst en gang]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>7</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilke udsagn er korrekte om <b>while</b>-løkken i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[Koden inden i løkken udføres altid mindst én gang.]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Betingelsen evalueres før udførelsen af koden i <b>while</b>-løkken.]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[<b>While-</b>løkken kan have flere betingelser.]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Man kan bruge <b>exit-</b>nøgleordet for at stoppe udførelsen at resten af løkken, baseret på bestemmte betingelser.]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>8</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Sandt eller falsk? <b>Dowhile-</b>løkken tjekker betingelsen før kørsel.]]></questiontext>
+<answer>
+<answertext><![CDATA[Sandt]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Falsk]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>9</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er forskellen på <b>while</b> og <b>do ... while</b>?]]></questiontext>
+<answer>
+<answertext><![CDATA[<b>do ... while</b> bliver udført mindst én gang mens <b>while</b> ikke er garanteret på at blive udført]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Der er ikke nogen forskel på dem]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[<b>while</b> bliver udført mindst én gang mens <b>do  while</b> ikke er garanteret på at blive udført]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[<b>while</b> bliver udført mindst så længe dens betingelse er opfyldt mens <b>do  while</b> udføres indtil dens betingelse bliver opfyldt]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>10</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er formålet med <b>do  while</b>?]]></questiontext>
+<answer>
+<answertext><![CDATA[At udføre en løkke mindst én gang uanset hvad betingelsen er]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Det er bare en anden måde at formulere en <b>while</b>-løkke på]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At skabe en løkke der kan udføres uendeligt]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[At skabe en løkke der aldrig bliver udført medmindre den betingelse er opfyldt]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>11</id>
+<type>shortanswer</type>
+<questiontext><![CDATA[Hvad er det mindste antal gange en <b>do-while-</b>løkke vil køre?]]></questiontext>
+<answer>
+<answertext><![CDATA[1]]></answertext>
+<casesensitive>False</casesensitive>
+</answer>
+</question>
+</quiz>

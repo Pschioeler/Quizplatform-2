@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<topic>Operatorer</topic>
+<question>
+<id>1</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er resultatet af <b>5 + "5"</b>?]]></questiontext>
+<answer>
+<answertext><![CDATA[10]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[55]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA["55"]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[NaN]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>2</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilket tegn bruges til at finde resten af en division?]]></questiontext>
+<answer>
+<answertext><![CDATA[/]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[½]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[%]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[\]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>3</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad gør operatoren <b>instanceof</b>? ]]></questiontext>
+<answer>
+<answertext><![CDATA[Returnerer sand, hvis et objekt er en instans af en objekttype]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Instanceof er ikke en operator i JavaScript ]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Returnerer typen af en variabel]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Den skaber en ny instans af det objekt den bruges på]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>4</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilke(n) af følgende operatorer er ikke en logisk operator?]]></questiontext>
+<answer>
+<answertext><![CDATA[&&]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[||]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[!]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[^]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>5</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad gør den ternary operator <b>(? : )</b>?]]></questiontext>
+<answer>
+<answertext><![CDATA[Tildeler værdier]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Sammenligner værdier]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Udfører en logisk operation]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[En kort måde at lave en if på]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>6</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilke(n) operator(er) bruges til at sammenligne værdi og datatype i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[==]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[!=]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[===]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[!==]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>7</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad gør <b>++</b> operatoren i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[Subtraherer 1 fra en variabel]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Tilføjer 2 til en variabel]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Dividerer en variabel med sig selv]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Inkrementerer en variabel med 1]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>8</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad er resultatet af <b>10 + "5"</b>?]]></questiontext>
+<answer>
+<answertext><![CDATA[15]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[105]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA["105"]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[NaN]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>9</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad bruger man til at inkrementere tal i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[++]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[!+]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[+=]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[==]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+</quiz>
