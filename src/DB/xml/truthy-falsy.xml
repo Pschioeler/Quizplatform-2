@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<topic>truthy-falsy</topic>
+<question>
+<id>1</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilken en af følgende værdier er truthy?]]></questiontext>
+<answer>
+<answertext><![CDATA[0]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[-0]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA["null"]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[null]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>2</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvis <i>udtryk</i> er sandt, hvilket svar vil blive udskrevet til consolen?<b>if (<i>udtryk</i>) console.log("Denne statement er false."); else console.log("Denne statement er true.");</b>]]></questiontext>
+<answer>
+<answertext><![CDATA["Denne statement er false."]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA["Denne statement er true."]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>3</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvad betyder det hvis en værdi eller udtryk er truthy?]]></questiontext>
+<answer>
+<answertext><![CDATA[Det evalueres som true]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Det er en smart måde at skrive true på for alle værdier der ville evalueres til true]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Det er en boolsk værdi]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Det er en numerisk værdi]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>4</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilken værdi betragtes som 'falsy'?]]></questiontext>
+<answer>
+<answertext><![CDATA[0]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[""]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Null]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Alle ovenstående]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>5</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilket udtryk evalueres til 'true' i en <b>if</b>-sætning?]]></questiontext>
+<answer>
+<answertext><![CDATA[if (0)]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[if (-1)]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[if (null)]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[if (undefined)]]></answertext>
+<correct>False</correct>
+</answer>
+</question>
+<question>
+<id>6</id>
+<type>multichoice</type>
+<questiontext><![CDATA[Hvilke af følgende værdier er falsy i JavaScript?]]></questiontext>
+<answer>
+<answertext><![CDATA[0]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA["" (tomme strenge)]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[undefined]]></answertext>
+<correct>False</correct>
+</answer>
+<answer>
+<answertext><![CDATA[Alle overstående]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+<question>
+<id>7</id>
+<type>multichoice</type>
+<questiontext><![CDATA[<b>function sum(a,b) { let sum = a+b;}</b>Er <b>sum(1,1)</b> truthy eller falsy?]]></questiontext>
+<answer>
+<answertext><![CDATA[truthy]]></answertext>
+<correct>True</correct>
+</answer>
+<answer>
+<answertext><![CDATA[falsy]]></answertext>
+<correct>True</correct>
+</answer>
+</question>
+</quiz>
