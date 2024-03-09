@@ -3,8 +3,10 @@ const express = require('express');
 //This is for JSON files
 const cors = require('cors');
 const multer = require('multer');
+const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
+//brug moduler ved: const myModule = require('./modules/myModule');
 
 app.use(cors());
 
@@ -13,11 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Body-parser til json requests
 app.use(bodyParser.json());
 
-// Rute til dit API-modul
-app.get('/index', (req, res) => {
-    const greeting = myModule.greet();
-    res.json({ message: greeting });
-});
+//Lav endpoints her via app.get eller lignende
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
