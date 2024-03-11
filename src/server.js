@@ -75,15 +75,30 @@ app.post('/login', (req, res) => {
 });
 
 /* 
-Dashbord route, sætter user id 
+Dashbord route
 */
 app.get('/dashboard', requireAuth, (req, res) => {
     // Render the dashboard page
 });
 
+/*
+Admin route
+*/
 app.get('/admin', requireAuth, (req, res) => {
-    // Render the dashboard page
+    // Render the admin page
 });
+
+// Logout
+app.get("/logout", (req, res) => {
+    req.session.destroy(function (err) {
+      if (err) {
+        console.log(err);
+        res.send("Error");
+      } else {
+        res.render("index", { title: "Login", logout: "Logout Succesfully!" });
+      }
+    });
+  });
 
 
 const PORT = process.env.PORT || 3000;
