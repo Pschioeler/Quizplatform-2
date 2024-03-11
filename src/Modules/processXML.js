@@ -1,10 +1,10 @@
-const fs = require('fs');
-const xml2js = require('xml2js');
+const fs = require("fs");
+const xml2js = require("xml2js");
 
 async function processXML(file) {
   try {
     // Læs filen
-    const xmlData = fs.readFileSync(`../DB/xml/${file}.xml`, 'utf8');
+    const xmlData = fs.readFileSync(`./DB/xml/${file}.xml`, "utf8");
     // Parse XML
     const result = await new Promise((resolve, reject) => {
       xml2js.parseString(xmlData, (err, result) => {
@@ -16,9 +16,10 @@ async function processXML(file) {
       });
     });
     // Generer array ud fra parsed XML
-const dataArray = result.quiz.question.map(question => ({
+    const dataArray = result.quiz.question.map((question) => ({
       id: question.id ? question.id[0] : undefined,
       type: question.type ? question.type[0] : undefined,
+
       questiontext: question.questiontext ? question.questiontext[0] : undefined,
       answers: question.answer ? question.answer.map(answer => ({
         answertext: answer.answertext ? answer.answertext[0] : undefined,
@@ -26,12 +27,13 @@ const dataArray = result.quiz.question.map(question => ({
         casesensitive: answer.casesensitive ? answer.casesensitive[0] === 'True' : undefined
       })) : []
 }));
-    //console.log(dataArray);
+
     return dataArray;
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
     return [];
   }
 }
 //processXML("Data- og variabeltyper");
+
+module.exports = processXML;
