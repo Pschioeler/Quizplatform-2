@@ -34,7 +34,12 @@ app.post("/signup", (req, res) => {
         console.log("Password meets requirements");
         res.send('Velkommen til');
     }
-})
+});
+
+app.post("/login", (req, res) => {
+    const { username, password } = req.body;
+});
+
 // Indlæs quizzer ved opstart
 quizController.loadQuizzes();
 
