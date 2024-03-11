@@ -18,10 +18,10 @@ const PASSWORD_CRITERIA = {
 //Derudover, smider den også den tilsvarende "message"-property ind i
 //output ul-elementet som et li-element.
 function validatePass(password) {
-    let isValid = false;
+    let isValid = true;
     for (const criterion in PASSWORD_CRITERIA) {
-        if (PASSWORD_CRITERIA[criterion].regex.test(password)) {
-            isValid = true;
+        if (!PASSWORD_CRITERIA[criterion].regex.test(password)) {
+            isValid = false;
         }
     }
     return isValid;

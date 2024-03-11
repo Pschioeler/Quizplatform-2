@@ -6,9 +6,9 @@ signupForm.addEventListener('submit', async function(event){
     const signupData = new FormData(signupForm);
     const password = signupData.get("password");
 
-    const response = await fetch('/signup', {
+    const response = await fetch('http://localhost:3000/signup', {
         method: 'POST',
-        headers:{
+        headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ password: password })
