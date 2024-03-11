@@ -26,7 +26,7 @@ const dataArray = result.quiz.question.map(question => ({
         casesensitive: answer.casesensitive ? answer.casesensitive[0] === 'True' : undefined
       })) : []
 }));
-    //console.log(dataArray[0]);
+    //console.log(dataArray);
     return dataArray;
   }
   catch (error) {
