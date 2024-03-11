@@ -8,14 +8,10 @@ const bodyParser = require('body-parser');
 const validatePassword = require('../src/Modules/passwordValidator');
 //modules:
 const quizController = require("./Modules/quizController");
+const { registerUser, loginUser} = require('../src/Modules/encryption');
 const app = express();
 
-const corsOptions = {
-    origin: 'http://127.0.0.1:5500',
-    optionsSuccessStatus: 200 // nogle legacy browsere (IE11, forskellige SmartTVs) kan ikke håndtere 204 
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 //Body-parser til url encoded requests
 app.use(bodyParser.urlencoded({ extended: false }));
 //Body-parser til json requests
@@ -23,21 +19,23 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 //Lav endpoints her via app.get eller lignende
-app.post("/signup", (req, res) => {
-    const password = req.body.password;
-    console.log(password);
-    const validatePasswordStatus = validatePassword(password);
-    if (!validatePasswordStatus) {
+app.post("/signup", async (req, res) => {
+    const { username, password } = req.body;
+    const isValidPassword = validatePassword(password);
+    if (!isValidPassword) {
         console.log("Password does not meet requirements");
-        res.status(400).json({ error: 'Adgangskoden opfylder ikke kravene.' });
-    } else {
-        console.log("Password meets requirements");
-        res.send('Velkommen til');
+        return res.status(400).json({ error: 'Adgangskoden opfylder ikke kravene.' });
     }
+
+    // Register user
+    const result = await registerUser(username, password);
+    res.json({ message: result });
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
     const { username, password } = req.body;
+    const loginResult = await loginUser(username, password);
+    res.json({ message: loginResult });
 });
 
 // Indlæs quizzer ved opstart
