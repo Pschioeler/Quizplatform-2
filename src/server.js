@@ -16,6 +16,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Lav endpoints her via app.get eller lignende
+app.post('/signup', (req, res) => {
+    res.json({ message: 'Godkendt'});
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
