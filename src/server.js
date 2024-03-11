@@ -48,17 +48,17 @@ const requireAuth = (req, res, next) => {
 /* 
 Login route, sætter user id 
 */
-app.post('/login', (req, res) => {
+app.post('/login2', (req, res) => {
     console.log(req.sessionID);
     // tager et eventuelt username og password fra body
     let { username, password } = req.body;
     // Læs brugere fra DB
     let users = JSON.parse(fs.readFileSync(usersFilePath, "utf-8"));
+    console.log(users);
     // find og tjek username og password
+    
     const user = users.find(
-        (u) => u.username === username && u.password === password
-    );
-        
+        (u) => {u.username === username && u.password === password});        
     if (!user) {
         res.status(403).json({msg: 'Bad Credentials'});
         res.end("Invalid Username");
