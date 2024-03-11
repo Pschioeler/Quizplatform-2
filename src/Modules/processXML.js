@@ -19,20 +19,15 @@ async function processXML(file) {
     const dataArray = result.quiz.question.map((question) => ({
       id: question.id ? question.id[0] : undefined,
       type: question.type ? question.type[0] : undefined,
-      questiontext: question.questiontext
-        ? question.questiontext[0]
-        : undefined,
-      answers: question.answer
-        ? question.answer.map((answer) => ({
-            answertext: answer.answertext ? answer.answertext[0] : undefined,
-            correct: answer.correct ? answer.correct[0] === "True" : undefined,
-            casesensitive: answer.casesensitive
-              ? answer.casesensitive[0] === "True"
-              : undefined,
-          }))
-        : [],
-    }));
-    //console.log(dataArray[0]);
+
+      questiontext: question.questiontext ? question.questiontext[0] : undefined,
+      answers: question.answer ? question.answer.map(answer => ({
+        answertext: answer.answertext ? answer.answertext[0] : undefined,
+        correct: answer.correct ? answer.correct[0] === 'True' : undefined,
+        casesensitive: answer.casesensitive ? answer.casesensitive[0] === 'True' : undefined
+      })) : []
+}));
+
     return dataArray;
   } catch (error) {
     console.error(error);
