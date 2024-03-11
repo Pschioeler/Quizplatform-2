@@ -16,7 +16,7 @@ const fs = require("fs");
 //brug moduler ved: const myModule = require('./modules/myModule');
 
 // paths
-const usersFilePath = path.join(__dirname, "./DB/users.json");
+const usersFilePath = path.join(__dirname, "../DB/users.json");
 
 app.use(cors());
 
@@ -89,16 +89,16 @@ app.post('/login', (req, res) => {
 /* 
 Dashbord route
 */
-app.get('/dashboard', requireAuth, (req, res) => {
-    // Render the dashboard page
-});
+// app.get('/dashboard', requireAuth, (req, res) => {
+//     // Render the dashboard page
+// });
 
-/*
-Admin route
-*/
-app.get('/admin', requireAuth, (req, res) => {
-    // Render the admin page
-});
+// /*
+// Admin route
+// */
+// app.get('/admin', requireAuth, (req, res) => {
+//     // Render the admin page
+// });
 
 // Logout
 app.get("/logout", (req, res) => {
@@ -110,7 +110,7 @@ app.get("/logout", (req, res) => {
         res.render("index", { title: "Login", logout: "Logout Succesfully!" });
       }
     });
-  });
+});
 
 
 const PORT = process.env.PORT || 3000;
