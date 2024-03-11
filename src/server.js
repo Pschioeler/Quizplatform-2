@@ -8,16 +8,22 @@ const multer = require('multer');
 const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
+const fs = require("fs");
 //brug moduler ved: const myModule = require('./modules/myModule');
+
+
+// paths
+const usersFilePath = path.join(__dirname, "./DB/users.json");
 
 app.use(cors());
 
 app.use(session({
     // secret kan/burde ændres til noget andet
-    secret: 'super-hemmelig-nøgle',
+    secret: 'super-hemmelig-noegle',
+    cookie: { maxAge: 3600000 }, // gemmer session i 1 time
+    saveUninitialized: false,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
+    //cookie: { secure: true }
 }));
 
 //Body-parser til url encoded requests
@@ -32,24 +38,39 @@ Middleware til authentication tjek
 Hver Route skal have en requireAuth i deres app.get
 */
 const requireAuth = (req, res, next) => {
-    if (req.session.userId) {
+    if (req.session.authenticated) {
         next(); // User is authenticated, continue to next middleware
     } else {
         res.redirect('/login'); // User is not authenticated, redirect to login page
     }
 }
 
-
 /* 
 Login route, sætter user id 
 */
 app.post('/login', (req, res) => {
-    // Validate user credentials
-    if (validCredentials) {
-        req.session.userId = userId; // Set session identifier
-        res.redirect('/dashboard');
+    console.log(req.sessionID);
+    // tager et eventuelt username og password fra body
+    let { username, password } = req.body;
+    // Læs brugere fra DB
+    let users = JSON.parse(fs.readFileSync(usersFilePath, "utf-8"));
+    // find og tjek username og password
+    const user = users.find(
+        (u) => u.username === username && u.password === password
+    );
+        
+    if (!user) {
+        res.status(403).json({msg: 'Bad Credentials'});
+        res.end("Invalid Username");
     } else {
-        res.render('login', { error: 'Invalid username or password' });
+        req.session.authenticated = true;
+        req.session.user = user.username;
+        res.json(req.session);
+            if (user.isAdmin === true) {
+                //res.redirect("/adminpanel");
+            } else {
+                //res.redirect("/dashboard");
+            }
     }
 });
 
@@ -59,6 +80,11 @@ Dashbord route, sætter user id
 app.get('/dashboard', requireAuth, (req, res) => {
     // Render the dashboard page
 });
+
+app.get('/admin', requireAuth, (req, res) => {
+    // Render the dashboard page
+});
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
