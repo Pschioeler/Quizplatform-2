@@ -1,0 +1,39 @@
+:root {
+    --primary-color: black;
+    --secondary-color: white;
+    --accent-color: #1766ff;
+    --accent-hover: #0a3997;
+    --positive: #00c920;
+    --negative: #ff4747;
+    --overlay: #e4e4e4;
+  }
+  * {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: black;
+  }
+  button {
+    background-color: var(--accent-color);
+    transition: 0.3s;
+  }
+  button:hover {
+    background-color: var(--accent-hover);
+  }
+  .shadow {
+    -webkit-box-shadow: 6px 6px 21px 0px rgba(189, 189, 189, 1);
+    -moz-box-shadow: 6px 6px 21px 0px rgba(189, 189, 189, 1);
+    box-shadow: 6px 6px 21px 0px rgba(189, 189, 189, 1);
+  }
+  footer {
+    background-color: var(--overlay);
+  }
+  
