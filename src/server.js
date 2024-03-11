@@ -51,7 +51,12 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
     const loginResult = await loginUser(username, password);
-    res.json({ message: loginResult });
+    console.log(loginResult);
+    if (loginResult === 'Login successful') {
+        res.json({ success: true });
+    } else {
+        res.json({ success: false });
+    }
 });
 
 // Indlæs quizzer ved opstart

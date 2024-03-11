@@ -39,7 +39,7 @@ async function registerUser(username, password) {
         const hashedPassword = await bcrypt.hash(password, passwordSalt);
 
         users.push({ usernameSalt, hashedUser, passwordSalt, password: hashedPassword, isAdmin: false, isSuperAdmin: false, timelogs: [] });
-        fs.writeFileSync(usersFilePath, JSON.stringify(users));
+        fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
         return 'User registered successfully!';
     } catch (error) {
         return handleError('Error registering user: ' + error.message);
