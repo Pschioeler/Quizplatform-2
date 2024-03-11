@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Tilmelding</h1>
+    <form id="signupForm">
+        <label for="username">Brugernavn:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Adgangskode:</label>
+        <input type="password" id="password" name="password" required><br><br>    
+        <label for="confirm_password">Bekræft adgangskode:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+        <div id="passFeedbackText"></div>
+        <input type="submit" value="Tilmeld">
+    </form>
+    <script src="/public/js/signup.js"></script>
+</body>
+</html>
