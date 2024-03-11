@@ -1,5 +1,7 @@
 //Brug express
 const express = require('express');
+// Bruges til Session ID
+const session = require('express-session');
 //This is for JSON files
 const cors = require('cors');
 const multer = require('multer');
@@ -10,13 +12,27 @@ const validatePassword = require('../src/Modules/passwordValidator');
 const quizController = require("./Modules/quizController");
 const { registerUser, loginUser} = require('../src/Modules/encryption');
 const app = express();
+const fs = require("fs");
+//brug moduler ved: const myModule = require('./modules/myModule');
+
+// paths
+const usersFilePath = path.join(__dirname, "./DB/users.json");
 
 app.use(cors());
+
+app.use(session({
+    // secret kan/burde ændres til noget andet
+    secret: 'super-hemmelig-noegle',
+    cookie: { maxAge: 3600000 }, // gemmer session i 1 time
+    saveUninitialized: false,
+    resave: false,
+    //cookie: { secure: true }
+}));
+
 //Body-parser til url encoded requests
 app.use(bodyParser.urlencoded({ extended: false }));
 //Body-parser til json requests
 app.use(bodyParser.json());
-app.use(express.json());
 
 //Lav endpoints her via app.get eller lignende
 app.post("/signup", async (req, res) => {
@@ -41,14 +57,61 @@ app.post("/login", async (req, res) => {
 // Indlæs quizzer ved opstart
 quizController.loadQuizzes();
 
-// Endpoint for at få et tilfældigt spørgsmål
-app.get("/quiz/get-question", quizController.getQuestion);
+/* 
+Login route, sætter user id 
+*/
+app.post('/login', (req, res) => {
+    console.log(req.sessionID);
+    // tager et eventuelt username og password fra body
+    let { username, password } = req.body;
+    // Læs brugere fra DB
+    let users = JSON.parse(fs.readFileSync(usersFilePath, "utf-8"));
+    // find og tjek username og password
+    const user = users.find(
+        (u) => u.username === username && u.password === password
+    );
+        
+    if (!user) {
+        res.status(403).json({msg: 'Bad Credentials'});
+        res.end("Invalid Username");
+    } else {
+        req.session.authenticated = true;
+        req.session.user = user.username;
+        res.json(req.session);
+            if (user.isAdmin === true) {
+                //res.redirect("/adminpanel");
+            } else {
+                //res.redirect("/dashboard");
+            }
+    }
+});
 
-// Endpoint for at indsende svar på et spørgsmål
-app.post("/quiz/submit-answer", quizController.submitAnswer);
+/* 
+Dashbord route
+*/
+app.get('/dashboard', requireAuth, (req, res) => {
+    // Render the dashboard page
+});
 
-// Endpoint for at få resultaterne af en quiz
-app.get("/quiz/get-results", quizController.getResults);
+/*
+Admin route
+*/
+app.get('/admin', requireAuth, (req, res) => {
+    // Render the admin page
+});
+
+// Logout
+app.get("/logout", (req, res) => {
+    req.session.destroy(function (err) {
+      if (err) {
+        console.log(err);
+        res.send("Error");
+      } else {
+        res.render("index", { title: "Login", logout: "Logout Succesfully!" });
+      }
+    });
+  });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
