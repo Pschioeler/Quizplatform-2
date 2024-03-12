@@ -16,9 +16,6 @@ const fs = require("fs");
 //brug moduler ved: const myModule = require('./modules/myModule');
 const checkCredentials = require("./Modules/encryption");
 
-// paths
-const usersFilePath = path.join(__dirname, "../DB/users.json");
-
 app.use(cors());
 
 app.use(express.static(path.join(__dirname, "..", "public")));
@@ -70,20 +67,22 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
-  // tager et eventuelt username og password fra body
-  console.log(req.sessionID);
-
-  let user = checkCredentials.loginUser(username, password);
-  // Check bruger oplysninger
-
-  if (user.isAdmin === true) {
-    console.log("i got here to admin");
-    req.body.authenticated = true;
-    res.redirect("/admin");
-  } else {
-    console.log("i got here to user");
-    req.body.authenticated = true;
-    res.redirect("index.html");
+  try {
+      // Check bruger oplysninger
+      let user = checkCredentials.loginUser(username, password);
+      if (user) {
+        req.body.authenticated = true;
+        if (user.isAdmin === true) {
+            console.log("i got here to admin");
+            res.redirect("/admin");
+          } else {
+            console.log("i got here to user");
+            res.redirect("/index.html");
+          }
+      }
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).send("Internal server error");
   }
 });
 
