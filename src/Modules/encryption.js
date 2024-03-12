@@ -1,6 +1,7 @@
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const path = require('path');
+const { error } = require('console');
 
 const usersFilePath = path.join(__dirname, '../DB/users.json');
 
@@ -50,20 +51,17 @@ async function registerUser(username, password) {
 async function loginUser(username, password) {
     try {
         const errorMessage = 'Incorrect username or password. Please try again.';
-
-        console.log(username);
-        console.log(password);
         const users = loadUsers();
         const foundUser = users.find(user => {
             return bcrypt.compareSync(username, user.hashedUser) && bcrypt.compareSync(password, user.password);
         });
         if (!foundUser) {
-            console.log(errorMessage);
-            return errorMessage;
+            console.log("User not found");
+            return new Error(errorMessage); // Return an Error object
+        } else {
+            console.log("i got to else");
+            return foundUser;
         }
-        console.log("login ok");
-        console.log(foundUser);
-        return foundUser;
     } catch (error) {
         return handleError('Error logging in: ' + error.message);
     }

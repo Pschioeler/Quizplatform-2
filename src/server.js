@@ -15,6 +15,7 @@ const app = express();
 const fs = require("fs");
 //brug moduler ved: const myModule = require('./modules/myModule');
 const checkCredentials = require("./Modules/encryption");
+const { error } = require("console");
 
 app.use(cors());
 
@@ -44,15 +45,15 @@ const requireAuth = (req, res, next) => {
   if (req.session.authenticated) {
     next(); // User is authenticated, continue to next middleware
   } else {
-    res.redirect("/login"); // User is not authenticated, redirect to login page
+    res.redirect("/logon.html"); // User is not authenticated, redirect to login page
   }
 };
 
-app.get("/logon", (req, res) => {
+app.get("/logon.html", (req, res) => {
     
 })
 
-app.get("/index", (req, res) => {
+app.get("/index.html", requireAuth, (req, res) => {
     
 })
 
@@ -77,15 +78,19 @@ console.log(req.body);
   const { username, password } = req.body;
   try {
       // Check bruger oplysninger
-      let user = checkCredentials.loginUser(username, password);
-      if (user) {
+      let user = await checkCredentials.loginUser(username, password);
+      console.log(user);
+      if (user instanceof Error) { // Checking if the returned value is an instance of Error
+        console.log("Login failed: ", user.message);
+        res.redirect("/logon.html");
+      } else {
         req.body.authenticated = true;
         if (user.isAdmin === true) {
             console.log("i got here to admin");
             res.redirect("/admin");
           } else {
             console.log("i got here to user");
-            res.redirect("index");
+            res.redirect("/index.html");
           }
       }
   } catch (error) {
