@@ -98,10 +98,23 @@ function submitAnswer(req, res) {
       return res.status(404).send("Spørgsmålet blev ikke fundet.");
     }
 
-    const isCorrect = question.answers.some(
-      (ans) =>
-        ans.correct && ans.answertext.toLowerCase() === answer.toLowerCase()
-    );
+    let isCorrect;
+    if (Array.isArray(answer)) {
+      // For multiple-choice spørgsmål med flere korrekte svar
+      const correctAnswers = question.answers
+        .filter((ans) => ans.correct)
+        .map((ans) => ans.answertext.toLowerCase());
+      const providedAnswers = answer.map((ans) => ans.toLowerCase());
+      isCorrect =
+        providedAnswers.every((ans) => correctAnswers.includes(ans)) &&
+        correctAnswers.length === providedAnswers.length;
+    } else {
+      // For single-choice og short-answer spørgsmål
+      isCorrect = question.answers.some(
+        (ans) =>
+          ans.correct && ans.answertext.toLowerCase() === answer.toLowerCase()
+      );
+    }
 
     // Log resultatet
     logResult(req.session.user, quizName, questionId, isCorrect); // Antager 'user' er sat i session
