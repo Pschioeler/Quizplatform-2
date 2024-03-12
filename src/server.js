@@ -32,7 +32,7 @@ app.use(
 );
 
 //Body-parser til url encoded requests
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 //Body-parser til json requests
 app.use(bodyParser.json());
 
