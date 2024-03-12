@@ -65,80 +65,88 @@ function getQuestion(req, res) {
   });
 }
 
-function submitAnswer(req, res) {
-  try {
-    console.log("Anmodning modtaget for /quiz/submit-answer", req.body);
-    const { quizName, questionId, answer } = req.body;
-    const user = req.session.user;
-
-    // Find quizzen og spørgsmålet
-    const quiz = quizzes[quizName];
-    if (!quiz) return res.status(404).send("Quizzen blev ikke fundet.");
-
-    const question = quiz.find((q) => q.id === questionId);
-    if (!question) return res.status(404).send("Spørgsmålet blev ikke fundet.");
-
-    let isCorrect = false;
-    if (Array.isArray(answer) && question.answers.some((ans) => ans.correct)) {
-      // Scenarie med flere korrekte svar
-      const correctAnswers = question.answers
-        .filter((ans) => ans.correct)
-        .map((ans) => ans.answertext.toLowerCase());
-      const providedAnswers = answer.map((ans) => ans.toLowerCase());
-      // Tjek om alle valgte svar er korrekte og at ingen ekstra forkerte svar er valgt
-      isCorrect =
-        providedAnswers.every((ans) => correctAnswers.includes(ans)) &&
-        providedAnswers.length === correctAnswers.length;
-    } else if (
-      question.type === "shortanswer" ||
-      question.answers.length === 1
-    ) {
-      // Scenarie med ét korrekt svar eller short-answer
-      const providedAnswer = answer.toLowerCase();
-      isCorrect = question.answers.some(
-        (ans) => ans.correct && ans.answertext.toLowerCase() === providedAnswer
-      );
-    }
-
-    // Log resultatet med bruger id
-    logResult(/*userId, */ quizName, questionId, isCorrect);
-
-    const resultTimestamp = new Date().toISOString();
-    // Sanitize quizName to make sure it's safe for use in a file path
-    const safeQuizName = sanitize(quizName);
-    const userResultFilename = `result-${safeQuizName}-${resultTimestamp}.json`;
-    const resultsDir = path.join(__dirname, "../DB/results");
-
-    // Ensure that the results directory exists
-    if (!fs.existsSync(resultsDir)) {
-      fs.mkdirSync(resultsDir, { recursive: true });
-    }
-
-    const userResultPath = path.join(resultsDir, userResultFilename);
-
-    const resultData = {
-      user,
-      quizName,
-      questionId,
-      answer,
-      isCorrect,
-      timestamp: resultTimestamp,
-    };
-
-    fs.writeFileSync(userResultPath, JSON.stringify(resultData, null, 2));
-
-    res.json({ correct: isCorrect });
-  } catch (err) {
-    console.error("Serverfejl ved håndtering af /quiz/submit-answer:", err);
-    res.status(500).send("Intern serverfejl");
+// Function to ensure the results directory exists
+function ensureResultsDirectory() {
+  const resultsDir = path.normalize(path.join(__dirname, "../DB/results"));
+  if (!fs.existsSync(resultsDir)) {
+    fs.mkdirSync(resultsDir, { recursive: true });
   }
+  return resultsDir;
 }
 
+function submitAnswer(req, res) {
+  console.log("Anmodning modtaget for /quiz/submit-answer", req.body);
+  const { quizName, questionId, answer } = req.body;
+  const user = req.session.user;
+
+  // Find quizzen og spørgsmålet
+  const quiz = quizzes[quizName];
+  if (!quiz) return res.status(404).send("Quizzen blev ikke fundet.");
+
+  const question = quiz.find((q) => q.id === questionId);
+  if (!question) return res.status(404).send("Spørgsmålet blev ikke fundet.");
+
+  let isCorrect = false;
+  if (Array.isArray(answer) && question.answers.some((ans) => ans.correct)) {
+    // Scenarie med flere korrekte svar
+    const correctAnswers = question.answers
+      .filter((ans) => ans.correct)
+      .map((ans) => ans.answertext.toLowerCase());
+    const providedAnswers = answer.map((ans) => ans.toLowerCase());
+    // Tjek om alle valgte svar er korrekte og at ingen ekstra forkerte svar er valgt
+    isCorrect =
+      providedAnswers.every((ans) => correctAnswers.includes(ans)) &&
+      providedAnswers.length === correctAnswers.length;
+  } else if (question.type === "shortanswer" || question.answers.length === 1) {
+    // Scenarie med ét korrekt svar eller short-answer
+    const providedAnswer = answer.toLowerCase();
+    isCorrect = question.answers.some(
+      (ans) => ans.correct && ans.answertext.toLowerCase() === providedAnswer
+    );
+  }
+
+  // Log resultatet med bruger id
+  logResult(/*userId, */ quizName, questionId, isCorrect);
+
+  const resultTimestamp = new Date().toISOString();
+  // Sanitize quizName to make sure it's safe for use in a file path
+  const safeQuizName = sanitize(quizName);
+  const userResultFilename = `result-${safeQuizName}-${resultTimestamp}.json`;
+  const resultsDir = ensureResultsDirectory();
+
+  // Ensure that the results directory exists when the server starts
+  if (!fs.existsSync(resultsDir)) {
+    fs.mkdirSync(resultsDir, { recursive: true });
+  }
+
+  const userResultPath = path.normalize(
+    path.join(resultsDir, userResultFilename)
+  );
+
+  const resultData = {
+    user: req.session.user,
+    quizName: quizName,
+    questionId: questionId,
+    answer: answer,
+    isCorrect: isCorrect,
+    timestamp: resultTimestamp,
+  };
+
+  // Using writeFile instead of writeFileSync for asynchronous file write
+  fs.writeFile(userResultPath, JSON.stringify(resultData, null, 2), (err) => {
+    if (err) {
+      console.error("Serverfejl ved håndtering af /quiz/submit-answer:", err);
+      return res.status(500).send("Intern serverfejl");
+    }
+
+    res.json({ correct: isCorrect });
+  });
+}
 function logResult(quizName, questionId, isCorrect) {
   // For now, we don't have userId, so we'll use a placeholder
   const userId = "placeholder-userId"; // This is a temporary line
 
-  const resultsDir = path.join(__dirname, "..", "DB", "results");
+  const resultsDir = ensureResultsDirectory();
   if (!fs.existsSync(resultsDir)) {
     fs.mkdirSync(resultsDir);
   }
@@ -154,7 +162,7 @@ function logResult(quizName, questionId, isCorrect) {
 
   // Opbyg filnavnet med korrekt datoformat
   const resultFilename = `result-${userId}-${quizName}-${dateString}-${timeString}.json`;
-  const resultFilePath = path.join(resultsDir, resultFilename);
+  const resultFilePath = path.normalize(path.join(resultsDir, resultFilename));
 
   let resultsArray;
   try {
@@ -187,7 +195,7 @@ function logResult(quizName, questionId, isCorrect) {
 // Ny funktion til at hente resultater for en bruger
 function getResultsForUser(req, res) {
   const userId = req.session.user; // Dette vil blive brugt når featuren er implementeret
-  const resultsDir = path.join(__dirname, "..", "DB", "results");
+  const resultsDir = ensureResultsDirectory();
   const userResults = [];
 
   fs.readdirSync(resultsDir).forEach((file) => {
