@@ -3,18 +3,18 @@ const express = require("express");
 // Bruges til Session ID
 const session = require("express-session");
 //This is for JSON files
-const cors = require('cors');
-const multer = require('multer');
-const path = require('path');
-const bodyParser = require('body-parser');
-const validatePassword = require('./Modules/passwordValidator');
+const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
+const bodyParser = require("body-parser");
+const validatePassword = require("./Modules/passwordValidator");
 //modules:
 const quizController = require("./Modules/quizController");
-const { registerUser, loginUser} = require('./Modules/encryption');
+const { registerUser, loginUser } = require("./Modules/encryption");
 const app = express();
 const fs = require("fs");
 //brug moduler ved: const myModule = require('./modules/myModule');
-const checkCredentials = require("./Modules/encryption"); 
+const checkCredentials = require("./Modules/encryption");
 
 // paths
 const usersFilePath = path.join(__dirname, "../DB/users.json");
@@ -44,45 +44,47 @@ Middleware til authentication tjek
 Hver Route skal have en requireAuth i deres app.get
 */
 const requireAuth = (req, res, next) => {
-    if (req.session.authenticated) {
-      next(); // User is authenticated, continue to next middleware
-    } else {
-      res.redirect("/login"); // User is not authenticated, redirect to login page
-    }
-  };
+  if (req.session.authenticated) {
+    next(); // User is authenticated, continue to next middleware
+  } else {
+    res.redirect("/login"); // User is not authenticated, redirect to login page
+  }
+};
 
 //Lav endpoints her via app.get eller lignende
 app.post("/signup", async (req, res) => {
-    const { username, password } = req.body;
-    const isValidPassword = validatePassword(password);
-    if (!isValidPassword) {
-        console.log("Password does not meet requirements");
-        return res.status(400).json({ error: 'Adgangskoden opfylder ikke kravene.' });
-    }
+  const { username, password } = req.body;
+  const isValidPassword = validatePassword(password);
+  if (!isValidPassword) {
+    console.log("Password does not meet requirements");
+    return res
+      .status(400)
+      .json({ error: "Adgangskoden opfylder ikke kravene." });
+  }
 
-    // Register user
-    const result = await registerUser(username, password);
-    res.json({ message: result });
+  // Register user
+  const result = await registerUser(username, password);
+  res.json({ message: result });
 });
 
 app.post("/login", async (req, res) => {
-    const { username, password } = req.body;
+  const { username, password } = req.body;
 
-    // tager et eventuelt username og password fra body
-    console.log(req.sessionID);
+  // tager et eventuelt username og password fra body
+  console.log(req.sessionID);
 
-     // Check bruger oplysninger
-     let user = checkCredentials.loginUser(username, password)
+  // Check bruger oplysninger
+  let user = checkCredentials.loginUser(username, password);
 
-     if(user.isAdmin === true) {
-        console.log("i got here to admin");
-        req.body.authenticated = true;
-        res.redirect("/admin")
-     } else {
-        console.log("i got here to user");
-        req.body.authenticated = true;
-        res.redirect(".../public/index.html")
-     }
+  if (user.isAdmin === true) {
+    console.log("i got here to admin");
+    req.body.authenticated = true;
+    res.redirect("/admin");
+  } else {
+    console.log("i got here to user");
+    req.body.authenticated = true;
+    res.redirect("index.html");
+  }
 });
 
 // Indlæs quizzer ved opstart
@@ -110,9 +112,6 @@ app.get("/quiz/results/download", (req, res) => {
   res.download(resultsPath);
 });
 
-
-
-
 /* 
 Dashbord route
 */
@@ -129,14 +128,14 @@ Dashbord route
 
 // Logout
 app.get("/logout", (req, res) => {
-    req.session.destroy(function (err) {
-      if (err) {
-        console.log(err);
-        res.send("Error");
-      } else {
-        res.render("index", { title: "Login", logout: "Logout Succesfully!" });
-      }
-    });
+  req.session.destroy(function (err) {
+    if (err) {
+      console.log(err);
+      res.send("Error");
+    } else {
+      res.render("index", { title: "Login", logout: "Logout Succesfully!" });
+    }
+  });
 });
 
 const PORT = process.env.PORT || 3000;
