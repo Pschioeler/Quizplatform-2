@@ -7,13 +7,16 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const bodyParser = require('body-parser');
+const validatePassword = require('./Modules/passwordValidator');
+//modules:
+const quizController = require("./Modules/quizController");
+const { registerUser, loginUser} = require('./Modules/encryption');
 const app = express();
 const fs = require("fs");
 //brug moduler ved: const myModule = require('./modules/myModule');
 
-
 // paths
-const usersFilePath = path.join(__dirname, "./DB/users.json");
+const usersFilePath = path.join(__dirname, "../DB/users.json");
 
 app.use(cors());
 
@@ -32,18 +35,32 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Lav endpoints her via app.get eller lignende
-
-/*
-Middleware til authentication tjek
-Hver Route skal have en requireAuth i deres app.get
-*/
-const requireAuth = (req, res, next) => {
-    if (req.session.authenticated) {
-        next(); // User is authenticated, continue to next middleware
-    } else {
-        res.redirect('/login'); // User is not authenticated, redirect to login page
+app.post("/signup", async (req, res) => {
+    const { username, password } = req.body;
+    const isValidPassword = validatePassword(password);
+    if (!isValidPassword) {
+        console.log("Password does not meet requirements");
+        return res.status(400).json({ error: 'Adgangskoden opfylder ikke kravene.' });
     }
-}
+
+    // Register user
+    const result = await registerUser(username, password);
+    res.json({ message: result });
+});
+
+app.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+    const loginResult = await loginUser(username, password);
+    console.log(loginResult);
+    if (loginResult === 'Login successful') {
+        res.json({ success: true });
+    } else {
+        res.json({ success: false });
+    }
+});
+
+// Indlæs quizzer ved opstart
+quizController.loadQuizzes();
 
 /* 
 Login route, sætter user id 
@@ -77,16 +94,16 @@ app.post('/login', (req, res) => {
 /* 
 Dashbord route
 */
-app.get('/dashboard', requireAuth, (req, res) => {
-    // Render the dashboard page
-});
+// app.get('/dashboard', requireAuth, (req, res) => {
+//     // Render the dashboard page
+// });
 
-/*
-Admin route
-*/
-app.get('/admin', requireAuth, (req, res) => {
-    // Render the admin page
-});
+// /*
+// Admin route
+// */
+// app.get('/admin', requireAuth, (req, res) => {
+//     // Render the admin page
+// });
 
 // Logout
 app.get("/logout", (req, res) => {
@@ -98,7 +115,7 @@ app.get("/logout", (req, res) => {
         res.render("index", { title: "Login", logout: "Logout Succesfully!" });
       }
     });
-  });
+});
 
 
 const PORT = process.env.PORT || 3000;
