@@ -73,8 +73,8 @@ app.post("/login", async (req, res) => {
   // tager et eventuelt username og password fra body
   console.log(req.sessionID);
 
-  // Check bruger oplysninger
   let user = checkCredentials.loginUser(username, password);
+  // Check bruger oplysninger
 
   if (user.isAdmin === true) {
     console.log("i got here to admin");
