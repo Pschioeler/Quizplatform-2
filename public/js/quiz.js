@@ -23,27 +23,63 @@ function fetchQuestion(quizName) {
       }
       return response.json();
     })
-    .then((question) => {
+    .then((data) => {
+      // Tjek for om quizzen er færdig
+      if (data.quizComplete) {
+        showCompletionPopup(); // Viser en afsluttende popup
+        return;
+      }
+
       const questionContainer = document.getElementById("question-container");
       questionContainer.innerHTML = "";
 
       const questionText = document.createElement("h2");
-      questionText.textContent = question.questiontext;
+      questionText.textContent = data.questiontext;
+      questionText.className = "question-text";
       questionContainer.appendChild(questionText);
 
-      question.answers.forEach((answer) => {
-        const answerButton = document.createElement("button");
-        answerButton.textContent = answer.answertext;
-        // Husk at inkludere både quizName og question.id i submitAnswer kaldet
-        answerButton.onclick = () =>
-          submitAnswer(quizName, question.id, answer.answertext);
-        questionContainer.appendChild(answerButton);
-      });
+      if (data.type === "multichoice") {
+        data.answers.forEach((answer) => {
+          const answerButton = document.createElement("button");
+          answerButton.textContent = answer.answertext;
+          answerButton.className = "answer-button multichoice";
+          answerButton.onclick = () =>
+            submitAnswer(quizName, data.id, answer.answertext);
+          questionContainer.appendChild(answerButton);
+        });
+      } else if (data.type === "shortanswer") {
+        const answerInput = document.createElement("input");
+        answerInput.type = "text";
+        answerInput.id = "short-answer-input";
+        answerInput.className = "short-answer-input";
+        questionContainer.appendChild(answerInput);
+
+        const submitButton = document.createElement("button");
+        submitButton.textContent = "Indsend";
+        submitButton.className = "submit-button shortanswer";
+        submitButton.onclick = () => {
+          const input = document.getElementById("short-answer-input");
+          submitAnswer(quizName, data.id, input.value);
+        };
+        questionContainer.appendChild(submitButton);
+      }
     })
     .catch((error) => {
       console.error("Fejl:", error);
       alert("Der skete en fejl under indlæsning af spørgsmålet.");
     });
+}
+
+// Funktion til at vise en afsluttende popup
+function showCompletionPopup() {
+  const completionPopup = document.createElement("div");
+  completionPopup.innerHTML = `
+    <div class="completion-popup">
+      <p>Alle spørgsmål for denne quiz er allerede blevet vist. Tillykke med at have afsluttet quizzen!</p>
+      <button onclick="window.location.href = '/'">Gå til hjemmeside</button>
+    </div>
+  `;
+  document.body.appendChild(completionPopup);
 }
 
 function startQuiz() {
