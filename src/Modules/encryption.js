@@ -38,7 +38,7 @@ async function registerUser(username, password) {
         const passwordSalt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, passwordSalt);
 
-        users.push({ usernameSalt, hashedUser, passwordSalt, password: hashedPassword, isAdmin: false, isSuperAdmin: false, timelogs: [] });
+        users.push({ usernameSalt, hashedUser, passwordSalt, password: hashedPassword, isAdmin: false, isSuperAdmin: false, timelogs: [], groups: [] });
         fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
         return 'User registered successfully!';
     } catch (error) {
@@ -70,6 +70,7 @@ async function loginUser(username, password) {
 }
 //registerUser("test","1234");
 module.exports = {
+    loadUsers,
     registerUser,
     loginUser
 };
