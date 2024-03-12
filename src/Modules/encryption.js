@@ -1,61 +1,65 @@
-const express = require('express');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 
-const app = express();
-app.use(express.json());
-
 const usersFilePath = '../DB/users.json';
-// Feljhåndtering
-function handleError(res, errorMessage) {
+
+// Error handling function
+function handleError(errorMessage) {
     console.error(errorMessage);
-    res.status(500).send('Der er sket en fejl. Venligst prøv igen.');
-}
-// Tjek om filen eksisterer og loader brugere
-let users = {};
-try {
-    const data = fs.readFileSync(usersFilePath);
-    users = JSON.parse(data);
-} catch (error) {
-    if (error.code === 'ENOENT') {
-        fs.writeFileSync(usersFilePath, JSON.stringify({}));
-    } else {
-        console.error('Error reading users file:', error);
-    }
+    return 'An error occurred. Please try again.';
 }
 
-// Endpoint for registrering
-app.post('/register', async (req, res) => {
+// Load users from file
+function loadUsers() {
     try {
-        const { username, password } = req.body;
-        if (users[username]) {
-            return res.status(400).send('Brugernavn er allerede i brug');
-        }
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        users[username] = { salt, password: hashedPassword, isAdmin: false, isSuperAdmin: false, timelogs: [] };
-        fs.writeFile(usersFilePath, JSON.stringify(users), (err) => {
-            if (err) {
-                return handleError(res, 'Fejl ved skrivning af brugere til fil');
-            }
-            res.status(201).send('Bruger oprettet!');
-        });
+        const data = fs.readFileSync(usersFilePath);
+        return JSON.parse(data);
     } catch (error) {
-        handleError(res, error.message);
+        if (error.code === 'ENOENT') {
+            fs.writeFileSync(usersFilePath, JSON.stringify([]));
+            return [];
+        } else {
+            console.error('Error reading users file:', error);
+            return [];
+        }
     }
-});
-// Endpoint for login
-app.post('/login', async (req, res) => {
+}
+
+// Function for user registration
+async function registerUser(username, password) {
     try {
-        const { username, password } = req.body;
-        const user = users[username];
-        const errorMessage = 'Brugernavn eller kodeord er forkert. Venligst prøv igen.';
+        const users = loadUsers();
+        if (users.some(user => user.username === username)) {
+            return 'Username is already in use';
+        }
+        const usernameSalt = await bcrypt.genSalt(10);
+        const hashedUser = await bcrypt.hash(username, usernameSalt);
+        const passwordSalt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, passwordSalt);
+
+        users.push({ usernameSalt, hashedUser, passwordSalt, password: hashedPassword, isAdmin: false, isSuperAdmin: false, timelogs: [] });
+        fs.writeFileSync(usersFilePath, JSON.stringify(users));
+        return 'User registered successfully!';
+    } catch (error) {
+        return handleError('Error registering user: ' + error.message);
+    }
+}
+
+// Function for user login
+async function loginUser(username, password) {
+    try {
+        const users = loadUsers();
+        const user = users.find(user => user.username === username);
+        const errorMessage = 'Incorrect username or password. Please try again.';
         if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).send(errorMessage);
+            return errorMessage;
         }
-        res.status(200).send('Login vellykket');
+        return 'Login successful';
     } catch (error) {
-        handleError(res, error.message);
+        return handleError('Error logging in: ' + error.message);
     }
-});
+}
+module.exports = {
+    registerUser,
+    loginUser
+};
