@@ -1,1 +1,248 @@
-[]
+[
+  {
+    "quizId": "if statement",
+    "questionId": "7",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:55:04.981Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "8",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:55:07.310Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "11",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:55:11.672Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "4",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T18:55:14.335Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "5",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:55:16.826Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "3",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T18:55:19.852Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "12",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:55:24.443Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:55:27.040Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "9",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:55:29.081Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "1",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:55:31.099Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "6",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:55:33.012Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "13",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:55:35.997Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "10",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:55:39.035Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "1",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:58:43.596Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "3",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T18:58:46.176Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "5",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:58:48.597Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "7",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:58:51.208Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "9",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:58:53.274Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "6",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:58:55.653Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "4",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:58:57.748Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "8",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:59:00.349Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:59:02.641Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "10",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:59:04.730Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "11",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T18:59:06.811Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "1",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:23:21.545Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:23:25.719Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "5",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:23:27.777Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "10",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:23:30.928Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "6",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:23:34.901Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "9",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:23:37.618Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "3",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:23:44.029Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "12",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:23:55.237Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "11",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:23:58.708Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "13",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:24:02.319Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "8",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:24:05.218Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "4",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:24:08.006Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "7",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:24:10.628Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "3",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:24:23.462Z"
+  },
+  {
+    "quizName": "Operatorer",
+    "questionId": "5",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:44:26.530Z"
+  },
+  {
+    "quizName": "Operatorer",
+    "questionId": "5",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:44:55.914Z"
+  },
+  {
+    "quizName": "Operatorer",
+    "questionId": "6",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T19:57:24.412Z"
+  }
+]

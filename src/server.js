@@ -119,6 +119,8 @@ app.post("/quiz/submit-answer", quizController.submitAnswer);
 // Endpoint for at få resultaterne af en quiz
 app.get("/quiz/get-results", quizController.getResults);
 
+app.get("/quiz/user-results", requireAuth, quizController.getResultsForUser);
+
 app.get("/quiz/results/download", (req, res) => {
   const resultsPath = path.join(__dirname, "../DB/results.json");
   res.download(resultsPath);
