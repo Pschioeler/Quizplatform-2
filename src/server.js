@@ -55,7 +55,7 @@ app.post('/login2', (req, res) => {
     let { username, password } = req.body;
 
     // Check bruger oplysninger
-    checkCredentials.loginUser
+    checkCredentials.loginUser(username, password)
     /*
     // Læs brugere fra DB
     let users = JSON.parse(fs.readFileSync(usersFilePath, "utf-8"));
