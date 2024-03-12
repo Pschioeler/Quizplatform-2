@@ -1,1 +1,152 @@
-[]
+[
+  {
+    "quizId": "Operatorer",
+    "questionId": "6",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T09:30:36.351Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "6",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T09:30:39.293Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "6",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T09:30:41.670Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "6",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T09:30:43.831Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "6",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T09:30:46.269Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "6",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T09:30:48.043Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T09:31:06.534Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "2",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T09:31:09.540Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T09:31:13.352Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T09:31:15.515Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "8",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T10:21:41.367Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "7",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T10:32:18.436Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "6",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T10:32:20.468Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "3",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T10:32:43.964Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "11",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T10:32:49.430Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "9",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T10:32:51.534Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "10",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T10:32:53.803Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T10:32:56.729Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "1",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T10:32:59.083Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "8",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T10:33:00.712Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "5",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T10:33:02.321Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "4",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T10:33:03.948Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "4",
+    "isCorrect": true,
+    "timestamp": "2024-03-12T10:33:08.800Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "9",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T11:16:47.275Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "8",
+    "isCorrect": false,
+    "timestamp": "2024-03-12T11:16:49.482Z"
+  }
+]

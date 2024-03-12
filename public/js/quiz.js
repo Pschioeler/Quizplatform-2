@@ -15,10 +15,14 @@ function loadQuizList() {
     });
 }
 
-// Denne funktion henter et spørgsmål for den valgte quiz.
-function fetchQuestion(quizId) {
-  fetch(`/quiz/get-question?quizId=${encodeURIComponent(quizId)}`)
-    .then((response) => response.json())
+function fetchQuestion(quizName) {
+  fetch(`/quiz/get-question?quizName=${encodeURIComponent(quizName)}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Problem med at hente quiz spørgsmålet.");
+      }
+      return response.json();
+    })
     .then((question) => {
       const questionContainer = document.getElementById("question-container");
       questionContainer.innerHTML = "";
@@ -30,10 +34,15 @@ function fetchQuestion(quizId) {
       question.answers.forEach((answer) => {
         const answerButton = document.createElement("button");
         answerButton.textContent = answer.answertext;
+        // Husk at inkludere både quizName og question.id i submitAnswer kaldet
         answerButton.onclick = () =>
-          submitAnswer(question.id, answer.answertext);
+          submitAnswer(quizName, question.id, answer.answertext);
         questionContainer.appendChild(answerButton);
       });
+    })
+    .catch((error) => {
+      console.error("Fejl:", error);
+      alert("Der skete en fejl under indlæsning af spørgsmålet.");
     });
 }
 
@@ -42,9 +51,8 @@ function startQuiz() {
   fetchQuestion(selectedQuizId);
 }
 
-function submitAnswer(quizId, questionId, answer) {
-  const payload = { quizId, questionId, answer };
-  console.log("Sender svar:", payload);
+function submitAnswer(quizName, questionId, selectedAnswer) {
+  const payload = { quizName, questionId, answer: selectedAnswer };
 
   fetch("/quiz/submit-answer", {
     method: "POST",
@@ -56,8 +64,7 @@ function submitAnswer(quizId, questionId, answer) {
     .then((response) => response.json())
     .then((result) => {
       alert(result.correct ? "Korrekt svar!" : "Forkert svar.");
-      // Genindlæs næste spørgsmål fra den samme quiz
-      fetchQuestion(quizId);
+      fetchQuestion(quizName); // Hent det næste spørgsmål
     })
     .catch((error) => {
       console.error("Fejl under indsendelse af svar:", error);

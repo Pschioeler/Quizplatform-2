@@ -26,34 +26,35 @@ async function loadQuizzes() {
 }
 
 function getQuestion(req, res) {
-  const quizId = req.query.quizId;
-  const shownQuestions = req.session.shownQuestions || {};
+  const quizName = req.query.quizName;
+  const quiz = quizzes[quizName];
 
-  if (!shownQuestions[quizId]) {
-    shownQuestions[quizId] = [];
-  }
-
-  const quiz = quizzes[quizId];
   if (!quiz) {
     return res.status(404).send("Quizzen blev ikke fundet.");
   }
 
-  const remainingQuestions = quiz.filter(
-    (q) => !shownQuestions[quizId].includes(q.id)
-  );
+  if (!req.session.shownQuestions) {
+    req.session.shownQuestions = {};
+  }
+
+  if (!req.session.shownQuestions[quizName]) {
+    req.session.shownQuestions[quizName] = [];
+  }
+
+  const shownQuestions = req.session.shownQuestions[quizName];
+  const remainingQuestions = quiz.filter((q) => !shownQuestions.includes(q.id));
 
   if (remainingQuestions.length === 0) {
     return res
-      .status(404)
-      .send("Alle spørgsmål for denne quiz er allerede blevet vist.");
+      .status(200)
+      .send("Alle spørgsmål for denne quiz er allerede blevet vist."); // Overvej hvad der skal ske her
   }
 
   const randomIndex = Math.floor(Math.random() * remainingQuestions.length);
   const question = remainingQuestions[randomIndex];
 
-  // Gemmer den viste spørgsmåls ID i sessionen
-  shownQuestions[quizId].push(question.id);
-  req.session.shownQuestions = shownQuestions;
+  shownQuestions.push(question.id);
+  req.session.shownQuestions[quizName] = shownQuestions;
 
   res.json({
     id: question.id,
@@ -86,27 +87,32 @@ function logResult(user, quizId, questionId, isCorrect) {
 }
 
 function submitAnswer(req, res) {
-  console.log("Anmodning modtaget til /quiz/submit-answer", req.body);
-  const { quizId, questionId, answer, user } = req.body; // Antager, at 'user' sendes med for at identificere, hvem der svarer
-  const quiz = quizzes[quizId];
-  if (!quiz) {
-    return res.status(404).send("Quizzen blev ikke fundet.");
+  try {
+    console.log("Anmodning modtaget til /quiz/submit-answer", req.body);
+    const { quizName, questionId, answer } = req.body;
+    const quiz = quizzes[quizName];
+    if (!quiz) {
+      return res.status(404).send("Quizzen blev ikke fundet.");
+    }
+
+    const question = quiz.find((q) => q.id === questionId);
+    if (!question) {
+      return res.status(404).send("Spørgsmålet blev ikke fundet.");
+    }
+
+    const isCorrect = question.answers.some(
+      (ans) =>
+        ans.correct && ans.answertext.toLowerCase() === answer.toLowerCase()
+    );
+
+    // Log resultatet
+    logResult(req.session.user, quizName, questionId, isCorrect); // Antager 'user' er sat i session
+
+    res.json({ correct: isCorrect });
+  } catch (err) {
+    console.error("Server fejl under håndtering af /quiz/submit-answer:", err);
+    res.status(500).send("Intern serverfejl");
   }
-
-  const question = quiz.find((q) => q.id === questionId);
-  if (!question) {
-    return res.status(404).send("Spørgsmålet blev ikke fundet.");
-  }
-
-  const isCorrect = question.answers.some(
-    (ans) =>
-      ans.correct && ans.answertext.toLowerCase() === answer.toLowerCase()
-  );
-
-  // Log resultatet
-  logResult(user, quizId, questionId, isCorrect);
-
-  res.json({ correct: isCorrect });
 }
 
 function getResults(req, res) {
