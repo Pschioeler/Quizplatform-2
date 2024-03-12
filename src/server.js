@@ -48,6 +48,14 @@ const requireAuth = (req, res, next) => {
   }
 };
 
+app.get("/logon", (req, res) => {
+    
+})
+
+app.get("/index", (req, res) => {
+    
+})
+
 //Lav endpoints her via app.get eller lignende
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
@@ -77,7 +85,7 @@ app.post("/login", async (req, res) => {
             res.redirect("/admin");
           } else {
             console.log("i got here to user");
-            res.redirect("/index.html");
+            res.redirect("http://localhost:3000/index.html");
           }
       }
   } catch (error) {

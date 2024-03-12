@@ -10,9 +10,7 @@ function login() {
         },
         body: JSON.stringify({ username, password })
     })
-    /*
     .then(response => response.json())
-    
     .then(data => {
         if (data.success) {
             //alert('Login successful!');
@@ -22,8 +20,6 @@ function login() {
             alert('Forkert brugernavn eller kodeord. Prøv igen.');
         }
     })
-    
-    */
     .catch(error => {
         console.error('Error:', error);
     });
