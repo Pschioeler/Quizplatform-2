@@ -45,9 +45,7 @@ function getQuestion(req, res) {
   const remainingQuestions = quiz.filter((q) => !shownQuestions.includes(q.id));
 
   if (remainingQuestions.length === 0) {
-    return res
-      .status(200)
-      .send("Alle spørgsmål for denne quiz er allerede blevet vist."); // Overvej hvad der skal ske her
+    return res.json({ quizComplete: true });
   }
 
   const randomIndex = Math.floor(Math.random() * remainingQuestions.length);
