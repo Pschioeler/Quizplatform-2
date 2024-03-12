@@ -154,7 +154,45 @@ app.get("/logout", (req, res) => {
     });
 });
 
-//Lav endpoint her til upload af fil
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '../src/DB/xml/'));
+  },
+  filename: function (req, file, cb) {
+    // Konverter filnavnet til UTF-8 så filnavne med æ, ø, å osv kan blive gemt ordentligt
+    const utf8FileName = Buffer.from(file.originalname, 'binary').toString('utf-8');
+    cb(null, utf8FileName);
+  }
+});
+
+const upload = multer({ 
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+    // Tjek om filtypen er XML
+    if (file.mimetype !== 'text/xml') {
+      cb(new Error('Only XML files are allowed'), false);
+    } 
+    else {
+      cb(null, true);
+    }
+  }
+});
+
+// Endpoint for at håndtere upload af filer
+app.post('/upload', requireAuth, upload.any(), (req, res) => {
+  // Tjek om der blev uploadet en fil
+  if (!req.files || req.files.length === 0) {
+      return res.status(400).send('No file uploaded.');
+  }
+  console.log(req.files);
+  // Filen blev uploadet succesfuldt
+  res.status(200).send('File uploaded successfully');
+});
+
+app.get("/quizzes", (req, res) => {
+  const quizIds = Object.keys(quizController.quizzes);
+  res.json(quizIds);
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
