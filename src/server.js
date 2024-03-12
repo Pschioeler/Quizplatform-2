@@ -13,9 +13,9 @@ const quizController = require("./Modules/quizController");
 const { registerUser, loginUser } = require("./Modules/encryption");
 const app = express();
 const fs = require("fs");
-
-// paths
-const usersFilePath = path.join(__dirname, "../DB/users.json");
+//brug moduler ved: const myModule = require('./modules/myModule');
+const checkCredentials = require("./Modules/encryption");
+const { error } = require("console");
 
 app.use(cors());
 
@@ -33,9 +33,29 @@ app.use(
 );
 
 //Body-parser til url encoded requests
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 //Body-parser til json requests
 app.use(bodyParser.json());
+
+/*
+Middleware til authentication tjek
+Hver Route skal have en requireAuth i deres app.get
+*/
+const requireAuth = (req, res, next) => {
+  if (req.session.authenticated) {
+    next(); // User is authenticated, continue to next middleware
+  } else {
+    res.redirect("/logon.html"); // User is not authenticated, redirect to login page
+  }
+};
+
+app.get("/logon.html", (req, res) => {
+    
+})
+
+app.get("/index.html", requireAuth, (req, res) => {
+    
+})
 
 //Lav endpoints her via app.get eller lignende
 app.post("/signup", async (req, res) => {
@@ -54,30 +74,33 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
+console.log(req.body);
   const { username, password } = req.body;
-  const loginResult = await loginUser(username, password);
-  console.log(loginResult);
-  if (loginResult === "Login successful") {
-    res.json({ success: true });
-  } else {
-    res.json({ success: false });
+  try {
+      // Check bruger oplysninger
+      let user = await checkCredentials.loginUser(username, password);
+      console.log(user);
+      if (user instanceof Error) { // Checking if the returned value is an instance of Error
+        console.log("Login failed: ", user.message);
+        res.redirect("/logon.html");
+      } else {
+        req.body.authenticated = true;
+        if (user.isAdmin === true) {
+            console.log("i got here to admin");
+            res.redirect("/admin");
+          } else {
+            console.log("i got here to user");
+            res.redirect("/index.html");
+          }
+      }
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).send("Internal server error");
   }
 });
 
 // Indlæs quizzer ved opstart
 quizController.loadQuizzes();
-
-/*
-Middleware til authentication tjek
-Hver Route skal have en requireAuth i deres app.get
-*/
-const requireAuth = (req, res, next) => {
-  if (req.session.authenticated) {
-    next(); // User is authenticated, continue to next middleware
-  } else {
-    res.redirect("/login"); // User is not authenticated, redirect to login page
-  }
-};
 
 // Indlæs quizzer ved opstart
 quizController.loadQuizzes();
@@ -99,35 +122,6 @@ app.get("/quiz/get-results", quizController.getResults);
 app.get("/quiz/results/download", (req, res) => {
   const resultsPath = path.join(__dirname, "../DB/results.json");
   res.download(resultsPath);
-});
-
-/* 
-Login route, sætter user id 
-*/
-app.post("/login", (req, res) => {
-  console.log(req.sessionID);
-  // tager et eventuelt username og password fra body
-  let { username, password } = req.body;
-  // Læs brugere fra DB
-  let users = JSON.parse(fs.readFileSync(usersFilePath, "utf-8"));
-  // find og tjek username og password
-  const user = users.find(
-    (u) => u.username === username && u.password === password
-  );
-
-  if (!user) {
-    res.status(403).json({ msg: "Bad Credentials" });
-    res.end("Invalid Username");
-  } else {
-    req.session.authenticated = true;
-    req.session.user = user.username;
-    res.json(req.session);
-    if (user.isAdmin === true) {
-      //res.redirect("/adminpanel");
-    } else {
-      //res.redirect("/dashboard");
-    }
-  }
 });
 
 /* 
