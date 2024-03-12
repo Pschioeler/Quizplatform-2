@@ -7,10 +7,10 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const bodyParser = require('body-parser');
-const validatePassword = require('../src/Modules/passwordValidator');
+const validatePassword = require('./Modules/passwordValidator');
 //modules:
 const quizController = require("./Modules/quizController");
-const { registerUser, loginUser} = require('../src/Modules/encryption');
+const { registerUser, loginUser} = require('./Modules/encryption');
 const app = express();
 const fs = require("fs");
 //brug moduler ved: const myModule = require('./modules/myModule');
