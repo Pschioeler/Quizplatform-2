@@ -16,8 +16,6 @@ const fs = require("fs");
 //brug moduler ved: const myModule = require('./modules/myModule');
 const checkCredentials = require("./Modules/encryption"); 
 
-const quizController = require("./Modules/quizController");
-
 // paths
 const usersFilePath = path.join(__dirname, "../DB/users.json");
 
@@ -41,6 +39,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Body-parser til json requests
 app.use(bodyParser.json());
 
+/*
+Middleware til authentication tjek
+Hver Route skal have en requireAuth i deres app.get
+*/
+const requireAuth = (req, res, next) => {
+    if (req.session.authenticated) {
+      next(); // User is authenticated, continue to next middleware
+    } else {
+      res.redirect("/login"); // User is not authenticated, redirect to login page
+    }
+  };
+
 //Lav endpoints her via app.get eller lignende
 app.post("/signup", async (req, res) => {
     const { username, password } = req.body;
@@ -57,29 +67,34 @@ app.post("/signup", async (req, res) => {
 
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
-    const loginResult = await loginUser(username, password);
-    console.log(loginResult);
-    if (loginResult === 'Login successful') {
+
+    // tager et eventuelt username og password fra body
+    console.log(req.sessionID);
+
+     // Check bruger oplysninger
+     let user = checkCredentials.loginUser(username, password)
+  
+     if (!user) {
+         res.status(403).json({msg: 'Bad Credentials'});
+         res.end("Invalid Username");
+     } else {
         res.json({ success: true });
-    } else {
-        res.json({ success: false });
-    }
+       //res.redirect("/dashboard");
+     }
+
+     /*
+     const loginResult = await loginUser(username, password);
+     console.log(loginResult);
+     if (loginResult === 'Login successful') {
+         res.json({ success: true });
+     } else {
+         res.json({ success: false });
+     }
+     */
 });
 
 // Indlæs quizzer ved opstart
 quizController.loadQuizzes();
-
-/*
-Middleware til authentication tjek
-Hver Route skal have en requireAuth i deres app.get
-*/
-const requireAuth = (req, res, next) => {
-  if (req.session.authenticated) {
-    next(); // User is authenticated, continue to next middleware
-  } else {
-    res.redirect("/login"); // User is not authenticated, redirect to login page
-  }
-};
 
 // Indlæs quizzer ved opstart
 quizController.loadQuizzes();
@@ -103,24 +118,8 @@ app.get("/quiz/results/download", (req, res) => {
   res.download(resultsPath);
 });
 
-/* 
-Login route, sætter user id 
-*/
-app.post('/login', (req, res) => {
-    console.log(req.sessionID);
-    // tager et eventuelt username og password fra body
-    let { username, password } = req.body;
 
-    // Check bruger oplysninger
-    let user = checkCredentials.loginUser(username, password)
-  
-    if (!user) {
-        res.status(403).json({msg: 'Bad Credentials'});
-        res.end("Invalid Username");
-    } else {
-      //res.redirect("/dashboard");
-    }
-});
+
 
 /* 
 Dashbord route
