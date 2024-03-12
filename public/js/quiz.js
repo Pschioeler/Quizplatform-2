@@ -33,55 +33,65 @@ function fetchQuestion(quizName) {
       questionContainer.appendChild(questionText);
 
       const correctAnswerCount = data.answers.filter(
-        (answer) => answer.correct === "True"
+        (answer) => answer.correct
       ).length;
 
-      if (data.type === "multichoice" && correctAnswerCount > 1) {
+      // Informerer brugeren om at vælge alle korrekte svar, hvis der er flere end ét korrekt svar
+      if (correctAnswerCount > 1) {
+        const instruction = document.createElement("p");
+        instruction.textContent =
+          "Vælg alle de korrekte svar. At vælge forkerte svar vil reducere din score.";
+        instruction.className = "instruction-text";
+        questionContainer.appendChild(instruction);
+      }
+
+      if (data.type === "multichoice") {
+        // Opret en form til at holde checkboxes eller knapper
         const form = document.createElement("form");
-        form.id = "multi-answer-form";
+        form.id = "answers-form";
 
         data.answers.forEach((answer, index) => {
-          const wrapper = document.createElement("div");
-          wrapper.className = "checkbox-wrapper";
-
-          const checkbox = document.createElement("input");
-          checkbox.type = "checkbox";
-          checkbox.id = `answer-${index}`;
-          checkbox.name = "answers";
-          checkbox.value = answer.answertext;
-
-          const label = document.createElement("label");
-          label.htmlFor = `answer-${index}`;
-          label.textContent = answer.answertext;
-
-          wrapper.appendChild(checkbox);
-          wrapper.appendChild(label);
-          form.appendChild(wrapper);
+          if (correctAnswerCount > 1) {
+            // Brug checkboxes for spørgsmål med flere korrekte svar
+            const checkboxId = `answer-${index}`;
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.id = checkboxId;
+            checkbox.name = "answers";
+            checkbox.value = answer.answertext;
+            const label = document.createElement("label");
+            label.htmlFor = checkboxId;
+            label.textContent = answer.answertext;
+            form.appendChild(checkbox);
+            form.appendChild(label);
+          } else {
+            // Brug knapper for spørgsmål med kun ét korrekt svar
+            const answerButton = document.createElement("button");
+            answerButton.textContent = answer.answertext;
+            answerButton.type = "button";
+            answerButton.onclick = () =>
+              submitAnswer(quizName, data.id, [answer.answertext]);
+            form.appendChild(answerButton);
+          }
         });
 
-        const submitButton = document.createElement("button");
-        submitButton.type = "button"; // Forhindre formens standard submit handling
-        submitButton.textContent = "Indsend svar";
-        submitButton.className = "submit-button";
-        submitButton.onclick = () => {
-          const selectedAnswers = Array.from(
-            form.querySelectorAll("input:checked")
-          ).map((input) => input.value);
-          submitAnswer(quizName, data.id, selectedAnswers);
-        };
+        // Tilføj en submit-knap til formen, hvis der er checkboxes
+        if (correctAnswerCount > 1) {
+          const submitButton = document.createElement("button");
+          submitButton.textContent = "Indsend svar";
+          submitButton.type = "button"; // Forhindrer formens standard submit handling
+          submitButton.onclick = () => {
+            const selectedAnswers = Array.from(
+              form.querySelectorAll("input:checked")
+            ).map((input) => input.value);
+            submitAnswer(quizName, data.id, selectedAnswers);
+          };
+          form.appendChild(submitButton);
+        }
 
-        form.appendChild(submitButton);
         questionContainer.appendChild(form);
-      } else if (data.type === "multichoice") {
-        data.answers.forEach((answer) => {
-          const answerButton = document.createElement("button");
-          answerButton.textContent = answer.answertext;
-          answerButton.className = "answer-button";
-          answerButton.onclick = () =>
-            submitAnswer(quizName, data.id, [answer.answertext]);
-          questionContainer.appendChild(answerButton);
-        });
       } else if (data.type === "shortanswer") {
+        // Tilføj input og knap til short answer spørgsmål som før
         const answerInput = document.createElement("input");
         answerInput.type = "text";
         answerInput.className = "short-answer-input";
