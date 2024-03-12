@@ -13,7 +13,6 @@ const quizController = require("./Modules/quizController");
 const { registerUser, loginUser} = require('./Modules/encryption');
 const app = express();
 const fs = require("fs");
-const quizController = require("./Modules/quizController");
 
 // paths
 const usersFilePath = path.join(__dirname, "../DB/users.json");
