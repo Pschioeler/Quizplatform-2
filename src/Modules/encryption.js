@@ -68,8 +68,12 @@ async function loginUser(username, password) {
         return handleError('Error logging in: ' + error.message);
     }
 }
+<<<<<<< HEAD
 //registerUser("maja","1234");
 //loginUser("maja", "1234");
+=======
+//registerUser("test","1234");
+>>>>>>> main
 module.exports = {
     registerUser,
     loginUser

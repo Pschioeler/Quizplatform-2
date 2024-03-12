@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 [{"username":"maja","usernameSalt":"$2b$10$S6dHjTMP.iTIukBkigevqO","hashedUser":"$2b$10$S6dHjTMP.iTIukBkigevqO8M4V0JwPVFFtB7aj7UBA//yeU862IJK","passwordSalt":"$2b$10$8CClGd8wS7g0xkE63W6Cru","password":"$2b$10$8CClGd8wS7g0xkE63W6Cru6.gVyFoqcyJuc/KF8o7NREHJ2254q1K","isAdmin":false,"isSuperAdmin":false,"timelogs":[]}]
+=======
+[{"username":"test","usernameSalt":"$2b$10$hhVauw6Spuht1D/XHR43hu","hashedUser":"$2b$10$hhVauw6Spuht1D/XHR43huI2BGyEnnFoz7ILG03vzhyEfcM7o3tHy","passwordSalt":"$2b$10$87Og.YL2oURE631J73cvfO","password":"$2b$10$87Og.YL2oURE631J73cvfODGEMlnXkwORRqE6Oa2eH4kwbbjlsgke","isAdmin":false,"isSuperAdmin":false,"timelogs":[]}]
+>>>>>>> main

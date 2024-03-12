@@ -7,44 +7,87 @@ let quizzes = {};
 async function loadQuizzes() {
   const xmlDir = path.join(__dirname, "../DB/xml");
   const quizFiles = fs.readdirSync(xmlDir);
-  for (const file of quizFiles) {
-    if (file.endsWith(".xml")) {
-      try {
-        const quizData = await processXML(file.replace(".xml", ""));
-        quizzes[file] = quizData;
-      } catch (err) {
-        console.error(`Failed to load quiz ${file}: ${err}`);
-      }
-    }
+  const quizPromises = quizFiles
+    .filter((file) => file.endsWith(".xml"))
+    .map((file) => {
+      const quizId = path.basename(file, ".xml");
+      return processXML(quizId).then((quizData) => {
+        quizzes[quizId] = quizData;
+      });
+    });
+
+  try {
+    // Vent på, at alle quizzer er blevet indlæst
+    await Promise.all(quizPromises);
+    console.log("Alle quizzer er blevet indlæst.");
+  } catch (err) {
+    console.error("Fejl under indlæsning af quizzer:", err);
   }
 }
 
 function getQuestion(req, res) {
-  const quizIds = Object.keys(quizzes);
-  if (quizIds.length === 0) {
-    return res.status(404).send("Ingen quizzer tilgængelige.");
+  const quizId = req.query.quizId;
+  const shownQuestions = req.session.shownQuestions || {};
+
+  if (!shownQuestions[quizId]) {
+    shownQuestions[quizId] = [];
   }
 
-  const firstQuizId = quizIds[0];
-  const questions = quizzes[firstQuizId];
-  const randomIndex = Math.floor(Math.random() * questions.length);
-  const question = questions[randomIndex];
+  const quiz = quizzes[quizId];
+  if (!quiz) {
+    return res.status(404).send("Quizzen blev ikke fundet.");
+  }
 
-  // Send kun den information der er nødvendig for at stille spørgsmålet
-  const questionToSend = {
+  const remainingQuestions = quiz.filter(
+    (q) => !shownQuestions[quizId].includes(q.id)
+  );
+
+  if (remainingQuestions.length === 0) {
+    return res
+      .status(404)
+      .send("Alle spørgsmål for denne quiz er allerede blevet vist.");
+  }
+
+  const randomIndex = Math.floor(Math.random() * remainingQuestions.length);
+  const question = remainingQuestions[randomIndex];
+
+  // Gemmer den viste spørgsmåls ID i sessionen
+  shownQuestions[quizId].push(question.id);
+  req.session.shownQuestions = shownQuestions;
+
+  res.json({
     id: question.id,
     type: question.type,
     questiontext: question.questiontext,
     answers: question.answers.map((answer) => ({
       answertext: answer.answertext,
     })),
-  };
+  });
+}
 
-  res.json(questionToSend);
+// Tilføj en funktion til at logge resultaterne
+function logResult(user, quizId, questionId, isCorrect) {
+  // Læs den eksisterende results.json fil
+  const resultsPath = path.join(__dirname, "../DB/results.json");
+  const resultsData = JSON.parse(fs.readFileSync(resultsPath, "utf8"));
+
+  // Tilføj det nye resultat
+  const result = {
+    user,
+    quizId,
+    questionId,
+    isCorrect,
+    timestamp: new Date(),
+  };
+  resultsData.push(result);
+
+  // Gem det opdaterede resultater tilbage til results.json
+  fs.writeFileSync(resultsPath, JSON.stringify(resultsData, null, 2));
 }
 
 function submitAnswer(req, res) {
-  const { quizId, questionId, answer } = req.body;
+  console.log("Anmodning modtaget til /quiz/submit-answer", req.body);
+  const { quizId, questionId, answer, user } = req.body; // Antager, at 'user' sendes med for at identificere, hvem der svarer
   const quiz = quizzes[quizId];
   if (!quiz) {
     return res.status(404).send("Quizzen blev ikke fundet.");
@@ -60,6 +103,9 @@ function submitAnswer(req, res) {
       ans.correct && ans.answertext.toLowerCase() === answer.toLowerCase()
   );
 
+  // Log resultatet
+  logResult(user, quizId, questionId, isCorrect);
+
   res.json({ correct: isCorrect });
 }
 
@@ -73,5 +119,6 @@ module.exports = {
   getQuestion,
   submitAnswer,
   getResults,
-  loadQuizzes, // Vi eksporterer denne så vi kan kalde den fra server.js
+  loadQuizzes,
+  quizzes,
 };
