@@ -4,14 +4,17 @@ signupForm.addEventListener('submit', async function(event){
     event.preventDefault();
 
     const signupData = new FormData(signupForm);
+    const username = signupData.get("username"); // Hent brugernavnet
     const password = signupData.get("password");
+
+    const dataToSend = { username: username, password: password }; // Brugernavn og adgangskode som objekt
 
     const response = await fetch('http://localhost:3000/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ password: password })
+        body: JSON.stringify(dataToSend) // Send brugernavn og adgangskode
     });
 
     try {

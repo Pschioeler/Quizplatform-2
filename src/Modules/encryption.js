@@ -2,7 +2,7 @@ const fs = require('fs');
 const bcrypt = require('bcrypt');
 const path = require('path');
 
-const usersFilePath = path.join(__dirname, '../DB/users.json');
+const usersFilePath = '../DB/users.json';
 
 // Error handling function
 function handleError(errorMessage) {
@@ -38,8 +38,8 @@ async function registerUser(username, password) {
         const passwordSalt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, passwordSalt);
 
-        users.push({ username, usernameSalt, hashedUser, passwordSalt, password: hashedPassword, isAdmin: false, isSuperAdmin: false, timelogs: [] });
-        fs.writeFileSync(usersFilePath, JSON.stringify(users));
+        users.push({ usernameSalt, hashedUser, passwordSalt, password: hashedPassword, isAdmin: false, isSuperAdmin: false, timelogs: [] });
+        fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
         return 'User registered successfully!';
     } catch (error) {
         return handleError('Error registering user: ' + error.message);
