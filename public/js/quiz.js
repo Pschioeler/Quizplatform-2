@@ -32,13 +32,11 @@ function fetchQuestion(quizName) {
       questionText.className = "question-text";
       questionContainer.appendChild(questionText);
 
-      // Tæl antallet af korrekte svar
       const correctAnswerCount = data.answers.filter(
-        (answer) => answer.correct
+        (answer) => answer.correct === "True"
       ).length;
 
       if (data.type === "multichoice" && correctAnswerCount > 1) {
-        // For multichoice spørgsmål med flere korrekte svar
         const form = document.createElement("form");
         form.id = "multi-answer-form";
 
@@ -62,7 +60,7 @@ function fetchQuestion(quizName) {
         });
 
         const submitButton = document.createElement("button");
-        submitButton.type = "button"; // Forhindre form submit handling
+        submitButton.type = "button"; // Forhindre formens standard submit handling
         submitButton.textContent = "Indsend svar";
         submitButton.className = "submit-button";
         submitButton.onclick = () => {
@@ -70,13 +68,11 @@ function fetchQuestion(quizName) {
             form.querySelectorAll("input:checked")
           ).map((input) => input.value);
           submitAnswer(quizName, data.id, selectedAnswers);
-          form.reset(); // Nulstil form efter indsendelse
         };
 
         form.appendChild(submitButton);
         questionContainer.appendChild(form);
       } else if (data.type === "multichoice") {
-        // Håndter som tidligere for spørgsmål med ét korrekt svar
         data.answers.forEach((answer) => {
           const answerButton = document.createElement("button");
           answerButton.textContent = answer.answertext;
@@ -95,8 +91,8 @@ function fetchQuestion(quizName) {
         submitButton.textContent = "Indsend";
         submitButton.className = "submit-button shortanswer";
         submitButton.onclick = () => {
-          submitAnswer(quizName, data.id, answerInput.value);
-          answerInput.value = ""; // Nulstil input efter indsendelse
+          submitAnswer(quizName, data.id, [answerInput.value]);
+          answerInput.value = ""; // Nulstil inputfeltet efter indsendelse
         };
         questionContainer.appendChild(submitButton);
       }
