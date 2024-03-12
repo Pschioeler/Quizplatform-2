@@ -73,24 +73,16 @@ app.post("/login", async (req, res) => {
 
      // Check bruger oplysninger
      let user = checkCredentials.loginUser(username, password)
-  
-     if (!user) {
-         res.status(403).json({msg: 'Bad Credentials'});
-         res.end("Invalid Username");
-     } else {
-        res.json({ success: true });
-       //res.redirect("/dashboard");
-     }
 
-     /*
-     const loginResult = await loginUser(username, password);
-     console.log(loginResult);
-     if (loginResult === 'Login successful') {
-         res.json({ success: true });
+     if(user.isAdmin === true) {
+        console.log("i got here to admin");
+        req.body.authenticated = true;
+        res.redirect("/admin")
      } else {
-         res.json({ success: false });
+        console.log("i got here to user");
+        req.body.authenticated = true;
+        res.redirect(".../public/index.html")
      }
-     */
 });
 
 // Indlæs quizzer ved opstart

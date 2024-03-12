@@ -2,7 +2,7 @@ const fs = require('fs');
 const bcrypt = require('bcrypt');
 const path = require('path');
 
-const usersFilePath = '../DB/users.json';
+const usersFilePath = path.join(__dirname, '../DB/users.json');
 
 // Error handling function
 function handleError(errorMessage) {
