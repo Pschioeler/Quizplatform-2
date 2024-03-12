@@ -76,29 +76,21 @@ app.get("/quiz/results/download", (req, res) => {
 /* 
 Login route, sætter user id 
 */
-app.post('/login2', (req, res) => {
+app.post('/login', (req, res) => {
     console.log(req.sessionID);
     // tager et eventuelt username og password fra body
     let { username, password } = req.body;
 
     // Check bruger oplysninger
-    checkCredentials.loginUser(username, password)
-    /*
-    // Læs brugere fra DB
-    let users = JSON.parse(fs.readFileSync(usersFilePath, "utf-8"));
-    console.log(users);
-    // find og tjek username og password
-    
-    const user = users.find(
-        (u) => {u.hashedUser === username && u.password === password});        
-     */
+    let user = checkCredentials.loginUser(username, password)
+  
     if (!user) {
         res.status(403).json({msg: 'Bad Credentials'});
         res.end("Invalid Username");
     } else {
       //res.redirect("/dashboard");
     }
-  });
+});
 
 /* 
 Dashbord route
