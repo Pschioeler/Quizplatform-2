@@ -154,6 +154,8 @@ app.get("/logout", (req, res) => {
     });
 });
 
+//Lav endpoint her til upload af fil
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

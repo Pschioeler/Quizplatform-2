@@ -7,8 +7,10 @@
 </head>
 <body>
     <h1>Admin Panel</h1>
-    <input type="file" id="fileInput" />
-    <button onclick="uploadFile()">Upload File</button>
+    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput" accept=".xml" />
+        <button type="submit" id="uploadButton">Upload File</button>
+    </form>
 
     <script src="/public/js/admin.js"></script>
 </body>
