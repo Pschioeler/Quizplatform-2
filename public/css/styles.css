@@ -6,34 +6,112 @@
     --positive: #00c920;
     --negative: #ff4747;
     --overlay: #e4e4e4;
+}
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: black;
+}
+button {
+  background-color: var(--accent-color);
+  transition: 0.3s;
+}
+button:hover {
+  background-color: var(--accent-hover);
+}
+.shadow {
+  -webkit-box-shadow: 6px 6px 21px 0px rgba(189, 189, 189, 1);
+  -moz-box-shadow: 6px 6px 21px 0px rgba(189, 189, 189, 1);
+  box-shadow: 6px 6px 21px 0px rgba(189, 189, 189, 1);
+}
+
+body {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+header {
+  width: 100dvw;
+  position: fixed;
+  top: 35px;
+  text-align: center;
+}
+main {
+  padding: .7em;
+  display: flex;
+  justify-content: center;
+}
+.formWrapper {
+  width: 100%;
+  padding: 2em;
+  text-align: center;
+  border-radius: 5px;
+  max-width: 750px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2em 0;
+}
+input[type="text"], input[type="password"] {
+  width: 100%;
+  max-width: 300px;
+  border: none;
+  font-size: 20px;
+  padding: 5px;
+  margin: 0 0 .8em 0;
+}
+input[type="submit"] {
+  width: 150px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+  background-color: var(--accent-color);
+  padding: 1em .5em;
+  margin: 1.5em 0 0 0;
+}
+input[type="submit"]:hover {
+  background-color: var(--accent-hover);
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  width: 100dvw;
+  padding: 2em 0;
+  font-size: 12px;
+  background-color: var(--overlay);
+}
+/* --------------------- iPad Version -----------------------*/ 
+@media screen and (width >= 725px) {
+  h1 {
+    font-size: 50px;
   }
-  * {
-    margin: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+  h2 {
+    font-size: 30px;
   }
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: black;
+  input[type="text"], input[type="password"] {
+    font-size: 20px;
   }
-  button {
-    background-color: var(--accent-color);
-    transition: 0.3s;
+  .formWrapper {
+    padding: 4em 2em;
   }
-  button:hover {
-    background-color: var(--accent-hover);
-  }
-  .shadow {
-    -webkit-box-shadow: 6px 6px 21px 0px rgba(189, 189, 189, 1);
-    -moz-box-shadow: 6px 6px 21px 0px rgba(189, 189, 189, 1);
-    box-shadow: 6px 6px 21px 0px rgba(189, 189, 189, 1);
-  }
-  footer {
-    background-color: var(--overlay);
-  }
-  
+}
+
+/* --------------------- Desktop Version -----------------------*/ 
+@media screen and (width >= 1200px) {}
