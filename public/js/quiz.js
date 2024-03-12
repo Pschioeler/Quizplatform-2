@@ -17,16 +17,10 @@ function loadQuizList() {
 
 function fetchQuestion(quizName) {
   fetch(`/quiz/get-question?quizName=${encodeURIComponent(quizName)}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Problem med at hente quiz spørgsmålet.");
-      }
-      return response.json();
-    })
+    .then((response) => response.json())
     .then((data) => {
-      // Tjek for om quizzen er færdig
       if (data.quizComplete) {
-        showCompletionPopup(); // Viser en afsluttende popup
+        showCompletionPopup(); // Antager du har denne funktion implementeret
         return;
       }
 
@@ -38,19 +32,62 @@ function fetchQuestion(quizName) {
       questionText.className = "question-text";
       questionContainer.appendChild(questionText);
 
-      if (data.type === "multichoice") {
+      // Tæl antallet af korrekte svar
+      const correctAnswerCount = data.answers.filter(
+        (answer) => answer.correct
+      ).length;
+
+      if (data.type === "multichoice" && correctAnswerCount > 1) {
+        // For multichoice spørgsmål med flere korrekte svar
+        const form = document.createElement("form");
+        form.id = "multi-answer-form";
+
+        data.answers.forEach((answer, index) => {
+          const wrapper = document.createElement("div");
+          wrapper.className = "checkbox-wrapper";
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.id = `answer-${index}`;
+          checkbox.name = "answers";
+          checkbox.value = answer.answertext;
+
+          const label = document.createElement("label");
+          label.htmlFor = `answer-${index}`;
+          label.textContent = answer.answertext;
+
+          wrapper.appendChild(checkbox);
+          wrapper.appendChild(label);
+          form.appendChild(wrapper);
+        });
+
+        const submitButton = document.createElement("button");
+        submitButton.type = "button"; // Forhindre form submit handling
+        submitButton.textContent = "Indsend svar";
+        submitButton.className = "submit-button";
+        submitButton.onclick = () => {
+          const selectedAnswers = Array.from(
+            form.querySelectorAll("input:checked")
+          ).map((input) => input.value);
+          submitAnswer(quizName, data.id, selectedAnswers);
+          form.reset(); // Nulstil form efter indsendelse
+        };
+
+        form.appendChild(submitButton);
+        questionContainer.appendChild(form);
+      } else if (data.type === "multichoice") {
+        // Håndter som tidligere for spørgsmål med ét korrekt svar
         data.answers.forEach((answer) => {
           const answerButton = document.createElement("button");
           answerButton.textContent = answer.answertext;
-          answerButton.className = "answer-button multichoice";
+          answerButton.className = "answer-button";
           answerButton.onclick = () =>
-            submitAnswer(quizName, data.id, answer.answertext);
+            submitAnswer(quizName, data.id, [answer.answertext]);
           questionContainer.appendChild(answerButton);
         });
       } else if (data.type === "shortanswer") {
         const answerInput = document.createElement("input");
         answerInput.type = "text";
-        answerInput.id = "short-answer-input";
         answerInput.className = "short-answer-input";
         questionContainer.appendChild(answerInput);
 
@@ -58,8 +95,8 @@ function fetchQuestion(quizName) {
         submitButton.textContent = "Indsend";
         submitButton.className = "submit-button shortanswer";
         submitButton.onclick = () => {
-          const input = document.getElementById("short-answer-input");
-          submitAnswer(quizName, data.id, input.value);
+          submitAnswer(quizName, data.id, answerInput.value);
+          answerInput.value = ""; // Nulstil input efter indsendelse
         };
         questionContainer.appendChild(submitButton);
       }
@@ -88,7 +125,19 @@ function startQuiz() {
 }
 
 function submitAnswer(quizName, questionId, selectedAnswer) {
-  const payload = { quizName, questionId, answer: selectedAnswer };
+  let payload;
+
+  if (Array.isArray(selectedAnswer) && selectedAnswer.length > 1) {
+    payload = { quizName, questionId, answer: selectedAnswer };
+  } else {
+    payload = {
+      quizName,
+      questionId,
+      answer: Array.isArray(selectedAnswer)
+        ? selectedAnswer[0]
+        : selectedAnswer,
+    };
+  }
 
   fetch("/quiz/submit-answer", {
     method: "POST",
@@ -100,7 +149,8 @@ function submitAnswer(quizName, questionId, selectedAnswer) {
     .then((response) => response.json())
     .then((result) => {
       alert(result.correct ? "Korrekt svar!" : "Forkert svar.");
-      fetchQuestion(quizName); // Hent det næste spørgsmål
+      // Hent det næste spørgsmål
+      fetchQuestion(quizName);
     })
     .catch((error) => {
       console.error("Fejl under indsendelse af svar:", error);
