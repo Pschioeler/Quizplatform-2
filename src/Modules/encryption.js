@@ -49,20 +49,26 @@ async function registerUser(username, password) {
 // Function for user login
 async function loginUser(username, password) {
     try {
-        const users = loadUsers();
-        const user = users.find(user => user.username === username);
         const errorMessage = 'Incorrect username or password. Please try again.';
-        if (!user || !(await bcrypt.compare(password, user.password))) {
+
+        console.log(username);
+        console.log(password);
+        const users = loadUsers();
+        const foundUser = users.find(user => {
+            return bcrypt.compareSync(username, user.hashedUser) && bcrypt.compareSync(password, user.password);
+        });
+        if (!foundUser) {
+            console.log(errorMessage);
             return errorMessage;
         }
-        return 'Login successful';
+        console.log("login ok");
+        console.log(foundUser);
+        return foundUser;
     } catch (error) {
         return handleError('Error logging in: ' + error.message);
     }
 }
-registerUser("maja","1234");
-loginUser("maja","1234");
-
+//registerUser("test","1234");
 module.exports = {
     registerUser,
     loginUser
