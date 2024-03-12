@@ -73,8 +73,8 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
+    console.log(req.body);
   const { username, password } = req.body;
-
   try {
       // Check bruger oplysninger
       let user = checkCredentials.loginUser(username, password);
@@ -85,7 +85,7 @@ app.post("/login", async (req, res) => {
             res.redirect("/admin");
           } else {
             console.log("i got here to user");
-            res.redirect("http://localhost:3000/index.html");
+            res.redirect("index");
           }
       }
   } catch (error) {
