@@ -3,17 +3,16 @@ const express = require("express");
 // Bruges til Session ID
 const session = require("express-session");
 //This is for JSON files
-const cors = require('cors');
-const multer = require('multer');
-const path = require('path');
-const bodyParser = require('body-parser');
-const validatePassword = require('./Modules/passwordValidator');
+const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
+const bodyParser = require("body-parser");
+const validatePassword = require("./Modules/passwordValidator");
 //modules:
 const quizController = require("./Modules/quizController");
-const { registerUser, loginUser} = require('./Modules/encryption');
+const { registerUser, loginUser } = require("./Modules/encryption");
 const app = express();
 const fs = require("fs");
-const quizController = require("./Modules/quizController");
 
 // paths
 const usersFilePath = path.join(__dirname, "../DB/users.json");
@@ -40,27 +39,29 @@ app.use(bodyParser.json());
 
 //Lav endpoints her via app.get eller lignende
 app.post("/signup", async (req, res) => {
-    const { username, password } = req.body;
-    const isValidPassword = validatePassword(password);
-    if (!isValidPassword) {
-        console.log("Password does not meet requirements");
-        return res.status(400).json({ error: 'Adgangskoden opfylder ikke kravene.' });
-    }
+  const { username, password } = req.body;
+  const isValidPassword = validatePassword(password);
+  if (!isValidPassword) {
+    console.log("Password does not meet requirements");
+    return res
+      .status(400)
+      .json({ error: "Adgangskoden opfylder ikke kravene." });
+  }
 
-    // Register user
-    const result = await registerUser(username, password);
-    res.json({ message: result });
+  // Register user
+  const result = await registerUser(username, password);
+  res.json({ message: result });
 });
 
 app.post("/login", async (req, res) => {
-    const { username, password } = req.body;
-    const loginResult = await loginUser(username, password);
-    console.log(loginResult);
-    if (loginResult === 'Login successful') {
-        res.json({ success: true });
-    } else {
-        res.json({ success: false });
-    }
+  const { username, password } = req.body;
+  const loginResult = await loginUser(username, password);
+  console.log(loginResult);
+  if (loginResult === "Login successful") {
+    res.json({ success: true });
+  } else {
+    res.json({ success: false });
+  }
 });
 
 // Indlæs quizzer ved opstart
@@ -145,14 +146,14 @@ Dashbord route
 
 // Logout
 app.get("/logout", (req, res) => {
-    req.session.destroy(function (err) {
-      if (err) {
-        console.log(err);
-        res.send("Error");
-      } else {
-        res.render("index", { title: "Login", logout: "Logout Succesfully!" });
-      }
-    });
+  req.session.destroy(function (err) {
+    if (err) {
+      console.log(err);
+      res.send("Error");
+    } else {
+      res.render("index", { title: "Login", logout: "Logout Succesfully!" });
+    }
+  });
 });
 
 const PORT = process.env.PORT || 3000;
