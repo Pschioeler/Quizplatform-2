@@ -1,7 +1,8 @@
 const fs = require('fs');
 const bcrypt = require('bcrypt');
+const path = require('path');
 
-const usersFilePath = '../DB/users.json';
+const usersFilePath = path.join(__dirname, '../DB/users.json');
 
 // Error handling function
 function handleError(errorMessage) {
@@ -37,7 +38,7 @@ async function registerUser(username, password) {
         const passwordSalt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, passwordSalt);
 
-        users.push({ usernameSalt, hashedUser, passwordSalt, password: hashedPassword, isAdmin: false, isSuperAdmin: false, timelogs: [] });
+        users.push({ username, usernameSalt, hashedUser, passwordSalt, password: hashedPassword, isAdmin: false, isSuperAdmin: false, timelogs: [] });
         fs.writeFileSync(usersFilePath, JSON.stringify(users));
         return 'User registered successfully!';
     } catch (error) {
@@ -48,13 +49,21 @@ async function registerUser(username, password) {
 // Function for user login
 async function loginUser(username, password) {
     try {
-        const users = loadUsers();
-        const user = users.find(user => user.username === username);
         const errorMessage = 'Incorrect username or password. Please try again.';
-        if (!user || !(await bcrypt.compare(password, user.password))) {
+
+        console.log(username);
+        console.log(password);
+        const users = loadUsers();
+        const foundUser = users.find(user => {
+            return bcrypt.compareSync(username, user.hashedUser) && bcrypt.compareSync(password, user.password);
+        });
+        if (!foundUser) {
+            console.log(errorMessage);
             return errorMessage;
         }
-        return 'Login successful';
+        console.log("login ok");
+        console.log(foundUser);
+        return foundUser;
     } catch (error) {
         return handleError('Error logging in: ' + error.message);
     }
