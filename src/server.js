@@ -72,7 +72,7 @@ app.post("/signup", async (req, res) => {
   res.json({ message: result });
 });
 
-app.get("/login", async (req, res) => {
+app.post("/login", async (req, res) => {
 console.log(req.body);
   const { username, password } = req.body;
   try {
