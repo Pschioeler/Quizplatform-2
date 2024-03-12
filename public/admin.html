@@ -3,13 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>PBWQuiz | Admin</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body>
-    <h1>Admin Panel</h1>
-    <input type="file" id="fileInput" />
-    <button onclick="uploadFile()">Upload File</button>
-
+<body class="admin_body">
+    <nav id="admin_menu" class="shadow">
+        <h2 class="admin_menu_title">Velkommen tilbage<br>${admin}!</h2>
+        <ul class="admin_nav">
+            <li><a href="#"><i class="fa-solid fa-list"></i>Logs</a></li>
+            <li><a href="#"><i class="fa-solid fa-gamepad"></i>Quizzes</a></li>
+            <li><a href="#"><i class="fa-solid fa-users-rectangle"></i>Hold</a></li>
+            <li><a href="#"><i class="fa-solid fa-user-group"></i>Brugere</a></li>
+        </ul>
+        <div class="logout">
+            <a href="#"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+        </div>
+    </nav>
+    <main class="admin_main shadow">
+        <section id="logs_lis" style="display: none;">
+            <h1>Logs</h1>
+        </section>
+        <section id="quiz_list">
+            <h1>Quizzes</h1>
+            <input type="file" id="fileInput" />
+            <button onclick="uploadFile()">Upload Quiz</button>
+        </section>
+        <section id="hold_list" style="display: none;">
+            <h1>Hold</h1>
+        </section>
+        <section id="user_list" style="display: none;">
+            <h1>Brugere</h1>
+        </section>
+    </main>
     <script src="/public/js/admin.js"></script>
 </body>
 </html>
