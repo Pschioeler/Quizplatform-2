@@ -96,6 +96,7 @@ app.get("/group", (req, res) => {
   res.sendFile(path.join(__dirname, '../public', 'group2.html'));
 })
 
+//yes?
 
 
 //Lav endpoints her via app.get eller lignende
