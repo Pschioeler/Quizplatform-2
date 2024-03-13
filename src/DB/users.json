@@ -9,10 +9,14 @@
     "isSuperAdmin": false,
     "timelogs": [],
     "groups": [
-        {
-            "groupId": 1,
-            "isAccepted": true
-          }
+      {
+        "groupId": 1,
+        "isAccepted": true
+      },
+      {
+        "groupId": 2,
+        "isAccepted": true
+      }
     ]
   },
   {

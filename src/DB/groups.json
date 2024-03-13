@@ -1,12 +1,16 @@
 [
-    {
-        "groupId": 1,
-        "groupName": "dab",
-        "availableQuizzes": [
-
-        ],
-        "members": [
-
-        ]
-    }
+  {
+    "groupId": 1,
+    "groupName": "dab",
+    "availableQuizzes": [],
+    "members": []
+  },
+  {
+    "groupId": 2,
+    "groupName": "funny test group",
+    "availableQuizzes": [],
+    "members": [
+      "test"
+    ]
+  }
 ]
