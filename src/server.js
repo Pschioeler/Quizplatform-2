@@ -143,19 +143,6 @@ app.get("/quiz/results/download", (req, res) => {
   res.download(resultsPath);
 });
 
-/* 
-Dashbord route
-*/
-// app.get('/dashboard', requireAuth, (req, res) => {
-//     // Render the dashboard page
-// });
-
-// /*
-// Admin route
-// */
-// app.get('/admin', requireAuth, (req, res) => {
-//     // Render the admin page
-// });
 
 // Logout
 app.get("/logout", (req, res) => {
