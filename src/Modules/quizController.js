@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 const sanitize = require("sanitize-filename");
 const processXML = require("./processXML");
 
@@ -77,7 +78,6 @@ function ensureResultsDirectory() {
 function submitAnswer(req, res) {
   console.log("Request received for /quiz/submit-answer", req.body);
   const { quizName, questionId, answer } = req.body;
-
   const quiz = quizzes[quizName];
   if (!quiz) {
     console.log(`Quiz not found: ${quizName}`);
@@ -91,39 +91,44 @@ function submitAnswer(req, res) {
   }
 
   let isCorrect = false;
+  let correctAnswers;
+  let userAnswers = Array.isArray(answer)
+    ? answer.map((a) => a.toLowerCase())
+    : [answer.toLowerCase()];
   if (question.type === "multichoice") {
-    // Handle multiple choice questions
-    const correctAnswers = question.answers
+    correctAnswers = question.answers
       .filter((ans) => ans.correct)
-      .map((ans) => ans.answertext.toLowerCase()); // Assume case-insensitivity
-    const providedAnswers = Array.isArray(answer)
-      ? answer.map((ans) => ans.toLowerCase())
-      : [answer.toLowerCase()];
+      .map((ans) => ans.answertext.toLowerCase());
     isCorrect =
-      correctAnswers.sort().join(",") === providedAnswers.sort().join(",");
-    console.log(
-      `Expected answers: [${correctAnswers}], Provided answers: [${providedAnswers}], Is correct: ${isCorrect}`
-    );
-  } else if (question.type === "shortanswer" || question.answers.length === 1) {
-    // Handle short answer questions
-    const providedAnswer = answer.toLowerCase().trim(); // Assume case-insensitivity and trim spaces
-    isCorrect = question.answers.some(
-      (ans) =>
-        ans.correct && ans.answertext.toLowerCase().trim() === providedAnswer
-    );
-    console.log(
-      `Expected answer: ${question.answers[0].answertext
-        .toLowerCase()
-        .trim()}, Provided answer: ${providedAnswer}, Is correct: ${isCorrect}`
-    );
+      correctAnswers.length === userAnswers.length &&
+      userAnswers.every((a) => correctAnswers.includes(a));
+  } else if (question.type === "shortanswer") {
+    correctAnswers = question.answers
+      .filter((ans) => ans.correct)
+      .map((ans) => ans.answertext.toLowerCase());
+    isCorrect = correctAnswers.includes(userAnswers[0]); // Antager at brugeren kun giver ét svar for shortanswer
   } else {
     console.log("Question type not supported:", question.type);
   }
 
-  logResult(quizName, questionId, isCorrect);
+  logResult(
+    quizName,
+    questionId,
+    question.questiontext,
+    userAnswers,
+    correctAnswers,
+    isCorrect
+  );
   res.json({ correct: isCorrect });
 }
-function logResult(quizName, questionId, isCorrect) {
+function logResult(
+  quizName,
+  questionId,
+  questionText,
+  userAnswer,
+  correctAnswers,
+  isCorrect
+) {
   // For now, we don't have userId, so we'll use a placeholder
   // const userId = "placeholder-userId";
 
@@ -163,6 +168,9 @@ function logResult(quizName, questionId, isCorrect) {
   const resultData = {
     quizName,
     questionId,
+    questionText,
+    userAnswer,
+    correctAnswer: isCorrect ? undefined : correctAnswers, // Kun logge de korrekte svar, hvis brugeren svarede forkert
     isCorrect,
     timestamp: new Date().toISOString(),
   };
@@ -173,6 +181,60 @@ function logResult(quizName, questionId, isCorrect) {
     JSON.stringify(resultsArray, null, 2),
     "utf8"
   );
+}
+
+function generateAndDownloadReport(req, res) {
+  const userId = req.session.user || "placeholder-user"; // Juster dette efter dit behov
+  const resultsDir = ensureResultsDirectory();
+  const userResults = [];
+
+  // Saml alle resultater for den givne bruger
+  fs.readdirSync(resultsDir).forEach((file) => {
+    if (file.includes(userId)) {
+      // Juster dette til hvordan filnavne er struktureret
+      const result = JSON.parse(
+        fs.readFileSync(path.join(resultsDir, file), "utf8")
+      );
+      userResults.push(result);
+    }
+  });
+
+  // Generer rapportindhold
+  let reportContent = `Rapport for bruger: ${userId}\n\n`;
+
+  userResults.forEach((result) => {
+    const score = result.filter((r) => r.isCorrect).length;
+    const totalQuestions = result.length;
+    const percentageCorrect = (score / totalQuestions) * 100;
+    reportContent += `Quiz: ${result[0].quizName}\n`;
+    reportContent += `Score: ${score} ud af ${totalQuestions} (${percentageCorrect.toFixed(
+      2
+    )}% korrekte)\n\n`;
+
+    // Tilføj detaljer om hvert spørgsmål og brugerens svar
+    result.forEach((r) => {
+      reportContent += `Spørgsmål: ${r.questionText}\n`;
+      reportContent += `Dit svar: ${r.userAnswer}\n`;
+      reportContent += `Korrekt svar: ${r.correctAnswer}\n`;
+      reportContent += `Resultat: ${r.isCorrect ? "Korrekt" : "Forkert"}\n\n`;
+    });
+  });
+
+  // Opret midlertidig fil for rapporten
+  const reportPath = path.join(os.tmpdir(), `quiz-rapport-${userId}.txt`);
+  fs.writeFileSync(reportPath, reportContent);
+
+  // Send filen til brugeren
+  res.download(reportPath, `quiz-rapport-${userId}.txt`, (err) => {
+    if (err) {
+      console.error("Fejl ved download af rapport:", err);
+      return res
+        .status(500)
+        .send("Der opstod en fejl under generering af rapporten.");
+    }
+    // Slet midlertidig fil efter download
+    fs.unlinkSync(reportPath);
+  });
 }
 
 // Ny funktion til at hente resultater for en bruger
@@ -188,23 +250,17 @@ function getResultsForUser(req, res) {
       fs.readFileSync(path.join(resultsDir, file), "utf8")
     );
     userResults.push(result);
-    // }
   });
 
   res.json(userResults);
 }
 
-function getResults(req, res) {
-  // Denne funktion skal udvides til at håndtere dine specifikke behov for resultathåndtering
-  // For nu, sender vi blot en simpel besked tilbage
-  res.send("Resultater er ikke implementeret endnu.");
-}
-
 module.exports = {
   getQuestion,
   submitAnswer,
-  getResults,
+  generateAndDownloadReport,
   loadQuizzes,
-  quizzes,
   getResultsForUser,
+  quizzes,
+  logResult,
 };

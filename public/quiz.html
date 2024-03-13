@@ -17,6 +17,11 @@
         border-radius: 5px;
         text-align: center;
       }
+      .flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     </style>
   </head>
   <body class="login_body">
@@ -28,15 +33,21 @@
         <h2>Vælg kategori:</h2>
 
         <select id="quiz-select">
-          <!-- Dynamisk indlæste quiz options -->
-        </select><br>
-        <button class="startQuiz_button" onclick="startQuiz()">Start Quiz</button>
+          <!-- Dynamisk indlæste quiz options --></select
+        ><br />
+        <button class="startQuiz_button" onclick="startQuiz()">
+          Start Quiz
+        </button>
         <div id="question-container"></div>
       </section>
+      <div class="flex">
+        <select id="reportsSelect"></select>
+        <button id="downloadReportBtn">Download Valgt Rapport</button>
+      </div>
     </main>
     <footer>
       <p>© 2024 PBW - Pop Quiz Program | All rights reserved</p>
-  </footer>
+    </footer>
   </body>
   <script src="/js/quiz.js"></script>
 </html>

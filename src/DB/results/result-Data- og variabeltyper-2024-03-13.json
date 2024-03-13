@@ -1,0 +1,110 @@
+[
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T17:58:31.715Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "4",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T17:58:33.443Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "6",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T17:58:35.966Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "7",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T17:58:38.257Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "5",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T17:58:40.057Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "8",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T17:58:41.729Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "1",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T17:58:44.078Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "2",
+    "questionText": "Hvilke variabeldeklarationer findes der i JavaScript?",
+    "userAnswer": "var",
+    "correctAnswer": [
+      "var",
+      "let"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:30:49.408Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "9",
+    "questionText": "Hvad angives med []",
+    "userAnswer": "array",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:30:56.244Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "8",
+    "questionText": "Hvilken datatype bruges til at repræsentere hele tal i JavaScript?",
+    "userAnswer": "Float",
+    "correctAnswer": [
+      "number"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:31:01.997Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "4",
+    "questionText": "Hvor mange fundamentale datatyper er der i Javascript?",
+    "userAnswer": "9",
+    "correctAnswer": [
+      "8"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:31:06.411Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "6",
+    "questionText": "Hvilken datatype bruges til at gemme decimaltal?",
+    "userAnswer": "String",
+    "correctAnswer": [
+      "float"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:31:08.901Z"
+  },
+  {
+    "quizName": "Data- og variabeltyper",
+    "questionId": "7",
+    "questionText": "Markér alle primitive datatyper i JavaScript.",
+    "userAnswer": "Boolean",
+    "correctAnswer": [
+      "string",
+      "boolean",
+      "null"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:31:33.459Z"
+  }
+]

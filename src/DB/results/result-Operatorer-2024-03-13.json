@@ -1,6 +1,14 @@
 [
   {
     "quizName": "Operatorer",
+    "questionId": "2",
+    "questionText": "Hvilket tegn bruges til at finde resten af en division?",
+    "userAnswer": "%",
+    "correctAnswer": [
+      "%"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:31:49.556Z"
     "questionId": "6",
     "isCorrect": false,
     "timestamp": "2024-03-13T18:02:33.740Z"
@@ -8,6 +16,117 @@
   {
     "quizName": "Operatorer",
     "questionId": "8",
+    "questionText": "Hvad er resultatet af <b>10 + \"5\"</b>?",
+    "userAnswer": "105",
+    "correctAnswer": [
+      "\"105\""
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:32:01.871Z"
+  },
+  {
+    "quizName": "Operatorer",
+    "questionId": "8",
+    "questionText": "Hvad er resultatet af <b>10 + \"5\"</b>?",
+    "userAnswer": [
+      "105"
+    ],
+    "correctAnswer": [
+      "\"105\""
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:51:11.704Z"
+  },
+  {
+    "quizName": "Operatorer",
+    "questionId": "3",
+    "questionText": "Hvad gør operatoren <b>instanceof</b>? ",
+    "userAnswer": [
+      "instanceof er ikke en operator i javascript "
+    ],
+    "correctAnswer": [
+      "returnerer sand, hvis et objekt er en instans af en objekttype"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:51:13.472Z"
+  },
+  {
+    "quizName": "Operatorer",
+    "questionId": "5",
+    "questionText": "Hvad gør den ternary operator <b>(? : )</b>?",
+    "userAnswer": [
+      "udfører en logisk operation"
+    ],
+    "correctAnswer": [
+      "en kort måde at lave en if på"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:51:15.649Z"
+  },
+  {
+    "quizName": "Operatorer",
+    "questionId": "4",
+    "questionText": "Hvilke(n) af følgende operatorer er ikke en logisk operator?",
+    "userAnswer": [
+      "||"
+    ],
+    "correctAnswer": [
+      "^"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:51:19.095Z"
+  },
+  {
+    "quizName": "Operatorer",
+    "questionId": "1",
+    "questionText": "Hvad er resultatet af <b>5 + \"5\"</b>?",
+    "userAnswer": [
+      "55"
+    ],
+    "correctAnswer": [
+      "\"55\""
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:51:22.312Z"
+  },
+  {
+    "quizName": "Operatorer",
+    "questionId": "7",
+    "questionText": "Hvad gør <b>++</b> operatoren i JavaScript?",
+    "userAnswer": [
+      "tilføjer 2 til en variabel"
+    ],
+    "correctAnswer": [
+      "inkrementerer en variabel med 1"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:51:24.513Z"
+  },
+  {
+    "quizName": "Operatorer",
+    "questionId": "9",
+    "questionText": "Hvad bruger man til at inkrementere tal i JavaScript?",
+    "userAnswer": [
+      "!+"
+    ],
+    "correctAnswer": [
+      "++"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:51:26.265Z"
+  },
+  {
+    "quizName": "Operatorer",
+    "questionId": "2",
+    "questionText": "Hvilket tegn bruges til at finde resten af en division?",
+    "userAnswer": [
+      "½"
+    ],
+    "correctAnswer": [
+      "%"
+    ],
+    "isCorrect": false,
+    "timestamp": "2024-03-13T18:51:27.816Z"
     "isCorrect": true,
     "timestamp": "2024-03-13T18:02:36.770Z"
   }

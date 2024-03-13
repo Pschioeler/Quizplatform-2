@@ -28,7 +28,7 @@ function fetchQuestion(quizName) {
       questionContainer.innerHTML = "";
 
       const questionText = document.createElement("h2");
-      questionText.textContent = data.questiontext;
+      questionText.innerHTML = data.questiontext;
       questionText.className = "question-text";
       questionContainer.appendChild(questionText);
 
@@ -159,3 +159,33 @@ function submitAnswer(quizName, questionId, selectedAnswer) {
 
 // Kalder loadQuizList, når siden indlæses for at fylde dropdown-menuen.
 document.addEventListener("DOMContentLoaded", loadQuizList);
+
+function loadAvailableReports() {
+  fetch("/available-reports")
+    .then((response) => response.json())
+    .then((files) => {
+      const reportsSelect = document.getElementById("reportsSelect");
+      files.forEach((file) => {
+        const option = document.createElement("option");
+        option.value = file;
+        option.textContent = file;
+        reportsSelect.appendChild(option);
+      });
+    })
+    .catch((error) => console.error("Error loading available reports:", error));
+}
+
+document.addEventListener("DOMContentLoaded", loadAvailableReports);
+
+document
+  .getElementById("downloadReportBtn")
+  .addEventListener("click", function () {
+    const selectedFile = document.getElementById("reportsSelect").value;
+    if (selectedFile) {
+      window.location.href = `/quiz/results/download?file=${encodeURIComponent(
+        selectedFile
+      )}`; // Opdater til den faktiske download-path
+    } else {
+      alert("Vælg venligst en rapport at downloade.");
+    }
+  });
