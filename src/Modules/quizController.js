@@ -6,6 +6,7 @@ const processXML = require("./processXML");
 
 let quizzes = {};
 
+// Denne asynkrone funktion indlæser alle quizzer fra XML-filer i en bestemt mappe og gemmer dem i et quizzes objekt. Den bruger processXML funktionen til at parse hver XML-fil og gemme resultatet under quiz' ID i quizzes objektet. Funktionen logger succes eller fejl ved indlæsningen af quizzerne.
 async function loadQuizzes() {
   const xmlDir = path.join(__dirname, "../DB/xml");
   const quizFiles = fs.readdirSync(xmlDir);
@@ -27,6 +28,7 @@ async function loadQuizzes() {
   }
 }
 
+// Når en bruger anmoder om et nyt spørgsmål fra en quiz, finder denne funktion den pågældende quiz i quizzes objektet og vælger et tilfældigt spørgsmål, som brugeren endnu ikke har set. Funktionen returnerer det valgte spørgsmål som JSON eller en fejl, hvis quizzen ikke findes eller alle spørgsmål allerede er besvaret.
 function getQuestion(req, res) {
   const quizName = req.query.quizName;
   const quiz = quizzes[quizName];
@@ -66,7 +68,7 @@ function getQuestion(req, res) {
   });
 }
 
-// Function to ensure the results directory exists
+// Denne funktion tjekker, om der eksisterer en mappe til at gemme resultaterne i, og opretter den, hvis den ikke eksisterer. Dette sikrer, at serveren har et sted at gemme brugerens svar og resultater.
 function ensureResultsDirectory() {
   const resultsDir = path.normalize(path.join(__dirname, "../DB/results"));
   if (!fs.existsSync(resultsDir)) {
@@ -75,6 +77,7 @@ function ensureResultsDirectory() {
   return resultsDir;
 }
 
+// Når en bruger indsender et svar på et spørgsmål, validerer denne funktion svaret ved at sammenligne det med de korrekte svar gemt i quizzes objektet. Den beregner, om svaret er korrekt, og opdaterer brugerens session med information om det besvarede spørgsmål. Derefter logges resultatet ved at kalde logResult funktionen, og svarets korrekthed sendes tilbage til brugeren.
 function submitAnswer(req, res) {
   console.log("Request received for /quiz/submit-answer", req.body);
   const { quizName, questionId, answer } = req.body;
@@ -121,6 +124,8 @@ function submitAnswer(req, res) {
   );
   res.json({ correct: isCorrect });
 }
+
+// Denne funktion logger brugerens svar på et spørgsmål sammen med oplysninger om spørgsmålet og om svaret var korrekt eller ej. Resultaterne gemmes i en JSON-fil, organiseret efter quiznavn og dato, i results mappen. TO BE FIXED -- Hvis filen allerede eksisterer, tilføjes det nye resultat til den eksisterende fil. Hvis filen ikke eksisterer, oprettes en ny fil med det nye resultat.
 function logResult(
   quizName,
   questionId,
@@ -129,34 +134,24 @@ function logResult(
   correctAnswers,
   isCorrect
 ) {
-  // For now, we don't have userId, so we'll use a placeholder
-  // const userId = "placeholder-userId";
-
   const resultsDir = ensureResultsDirectory();
   if (!fs.existsSync(resultsDir)) {
     fs.mkdirSync(resultsDir);
   }
 
-  // Format dato og tid for at undgå problemer med filnavne
+  // Opret filnavn baseret på quiznavn og dato
   const date = new Date();
   const dateString = date.toISOString().split("T")[0];
-  // const timeString = date
-  //   .toISOString()
-  //   .split("T")[1]
-  //   .replace(/:/g, "-")
-  //   .split(".")[0];
-
-  // Opbyg filnavnet med korrekt datoformat
   const resultFilename = `result-${quizName}-${dateString}.json`;
   const resultFilePath = path.normalize(path.join(resultsDir, resultFilename));
 
   let resultsArray;
   try {
-    // If the file exists, read it and parse it into an array.
+    // Hvis filen eksisterer, læs indholdet og konverter det til et array
     if (fs.existsSync(resultFilePath)) {
       resultsArray = JSON.parse(fs.readFileSync(resultFilePath, "utf8"));
     } else {
-      // If the file does not exist, start with an empty array.
+      // Hvis filen ikke eksisterer, opret et nyt array
       resultsArray = [];
     }
   } catch (error) {
@@ -164,7 +159,7 @@ function logResult(
     return;
   }
 
-  // Append the new result to the array.
+  // Tilføj det nye resultat til arrayet
   const resultData = {
     quizName,
     questionId,
@@ -183,15 +178,15 @@ function logResult(
   );
 }
 
+// Denne funktion genererer en rapport over en brugers resultater på tværs af alle quizzes, de har deltaget i. Den samler data fra resultaterne gemt i results mappen, beregner score og korrekthedsprocent, og genererer en tekstfil med en detaljeret rapport. Rapporten downloades derefter af brugeren.
 function generateAndDownloadReport(req, res) {
-  const userId = req.session.user || "placeholder-user"; // Juster dette efter dit behov
+  const userId = req.session.user || "placeholder-user";
   const resultsDir = ensureResultsDirectory();
   const userResults = [];
 
   // Saml alle resultater for den givne bruger
   fs.readdirSync(resultsDir).forEach((file) => {
     if (file.includes(userId)) {
-      // Juster dette til hvordan filnavne er struktureret
       const result = JSON.parse(
         fs.readFileSync(path.join(resultsDir, file), "utf8")
       );
@@ -237,7 +232,7 @@ function generateAndDownloadReport(req, res) {
   });
 }
 
-// Ny funktion til at hente resultater for en bruger
+// Denne funktion giver en oversigt over alle resultater for den aktuelle bruger ved at læse resultaterne fra results mappen. Den returnerer en liste over resultater som JSON, som kan bruges til at vise brugerens præstationer på klient-siden.
 function getResultsForUser(req, res) {
   //  const userId = req.session.user;
   const resultsDir = ensureResultsDirectory();
