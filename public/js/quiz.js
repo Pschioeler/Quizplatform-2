@@ -32,12 +32,12 @@ function fetchQuestion(quizName) {
       questionText.className = "question-text";
       questionContainer.appendChild(questionText);
 
-      // Hvis det er et multichoice spørgsmål
       if (data.type === "multichoice") {
         const correctAnswerCount = data.answers.reduce(
-          (count, answer) => count + (answer.correct ? 1 : 0),
+          (count, answer) => count + (answer.correct === "True" ? 1 : 0),
           0
         );
+        console.log(correctAnswerCount);
 
         if (correctAnswerCount > 1) {
           // Brug checkboxes for flere korrekte svar
@@ -60,6 +60,7 @@ function fetchQuestion(quizName) {
             wrapper.appendChild(label);
             form.appendChild(wrapper);
           });
+
           const submitButton = document.createElement("button");
           submitButton.textContent = "Indsend svar";
           submitButton.type = "button"; // Forhindre form submit handling
@@ -77,29 +78,27 @@ function fetchQuestion(quizName) {
             const answerButton = document.createElement("button");
             answerButton.textContent = answer.answertext;
             answerButton.className = "answer-button";
-            answerButton.onclick = () => {
-              submitAnswer(quizName, data.id, answer.answertext);
-            };
+            answerButton.onclick = () =>
+              submitAnswer(quizName, data.id, [answer.answertext]);
             questionContainer.appendChild(answerButton);
           });
         }
       } else if (data.type === "shortanswer") {
-        // Håndtering af shortanswer spørgsmål
+        // Shortanswer håndtering
         const answerInput = document.createElement("input");
         answerInput.type = "text";
         answerInput.className = "short-answer-input";
         const submitButton = document.createElement("button");
         submitButton.textContent = "Indsend";
         submitButton.className = "submit-button shortanswer";
-        submitButton.onclick = () => {
-          submitAnswer(quizName, data.id, answerInput.value);
-        };
+        submitButton.onclick = () =>
+          submitAnswer(quizName, data.id, [answerInput.value]);
         questionContainer.appendChild(answerInput);
         questionContainer.appendChild(submitButton);
       }
     })
     .catch((error) => {
-      console.error("Fejl:", error);
+      console.error("Fejl ved hentning af spørgsmål:", error);
       alert("Der skete en fejl under indlæsning af spørgsmålet.");
     });
 }
