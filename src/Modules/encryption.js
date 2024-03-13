@@ -1,8 +1,9 @@
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const path = require('path');
+const { error } = require('console');
 
-const usersFilePath = path.join(__dirname, "../DB/users.json");
+const usersFilePath = path.join(__dirname, '../DB/users.json');
 
 // Error handling function
 function handleError(errorMessage) {
@@ -49,17 +50,23 @@ async function registerUser(username, password) {
 // Function for user login
 async function loginUser(username, password) {
     try {
-        const users = loadUsers();
-        const user = users.find(user => user.username === username);
         const errorMessage = 'Incorrect username or password. Please try again.';
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return errorMessage;
+        const users = loadUsers();
+        const foundUser = users.find(user => {
+            return bcrypt.compareSync(username, user.hashedUser) && bcrypt.compareSync(password, user.password);
+        });
+        if (!foundUser) {
+            console.log("User not found");
+            return new Error(errorMessage); // Return an Error object
+        } else {
+            console.log("i got to else");
+            return foundUser;
         }
-        return 'Login successful';
     } catch (error) {
         return handleError('Error logging in: ' + error.message);
     }
 }
+//registerUser("test","1234");
 module.exports = {
     registerUser,
     loginUser

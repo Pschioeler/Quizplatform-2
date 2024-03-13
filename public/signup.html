@@ -2,21 +2,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PBWQuiz | Opret Bruger</title>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body>
-    <h1>Tilmelding</h1>
-    <form id="signupForm">
-        <label for="username">Brugernavn:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="password">Adgangskode:</label>
-        <input type="password" id="password" name="password" required><br><br>    
-        <label for="confirm_password">Bekræft adgangskode:</label>
-        <input type="password" id="confirm_password" name="confirm_password" required><br><br>
-        <div id="passFeedbackText"></div>
-        <input type="submit" value="Tilmeld">
-    </form>
+<body class="login_body">
+    <header class="login_header">
+        <h1>Web Development Quiz</h1>
+    </header>
+    <main class="login_main">
+        <section class="formWrapper shadow">
+            <h2>Opret bruger</h2>
+            <form id="signupForm">
+                <input type="text" id="username" name="username" class="shadow" placeholder="Brugernavn" required><br><br>
+                <input type="password" id="password" name="password" class="shadow" placeholder="Kode" required><br><br>    
+                <input type="password" id="confirm_password" name="confirm_password" class="shadow" placeholder="Bekræft kode" required><br><br>
+                <div id="passFeedbackText"></div>
+                <input type="submit" value="Tilmeld">
+            </form>
+            <p>Har du allerede en bruger?</p><a href="#">Log ind her</a>
+        </section>
+    </main>
     <script src="/public/js/signup.js"></script>
 </body>
+<footer>
+    <p>© 2024 PBW - Pop Quiz Program | All rights reserved</p>
+</footer>
 </html>

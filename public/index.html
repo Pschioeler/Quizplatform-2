@@ -4,11 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/styles.css" />
+    <style>
+      .completion-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
+    <select id="quiz-select">
+      <!-- Dynamisk indlæste quiz options -->
+    </select>
+    <button onclick="startQuiz()">Start Quiz</button>
     <div id="question-container"></div>
-    <div id="answer-buttons" class="btn-grid"></div>
   </body>
-  <script src="../src/Javascript/quiz.js"></script>
+  <script src="/js/quiz.js"></script>
 </html>
