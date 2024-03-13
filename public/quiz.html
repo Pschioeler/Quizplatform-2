@@ -19,8 +19,10 @@
       }
       .flex {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+      }
+      .column {
+        flex-direction: column;
       }
     </style>
   </head>
@@ -28,7 +30,7 @@
     <header class="login_header">
       <h1>Web Development Quiz</h1>
     </header>
-    <main class="login_main">
+    <main class="login_main flex column">
       <section class="formWrapper index_wrapper shadow">
         <h2>Vælg kategori:</h2>
 
