@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>PBWQuiz</title>
     <link rel="stylesheet" href="./css/styles.css" />
     <style>
       .completion-popup {
@@ -19,12 +19,24 @@
       }
     </style>
   </head>
-  <body>
-    <select id="quiz-select">
-      <!-- Dynamisk indlæste quiz options -->
-    </select>
-    <button onclick="startQuiz()">Start Quiz</button>
-    <div id="question-container"></div>
+  <body class="login_body">
+    <header class="login_header">
+      <h1>Web Development Quiz</h1>
+    </header>
+    <main class="login_main">
+      <section class="formWrapper index_wrapper shadow">
+        <h2>Vælg kategori:</h2>
+
+        <select id="quiz-select">
+          <!-- Dynamisk indlæste quiz options -->
+        </select><br>
+        <button class="startQuiz_button" onclick="startQuiz()">Start Quiz</button>
+        <div id="question-container"></div>
+      </section>
+    </main>
+    <footer>
+      <p>© 2024 PBW - Pop Quiz Program | All rights reserved</p>
+  </footer>
   </body>
   <script src="/js/quiz.js"></script>
 </html>

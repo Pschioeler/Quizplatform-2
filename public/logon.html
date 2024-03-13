@@ -2,16 +2,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PBWQuiz | Login</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form action="/login" method="post">
-            <input type="text" name="username" id="username" placeholder="Brugernavn">
-            <input type="text" name="password" id="password" placeholder="Kodeord">
-            <input type="submit">Log ind</input>
-        </form>
-    </div>
+<body class="login_body">
+    <header class="login_header">
+        <h1>Web Development Quiz</h1>
+    </header>
+    <main class="login_main">
+        <section class="formWrapper shadow">
+            <h2>Log Ind</h2>
+            <form action="/login" method="post" id="signupForm">
+                <input type="text" name="username" id="username" class="shadow" placeholder="Brugernavn">
+                <input type="password" name="password" id="password" class="shadow" placeholder="Kodeord">
+                <div id="passFeedbackText"></div>
+                <input type="submit" value="Log Ind">
+            </form>
+            <p>Har du ikke en bruger endnu?</p><a href="/signup.html">Opret bruger her</a>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 PBW - Pop Quiz Program | All rights reserved</p>
+    </footer>
 </body>
 </html>
