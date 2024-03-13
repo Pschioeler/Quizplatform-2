@@ -16,6 +16,18 @@
       {
         "groupId": 2,
         "isAccepted": true
+      },
+      {
+        "groupId": "3",
+        "isAccepted": false
+      },
+      {
+        "groupId": 4,
+        "isAccepted": false
+      },
+      {
+        "groupId": 6,
+        "isAccepted": true
       }
     ]
   },
