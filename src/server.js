@@ -41,17 +41,8 @@ app.use(bodyParser.json());
 
 /*
 Middleware til authentication tjek
-Hver Route skal have en requireAuth i deres app.get
+Hver Route skal have en auth i deres app.get
 */
-const requireAuth = (req, res, next) => {
-  if (req.session.authenticated) {
-    console.log("authentication happend")
-    next(); // User is authenticated, continue to next middleware
-  } else {
-    res.redirect("/logon.html"); // User is not authenticated, redirect to login page
-  }
-};
-
 function auth(req, res, next) {
   if (req.session.authenticated) {
     console.log("authentication happend")
