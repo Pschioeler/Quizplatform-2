@@ -108,8 +108,7 @@ function submitAnswer(req, res) {
   // Log resultatet med bruger id
   logResult(/*userId, */ quizName, questionId, isCorrect);
 
-  const resultTimestamp = new Date().toISOString();
-  // Sanitize quizName to make sure it's safe for use in a file path
+  const resultTimestamp = new Date().toISOString().replace(/:/g, "-"); // Ensuring invalid characters are replaced
   const safeQuizName = sanitize(quizName);
   const userResultFilename = `result-${safeQuizName}-${resultTimestamp}.json`;
   const resultsDir = ensureResultsDirectory();
@@ -124,7 +123,6 @@ function submitAnswer(req, res) {
   );
 
   const resultData = {
-    user: req.session.user,
     quizName: quizName,
     questionId: questionId,
     answer: answer,
@@ -132,19 +130,18 @@ function submitAnswer(req, res) {
     timestamp: resultTimestamp,
   };
 
-  // Using writeFile instead of writeFileSync for asynchronous file write
+  console.log("Attempting to write to:", userResultPath); // Debugging
   fs.writeFile(userResultPath, JSON.stringify(resultData, null, 2), (err) => {
     if (err) {
-      console.error("Serverfejl ved håndtering af /quiz/submit-answer:", err);
-      return res.status(500).send("Intern serverfejl");
+      console.error("Error writing file:", err);
+      return res.status(500).send("Internal server error");
     }
-
     res.json({ correct: isCorrect });
   });
 }
 function logResult(quizName, questionId, isCorrect) {
   // For now, we don't have userId, so we'll use a placeholder
-  const userId = "placeholder-userId"; // This is a temporary line
+  // const userId = "placeholder-userId";
 
   const resultsDir = ensureResultsDirectory();
   if (!fs.existsSync(resultsDir)) {
@@ -154,14 +151,14 @@ function logResult(quizName, questionId, isCorrect) {
   // Format dato og tid for at undgå problemer med filnavne
   const date = new Date();
   const dateString = date.toISOString().split("T")[0];
-  const timeString = date
-    .toISOString()
-    .split("T")[1]
-    .replace(/:/g, "-")
-    .split(".")[0];
+  // const timeString = date
+  //   .toISOString()
+  //   .split("T")[1]
+  //   .replace(/:/g, "-")
+  //   .split(".")[0];
 
   // Opbyg filnavnet med korrekt datoformat
-  const resultFilename = `result-${userId}-${quizName}-${dateString}-${timeString}.json`;
+  const resultFilename = `result-${quizName}-${dateString}.json`;
   const resultFilePath = path.normalize(path.join(resultsDir, resultFilename));
 
   let resultsArray;
@@ -194,7 +191,7 @@ function logResult(quizName, questionId, isCorrect) {
 
 // Ny funktion til at hente resultater for en bruger
 function getResultsForUser(req, res) {
-  const userId = req.session.user; // Dette vil blive brugt når featuren er implementeret
+  //  const userId = req.session.user;
   const resultsDir = ensureResultsDirectory();
   const userResults = [];
 

@@ -9,10 +9,21 @@
     "isSuperAdmin": false,
     "timelogs": [],
     "groups": [
-      {
-        "groupId": 1,
-        "isAccepted": true
-      }
+        {
+            "groupId": 1,
+            "isAccepted": true
+          }
     ]
+  },
+  {
+    "username": "admin",
+    "usernameSalt": "$2b$10$KaAoao8g0gBXX00K5S7efu",
+    "hashedUser": "$2b$10$KaAoao8g0gBXX00K5S7efu2CekVNdeSH.rHfT59H9qQ3nDaEJDqSS",
+    "passwordSalt": "$2b$10$o7BfCZ896VVaysK4yo0XBu",
+    "password": "$2b$10$o7BfCZ896VVaysK4yo0XBuC9BWk8lgXsPwD/ZOF2DKX5IFQyd6UFW",
+    "isAdmin": true,
+    "isSuperAdmin": false,
+    "timelogs": [],
+    "groups": []
   }
 ]

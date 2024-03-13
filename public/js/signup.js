@@ -9,7 +9,7 @@ signupForm.addEventListener('submit', async function(event){
 
     const dataToSend = { username: username, password: password }; // Brugernavn og adgangskode som objekt
 
-    const response = await fetch('http://localhost:3000/signup', {
+    const response = await fetch('http://localhost:3000/signedup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
