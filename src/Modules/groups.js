@@ -29,7 +29,7 @@ function saveToFile(data, path) {
 function loadGroups() {
     try {
         const data = fs.readFileSync(groupsFilePath);
-        console.log("successfully fetched group data.");
+console.log("successfully fetched group data.");
         return JSON.parse(data);
     } catch (error) {
         if (error.code === 'ENOENT') {
@@ -127,4 +127,12 @@ function checkUserGroups(username) {
 //checkUserGroups("test");
 //acceptGroupInvitation(2, "test");
 //allowGroupAccess(1, "test");
-
+module.exports = {
+    findUser, 
+    saveToFile,
+    loadGroups,
+    createGroup,
+    allowGroupAccess,
+    acceptGroupInvitation,
+    checkUserGroups
+}
