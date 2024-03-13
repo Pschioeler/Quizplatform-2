@@ -141,6 +141,8 @@ quizController.loadQuizzes();
 quizController.loadQuizzes();
 
 app.get("/quizzes", (req, res) => {
+  quizController.loadQuizzes();
+  
   const quizIds = Object.keys(quizController.quizzes);
   res.json(quizIds);
 });
@@ -206,13 +208,31 @@ app.post('/upload', auth, upload.any(), (req, res) => {
   }
   console.log(req.files);
   // Filen blev uploadet succesfuldt
-  res.status(200).send('File uploaded successfully');
+  const uploadedFile = req.files[0]; // Første fil, da upload.any() muliggør flere filer
+  res.status(200).sendFile(uploadedFile.path); // Sender filen tilbage til klienten
 });
 
-app.get("/quizzes", (req, res) => {
-  const quizIds = Object.keys(quizController.quizzes);
-  res.json(quizIds);
+
+app.post("/delete-quiz", (req, res) => {
+  const { fileName } = req.body;
+  console.log('Attempting to delete quiz with filename:', fileName);
+
+  const quizFilePath = path.join(__dirname, "../src/DB/xml", fileName + ".xml");
+  fs.unlink(quizFilePath, (err) => {
+      if (err) {
+          console.error("Error deleting quiz file:", err);
+          return res.status(500).send("Failed to delete quiz.");
+      } else {
+          console.log("Quiz file deleted successfully:", fileName);
+          
+          // Opdater serverens interne tilstand efter sletning af filen
+          quizController.loadQuizzes();
+
+          res.sendStatus(200); // Send success response
+      }
+  });
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
