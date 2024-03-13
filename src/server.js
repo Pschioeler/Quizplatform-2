@@ -142,9 +142,6 @@ app.post("/login", async (req, res) => {
 // Indlæs quizzer ved opstart
 quizController.loadQuizzes();
 
-// Indlæs quizzer ved opstart
-quizController.loadQuizzes();
-
 app.get("/quizzes", (req, res) => {
   quizController.loadQuizzes();
 
