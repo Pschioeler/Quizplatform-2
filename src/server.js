@@ -18,7 +18,7 @@ const { error } = require("console");
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(logger);
 
@@ -38,15 +38,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Body-parser til json requests
 app.use(bodyParser.json());
 
-
-
 /*
 Middleware til authentication tjek
 Hver Route skal have en auth i deres app.get
 */
 function auth(req, res, next) {
   if (req.session.authenticated) {
-    console.log("authentication happend")
+    console.log("authentication happend");
     next(); // User is authenticated, continue to next middleware
   } else {
     res.redirect("/"); // User is not authenticated, redirect to login page
@@ -59,7 +57,7 @@ Hver Route skal have en auth i deres app.get
 */
 function authAdmin(req, res, next) {
   if (req.session.admin) {
-    console.log("admin authentication happend")
+    console.log("admin authentication happend");
     next(); // User is authenticated, continue to next middleware
   } else {
     res.redirect("/"); // User is not authenticated, redirect to login page
@@ -70,31 +68,29 @@ function authAdmin(req, res, next) {
 Middleware til at logge url request
 */
 function logger(req, res, next) {
-  console.log(req.originalUrl)
+  console.log(req.originalUrl);
   next();
 }
 
-
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, '../public', 'index.html'));
-})
-
+  res.sendFile(path.join(__dirname, "../public", "index.html"));
+});
 
 app.get("/signup", (req, res) => {
-  res.sendFile(path.join(__dirname, '../public', 'signup.html'));
-})
+  res.sendFile(path.join(__dirname, "../public", "signup.html"));
+});
 
 app.get("/dashboard", auth, (req, res) => {
-  res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
-})
+  res.sendFile(path.join(__dirname, "../public", "dashboard.html"));
+});
 
 app.get("/quiz", auth, (req, res) => {
-  res.sendFile(path.join(__dirname, '../public', 'quiz.html'));
-})
+  res.sendFile(path.join(__dirname, "../public", "quiz.html"));
+});
 
 app.get("/admin", authAdmin, auth, (req, res) => {
-  res.sendFile(path.join(__dirname, '../public', 'admin.html'));
-})
+  res.sendFile(path.join(__dirname, "../public", "admin.html"));
+});
 
 //Lav endpoints her via app.get eller lignende
 app.post("/signedup", async (req, res) => {
@@ -109,33 +105,34 @@ app.post("/signedup", async (req, res) => {
 
   // Register user
   const result = await checkCredentials.registerUser(username, password);
-  res.redirect("/")
+  res.redirect("/");
 });
 
 app.post("/login", async (req, res) => {
-console.log(req.body);
+  console.log(req.body);
   const { username, password } = req.body;
   try {
-      // Check bruger oplysninger
-      let user = await checkCredentials.loginUser(username, password);
-      console.log(user);
-      if (user instanceof Error) { // Checking if the returned value is an instance of Error
-        console.log("Login failed: ", user.message);
-        res.redirect("/");
+    // Check bruger oplysninger
+    let user = await checkCredentials.loginUser(username, password);
+    console.log(user);
+    if (user instanceof Error) {
+      // Checking if the returned value is an instance of Error
+      console.log("Login failed: ", user.message);
+      res.redirect("/");
+    } else {
+      req.session.authenticated = true;
+      //req.session.user = user.id;
+      if (user.isAdmin === true) {
+        req.session.admin = true;
+        console.log("i got here to admin");
+        res.redirect("/admin");
       } else {
-        req.session.authenticated = true;
-        //req.session.user = user.id;
-        if (user.isAdmin === true) {
-            req.session.admin = true;
-            console.log("i got here to admin");
-            res.redirect("/admin");
-          } else {
-            console.log("i got here to user");
-            req.method = 'get';
-            //res.redirect("/index.html");
-            res.redirect("/dashboard")
-          }
+        console.log("i got here to user");
+        req.method = "get";
+        //res.redirect("/index.html");
+        res.redirect("/dashboard");
       }
+    }
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).send("Internal server error");
@@ -150,7 +147,7 @@ quizController.loadQuizzes();
 
 app.get("/quizzes", (req, res) => {
   quizController.loadQuizzes();
-  
+
   const quizIds = Object.keys(quizController.quizzes);
   res.json(quizIds);
 });
@@ -162,15 +159,33 @@ app.get("/quiz/get-question", quizController.getQuestion);
 app.post("/quiz/submit-answer", quizController.submitAnswer);
 
 // Endpoint for at få resultaterne af en quiz
-app.get("/quiz/get-results", quizController.getResults);
+app.get("/download-report", quizController.generateAndDownloadReport);
+
+app.get("/available-reports", (req, res) => {
+  const resultsDir = path.join(__dirname, "/DB/results");
+  fs.readdir(resultsDir, (err, files) => {
+    if (err) {
+      console.log("Unable to scan directory: " + err);
+      res.status(500).send("Unable to retrieve files");
+    } else {
+      const jsonFiles = files.filter((file) => file.endsWith(".json"));
+      res.json(jsonFiles);
+    }
+  });
+});
 
 app.get("/quiz/user-results", auth, quizController.getResultsForUser);
 
 app.get("/quiz/results/download", (req, res) => {
-  const resultsPath = path.join(__dirname, "../DB/results.json");
-  res.download(resultsPath);
+  const { file } = req.query;
+  const filePath = path.join(__dirname, "/DB/results", file);
+  res.download(filePath, file, (err) => {
+    if (err) {
+      console.error("Error downloading file:", err);
+      res.status(500).send("Error downloading file");
+    }
+  });
 });
-
 
 // Logout
 app.get("/logout", (req, res) => {
@@ -186,33 +201,34 @@ app.get("/logout", (req, res) => {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '../src/DB/xml/'));
+    cb(null, path.join(__dirname, "../src/DB/xml/"));
   },
   filename: function (req, file, cb) {
     // Konverter filnavnet til UTF-8 så filnavne med æ, ø, å osv kan blive gemt ordentligt
-    const utf8FileName = Buffer.from(file.originalname, 'binary').toString('utf-8');
+    const utf8FileName = Buffer.from(file.originalname, "binary").toString(
+      "utf-8"
+    );
     cb(null, utf8FileName);
-  }
+  },
 });
 
-const upload = multer({ 
+const upload = multer({
   storage: storage,
   fileFilter: function (req, file, cb) {
     // Tjek om filtypen er XML
-    if (file.mimetype !== 'text/xml') {
-      cb(new Error('Only XML files are allowed'), false);
-    } 
-    else {
+    if (file.mimetype !== "text/xml") {
+      cb(new Error("Only XML files are allowed"), false);
+    } else {
       cb(null, true);
     }
-  }
+  },
 });
 
 // Endpoint for at håndtere upload af filer
-app.post('/upload', auth, upload.any(), (req, res) => {
+app.post("/upload", auth, upload.any(), (req, res) => {
   // Tjek om der blev uploadet en fil
   if (!req.files || req.files.length === 0) {
-      return res.status(400).send('No file uploaded.');
+    return res.status(400).send("No file uploaded.");
   }
   console.log(req.files);
   // Filen blev uploadet succesfuldt
@@ -220,27 +236,25 @@ app.post('/upload', auth, upload.any(), (req, res) => {
   res.status(200).sendFile(uploadedFile.path); // Sender filen tilbage til klienten
 });
 
-
 app.post("/delete-quiz", (req, res) => {
   const { fileName } = req.body;
-  console.log('Attempting to delete quiz with filename:', fileName);
+  console.log("Attempting to delete quiz with filename:", fileName);
 
   const quizFilePath = path.join(__dirname, "../src/DB/xml", fileName + ".xml");
   fs.unlink(quizFilePath, (err) => {
-      if (err) {
-          console.error("Error deleting quiz file:", err);
-          return res.status(500).send("Failed to delete quiz.");
-      } else {
-          console.log("Quiz file deleted successfully:", fileName);
-          
-          // Opdater serverens interne tilstand efter sletning af filen
-          quizController.loadQuizzes();
+    if (err) {
+      console.error("Error deleting quiz file:", err);
+      return res.status(500).send("Failed to delete quiz.");
+    } else {
+      console.log("Quiz file deleted successfully:", fileName);
 
-          res.sendStatus(200); // Send success response
-      }
+      // Opdater serverens interne tilstand efter sletning af filen
+      quizController.loadQuizzes();
+
+      res.sendStatus(200); // Send success response
+    }
   });
 });
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
