@@ -1,4 +1,4 @@
-// Denne funktion henter og viser en liste over tilgængelige quizzes.
+// Denne funktion anmoder serveren om en liste over alle tilgængelige quizzes og viser disse i en dropdown-menu på websiden. Ved hver quiz' ID, der modtages fra serveren, oprettes der et nyt <option>-element i dropdown-menuen, så brugeren kan vælge mellem forskellige quizzes.
 function loadQuizList() {
   fetch("/quizzes")
     .then((response) => response.json())
@@ -9,12 +9,13 @@ function loadQuizList() {
       quizList.forEach((quizId) => {
         const option = document.createElement("option");
         option.value = quizId;
-        option.textContent = quizId; // Eller formatér det til et mere brugervenligt navn
+        option.textContent = quizId;
         quizSelect.appendChild(option);
       });
     });
 }
 
+// Når en bruger har valgt en quiz, anmoder denne funktion serveren om et spørgsmål fra den valgte quiz. Hvis der ikke er flere spørgsmål tilbage i quizzen, vises en afslutnings-popup. Hvis der er et spørgsmål, vises det på siden, og brugeren præsenteres for enten multiple choice-knapper eller et tekstfelt til kort svar, afhængigt af spørgsmålstypen.
 function fetchQuestion(quizName) {
   fetch(`/quiz/get-question?quizName=${encodeURIComponent(quizName)}`)
     .then((response) => response.json())
@@ -42,7 +43,7 @@ function fetchQuestion(quizName) {
         }
 
         if (correctAnswerCount > 1) {
-          // Her tilføjes logik for at vise checkboxes for spørgsmål med flere korrekte svar
+          // logik for at vise checkboxes for spørgsmål med flere korrekte svar
           const form = document.createElement("form");
           form.id = "multi-answer-form";
           data.answers.forEach((answer, index) => {
@@ -106,7 +107,7 @@ function fetchQuestion(quizName) {
     });
 }
 
-// Funktion til at vise en afsluttende popup
+// Denne funktion viser en popup-meddelelse, når brugeren har besvaret alle spørgsmål i en quiz. Meddelelsen lykønsker brugeren med at have afsluttet quizzen og tilbyder en knap til at vende tilbage til hjemmesiden.
 function showCompletionPopup() {
   const completionPopup = document.createElement("div");
   completionPopup.innerHTML = `
@@ -118,11 +119,13 @@ function showCompletionPopup() {
   document.body.appendChild(completionPopup);
 }
 
+// Denne funktion indlæses, når brugeren vælger en quiz og trykker på en knap for at starte den. Den henter det første spørgsmål fra den valgte quiz ved at kalde fetchQuestion() med den valgte quiz' ID.
 function startQuiz() {
   const selectedQuizId = document.getElementById("quiz-select").value;
   fetchQuestion(selectedQuizId);
 }
 
+// Når en bruger besvarer et spørgsmål, samler denne funktion informationen om det givne svar og sender den til serveren. Serveren tjekker, om svaret er korrekt, og sender resultatet tilbage. Funktionen viser derefter en alert-boks, der informerer brugeren om, hvorvidt svaret var korrekt, og henter det næste spørgsmål.
 function submitAnswer(quizName, questionId, selectedAnswer) {
   let payload;
 
@@ -160,6 +163,7 @@ function submitAnswer(quizName, questionId, selectedAnswer) {
 // Kalder loadQuizList, når siden indlæses for at fylde dropdown-menuen.
 document.addEventListener("DOMContentLoaded", loadQuizList);
 
+// Denne funktion anmoder serveren om en liste over tilgængelige rapportfiler og viser disse i en dropdown-menu. Brugeren kan vælge en rapport fra listen og downloade den.
 function loadAvailableReports() {
   fetch("/available-reports")
     .then((response) => response.json())
@@ -177,6 +181,7 @@ function loadAvailableReports() {
 
 document.addEventListener("DOMContentLoaded", loadAvailableReports);
 
+// Denne event listener er knyttet til en knap, der giver brugeren mulighed for at downloade den valgte rapportfil. Når knappen trykkes, anvender den valgte fil fra dropdown-menuen som en del af en URL til download-endpointet, hvilket starter download-processen.
 document
   .getElementById("downloadReportBtn")
   .addEventListener("click", function () {
@@ -184,7 +189,7 @@ document
     if (selectedFile) {
       window.location.href = `/quiz/results/download?file=${encodeURIComponent(
         selectedFile
-      )}`; // Opdater til den faktiske download-path
+      )}`;
     } else {
       alert("Vælg venligst en rapport at downloade.");
     }
