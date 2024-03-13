@@ -20,7 +20,7 @@ signupForm.addEventListener('submit', async function(event){
     try {
         const data = await response.text(); // Behandl responsen som tekst
         if (response.ok) {
-            alert(data); // Vis tekstsvar
+            window.location.href = "/"; // Vis tekstsvar
         } else {
             const passFeedbackText = document.getElementById("passFeedbackText");
             passFeedbackText.innerHTML = `<p>${data}</p>`; // Vis fejlbesked som tekst

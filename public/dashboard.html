@@ -11,7 +11,7 @@
     <nav id="admin_menu" class="shadow">
         <h2 class="admin_menu_title">Velkommen tilbage<br>${user}!</h2>
         <ul class="admin_nav">
-            <li><a href="#"><i class="fa-solid fa-gamepad"></i>Quizzes</a></li>
+            <li><a href="#" class="selected_underline"><i class="fa-solid fa-gamepad"></i>Quizzes</a></li>
             <li><a href="#"><i class="fa-solid fa-users-rectangle"></i>Mine Hold</a></li>
             <li><a href="#"><i class="fa-solid fa-square-poll-horizontal"></i>Resultater</a></li>
         </ul>
@@ -20,8 +20,9 @@
         </div>
     </nav>
     <main id="main_content" class="admin_main shadow">
-        <section id="quiz_list" >
+        <section id="quiz_list">
             <h1>Quizzes</h1>
+            <a href="/quiz" class="dashboard_button">Gå til quiz<i class="fa-solid fa-chevron-right"></i></i></a></button>
         </section>
         <section id="hold_list" class="hidden">
             <h1>Mine hold</h1>
@@ -30,6 +31,6 @@
             <h1>Resultater</h1>
         </section>
     </main>
-    <script src="/public/js/admin.js"></script>
+    <script src="/js/sidemenu.js"></script>
 </body>
 </html>
