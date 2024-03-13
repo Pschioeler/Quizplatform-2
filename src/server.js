@@ -58,6 +58,15 @@ app.get("/index.html", requireAuth, (req, res) => {
     
 })
 
+app.get("/test.html", requireAuth, (req, res) => {
+    
+})
+
+app.get("/test", requireAuth, (req, res) => {
+    
+})
+
+
 //Lav endpoints her via app.get eller lignende
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
@@ -85,13 +94,14 @@ console.log(req.body);
         console.log("Login failed: ", user.message);
         res.redirect("/logon.html");
       } else {
-        req.body.authenticated = true;
+        req.session.authenticated = true;
         if (user.isAdmin === true) {
             console.log("i got here to admin");
             res.redirect("/admin");
           } else {
             console.log("i got here to user");
-            res.redirect("/index.html");
+            //res.redirect("/index.html");
+            res.redirect("/test.html")
           }
       }
   } catch (error) {
