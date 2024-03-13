@@ -37,7 +37,7 @@ button:hover {
   display: none !important;
 }
 .selected_underline {
-  border-bottom: 2px solid var(--accent-color);
+  border-bottom: 3px solid var(--accent-color) !important;
 }
 .login_body {
   height: 100dvh;
