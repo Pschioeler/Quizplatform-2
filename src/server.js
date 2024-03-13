@@ -174,14 +174,8 @@ app.get("/quiz/results/download", (req, res) => {
 
 // Logout
 app.get("/logout", (req, res) => {
-  req.session.destroy(function (err) {
-    if (err) {
-      console.log(err);
-      res.send("Error");
-    } else {
-      res.render("index", { title: "Login", logout: "Logout Succesfully!" });
-    }
-  });
+  req.session.destroy();
+  res.redirect("/");
 });
 
 const storage = multer.diskStorage({
