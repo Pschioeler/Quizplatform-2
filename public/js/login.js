@@ -8,13 +8,14 @@ function login() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Login successful!');
+            //alert('Login successful!');
             // Redirect to another page or do something else upon successful login
+            
         } else {
             alert('Forkert brugernavn eller kodeord. Prøv igen.');
         }

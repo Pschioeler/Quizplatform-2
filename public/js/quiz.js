@@ -20,7 +20,7 @@ function fetchQuestion(quizName) {
     .then((response) => response.json())
     .then((data) => {
       if (data.quizComplete) {
-        showCompletionPopup(); // Antager du har denne funktion implementeret
+        showCompletionPopup();
         return;
       }
 
@@ -32,54 +32,37 @@ function fetchQuestion(quizName) {
       questionText.className = "question-text";
       questionContainer.appendChild(questionText);
 
-      const correctAnswerCount = data.answers.filter(
-        (answer) => answer.correct
-      ).length;
-
-      // Informerer brugeren om at vælge alle korrekte svar, hvis der er flere end ét korrekt svar
-      if (correctAnswerCount > 1) {
-        const instruction = document.createElement("p");
-        instruction.textContent =
-          "Vælg alle de korrekte svar. At vælge forkerte svar vil reducere din score.";
-        instruction.className = "instruction-text";
-        questionContainer.appendChild(instruction);
-      }
-
+      // Hvis det er et multichoice spørgsmål
       if (data.type === "multichoice") {
-        // Opret en form til at holde checkboxes eller knapper
-        const form = document.createElement("form");
-        form.id = "answers-form";
+        const correctAnswerCount = data.answers.reduce(
+          (count, answer) => count + (answer.correct ? 1 : 0),
+          0
+        );
 
-        data.answers.forEach((answer, index) => {
-          if (correctAnswerCount > 1) {
-            // Brug checkboxes for spørgsmål med flere korrekte svar
+        if (correctAnswerCount > 1) {
+          // Brug checkboxes for flere korrekte svar
+          const form = document.createElement("form");
+          form.id = "multi-answer-form";
+          data.answers.forEach((answer, index) => {
             const checkboxId = `answer-${index}`;
             const checkbox = document.createElement("input");
+            const label = document.createElement("label");
+            const wrapper = document.createElement("div");
+
             checkbox.type = "checkbox";
             checkbox.id = checkboxId;
             checkbox.name = "answers";
             checkbox.value = answer.answertext;
-            const label = document.createElement("label");
             label.htmlFor = checkboxId;
             label.textContent = answer.answertext;
-            form.appendChild(checkbox);
-            form.appendChild(label);
-          } else {
-            // Brug knapper for spørgsmål med kun ét korrekt svar
-            const answerButton = document.createElement("button");
-            answerButton.textContent = answer.answertext;
-            answerButton.type = "button";
-            answerButton.onclick = () =>
-              submitAnswer(quizName, data.id, [answer.answertext]);
-            form.appendChild(answerButton);
-          }
-        });
 
-        // Tilføj en submit-knap til formen, hvis der er checkboxes
-        if (correctAnswerCount > 1) {
+            wrapper.appendChild(checkbox);
+            wrapper.appendChild(label);
+            form.appendChild(wrapper);
+          });
           const submitButton = document.createElement("button");
           submitButton.textContent = "Indsend svar";
-          submitButton.type = "button"; // Forhindrer formens standard submit handling
+          submitButton.type = "button"; // Forhindre form submit handling
           submitButton.onclick = () => {
             const selectedAnswers = Array.from(
               form.querySelectorAll("input:checked")
@@ -87,23 +70,31 @@ function fetchQuestion(quizName) {
             submitAnswer(quizName, data.id, selectedAnswers);
           };
           form.appendChild(submitButton);
+          questionContainer.appendChild(form);
+        } else {
+          // Brug knapper for et enkelt korrekt svar
+          data.answers.forEach((answer) => {
+            const answerButton = document.createElement("button");
+            answerButton.textContent = answer.answertext;
+            answerButton.className = "answer-button";
+            answerButton.onclick = () => {
+              submitAnswer(quizName, data.id, answer.answertext);
+            };
+            questionContainer.appendChild(answerButton);
+          });
         }
-
-        questionContainer.appendChild(form);
       } else if (data.type === "shortanswer") {
-        // Tilføj input og knap til short answer spørgsmål som før
+        // Håndtering af shortanswer spørgsmål
         const answerInput = document.createElement("input");
         answerInput.type = "text";
         answerInput.className = "short-answer-input";
-        questionContainer.appendChild(answerInput);
-
         const submitButton = document.createElement("button");
         submitButton.textContent = "Indsend";
         submitButton.className = "submit-button shortanswer";
         submitButton.onclick = () => {
-          submitAnswer(quizName, data.id, [answerInput.value]);
-          answerInput.value = ""; // Nulstil inputfeltet efter indsendelse
+          submitAnswer(quizName, data.id, answerInput.value);
         };
+        questionContainer.appendChild(answerInput);
         questionContainer.appendChild(submitButton);
       }
     })
