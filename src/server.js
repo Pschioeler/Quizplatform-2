@@ -134,7 +134,7 @@ app.post("/quiz/submit-answer", quizController.submitAnswer);
 // Endpoint for at få resultaterne af en quiz
 app.get("/quiz/get-results", quizController.getResults);
 
-app.get("/quiz/user-results", requireAuth, quizController.getResultsForUser);
+app.get("/quiz/user-results", auth, quizController.getResultsForUser);
 
 app.get("/quiz/results/download", (req, res) => {
   const resultsPath = path.join(__dirname, "../DB/results.json");
@@ -192,7 +192,7 @@ const upload = multer({
 });
 
 // Endpoint for at håndtere upload af filer
-app.post('/upload', requireAuth, upload.any(), (req, res) => {
+app.post('/upload', auth, upload.any(), (req, res) => {
   // Tjek om der blev uploadet en fil
   if (!req.files || req.files.length === 0) {
       return res.status(400).send('No file uploaded.');
