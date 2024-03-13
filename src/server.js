@@ -19,7 +19,7 @@ const { error } = require("console");
 
 app.use(cors());
 
-//app.use(express.static(path.join(__dirname, "..", "public"), {extensions: ['html']}));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(logger);
 
@@ -38,6 +38,8 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true }));
 //Body-parser til json requests
 app.use(bodyParser.json());
+
+
 
 /*
 Middleware til authentication tjek
