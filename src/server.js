@@ -50,10 +50,26 @@ function auth(req, res, next) {
     console.log("authentication happend")
     next(); // User is authenticated, continue to next middleware
   } else {
-    res.redirect("/logon"); // User is not authenticated, redirect to login page
+    res.redirect("/"); // User is not authenticated, redirect to login page
   }
 }
 
+/*
+Middleware til authentication tjek
+Hver Route skal have en auth i deres app.get
+*/
+function authAdmin(req, res, next) {
+  if (req.session.admin) {
+    console.log("admin authentication happend")
+    next(); // User is authenticated, continue to next middleware
+  } else {
+    res.redirect("/"); // User is not authenticated, redirect to login page
+  }
+}
+
+/*
+Middleware til at logge url request
+*/
 function logger(req, res, next) {
   console.log(req.originalUrl)
   next();
@@ -61,15 +77,15 @@ function logger(req, res, next) {
 
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, '../public', 'test.html'));
+    res.sendFile(path.join(__dirname, '../public', 'index.html'));
 })
 
-app.get("/users", auth, (req, res) => {
-  res.send("User page")
+app.get("/dashboard", auth, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
 })
 
-app.get("/logon", (req, res) => {
-  res.sendFile(path.join(__dirname, '../public', 'logon.html'));
+app.get("/admin", authAdmin, auth, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public', 'admin.html'));
 })
 
 //Lav endpoints her via app.get eller lignende
@@ -97,17 +113,19 @@ console.log(req.body);
       console.log(user);
       if (user instanceof Error) { // Checking if the returned value is an instance of Error
         console.log("Login failed: ", user.message);
-        res.redirect("/logon.html");
+        res.redirect("/");
       } else {
         req.session.authenticated = true;
+        //req.session.user = user.id;
         if (user.isAdmin === true) {
+            req.session.admin = true;
             console.log("i got here to admin");
             res.redirect("/admin");
           } else {
             console.log("i got here to user");
             req.method = 'get';
             //res.redirect("/index.html");
-            res.redirect("/users")
+            res.redirect("/dashboard")
           }
       }
   } catch (error) {
