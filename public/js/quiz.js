@@ -33,45 +33,48 @@ function fetchQuestion(quizName) {
       questionContainer.appendChild(questionText);
 
       if (data.type === "multichoice") {
-        const correctAnswerCount = data.answers.reduce(
-          (count, answer) => count + (answer.correct === "True" ? 1 : 0),
-          0
-        );
-        console.log(correctAnswerCount);
+        let correctAnswerCount = 0;
+        for (let i = 0; i < data.answers.length; i++) {
+          if (data.answers[i].correct === "True") {
+            // Her tjekker vi for strengværdien "True"
+            correctAnswerCount++;
+          }
+        }
 
         if (correctAnswerCount > 1) {
-          // Brug checkboxes for flere korrekte svar
+          // Her tilføjes logik for at vise checkboxes for spørgsmål med flere korrekte svar
           const form = document.createElement("form");
           form.id = "multi-answer-form";
           data.answers.forEach((answer, index) => {
             const checkboxId = `answer-${index}`;
             const checkbox = document.createElement("input");
-            const label = document.createElement("label");
-            const wrapper = document.createElement("div");
-
             checkbox.type = "checkbox";
             checkbox.id = checkboxId;
             checkbox.name = "answers";
             checkbox.value = answer.answertext;
+
+            const label = document.createElement("label");
             label.htmlFor = checkboxId;
             label.textContent = answer.answertext;
 
-            wrapper.appendChild(checkbox);
-            wrapper.appendChild(label);
-            form.appendChild(wrapper);
+            form.appendChild(checkbox);
+            form.appendChild(label);
           });
 
           const submitButton = document.createElement("button");
           submitButton.textContent = "Indsend svar";
-          submitButton.type = "button"; // Forhindre form submit handling
-          submitButton.onclick = () => {
+          submitButton.type = "submit";
+          form.appendChild(submitButton);
+
+          questionContainer.appendChild(form);
+
+          submitButton.addEventListener("click", function (event) {
+            event.preventDefault();
             const selectedAnswers = Array.from(
               form.querySelectorAll("input:checked")
             ).map((input) => input.value);
             submitAnswer(quizName, data.id, selectedAnswers);
-          };
-          form.appendChild(submitButton);
-          questionContainer.appendChild(form);
+          });
         } else {
           // Brug knapper for et enkelt korrekt svar
           data.answers.forEach((answer) => {
