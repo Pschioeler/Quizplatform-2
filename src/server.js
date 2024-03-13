@@ -14,7 +14,7 @@ const app = express();
 const fs = require("fs");
 //brug moduler ved: const myModule = require('./modules/myModule');
 const checkCredentials = require("./Modules/encryption");
-const { error } = require("console");
+const groups = require("./Modules/groups");
 
 app.use(cors());
 
@@ -73,8 +73,8 @@ function logger(req, res, next) {
 }
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public", "index.html"));
-});
+    res.sendFile(path.join(__dirname, '../public', 'index.html'));
+})
 
 app.get("/signup", (req, res) => {
   res.sendFile(path.join(__dirname, "../public", "signup.html"));
@@ -91,6 +91,12 @@ app.get("/quiz", auth, (req, res) => {
 app.get("/admin", authAdmin, auth, (req, res) => {
   res.sendFile(path.join(__dirname, "../public", "admin.html"));
 });
+
+app.get("/group", (req, res) => {
+  res.sendFile(path.join(__dirname, '../public', 'group2.html'));
+})
+
+
 
 //Lav endpoints her via app.get eller lignende
 app.post("/signedup", async (req, res) => {
@@ -133,6 +139,36 @@ app.post("/login", async (req, res) => {
         res.redirect("/dashboard");
       }
     }
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.post("/creategroup", async (req, res) => {
+  const { groupId, groupName } = req.body;
+  try {
+    groups.createGroup(groupId, groupName);
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.post("/allowgroup", async (req, res) => {
+  const { groupId, groupUsername } = req.body;
+  try {
+    groups.allowGroupAccess(groupId, groupUsername);
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.post("/acceptgroup", async (req, res) => {
+  const { groupId, dabUsername } = req.body;
+  try {
+    groups.acceptGroupInvitation(groupId, dabUsername);
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).send("Internal server error");

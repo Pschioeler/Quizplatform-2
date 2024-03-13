@@ -12,5 +12,31 @@
     "members": [
       "test"
     ]
+  },
+  {
+    "groupId": "3",
+    "groupName": "maja det virker",
+    "availableQuizzes": [],
+    "members": []
+  },
+  {
+    "groupId": "4",
+    "groupName": "majas skyld",
+    "availableQuizzes": [],
+    "members": []
+  },
+  {
+    "groupId": "5",
+    "groupName": "working",
+    "availableQuizzes": [],
+    "members": []
+  },
+  {
+    "groupId": 6,
+    "groupName": "?????",
+    "availableQuizzes": [],
+    "members": [
+      "test"
+    ]
   }
 ]

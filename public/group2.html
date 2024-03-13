@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/creategroup" method="post" id="signupForm">
+        <input type="number" name="groupId" id="groupId" class="shadow" placeholder="gruppe id">
+        <input type="text" name="groupName" id="groupName" class="shadow" placeholder="gruppe navn">
+        <div id="passFeedbackText"></div>
+        <input type="submit" value="Lav Gruppe">
+    </form>
+    <form action="/allowgroup" method="post" id="signupForm">
+        <input type="number" name="groupId" id="groupId" class="shadow" placeholder="gruppe id">
+        <input type="text" name="groupUsername" id="groupUsername" class="shadow" placeholder="brugerens navn">
+        <div id="passFeedbackText"></div>
+        <input type="submit" value="Tilmeld bruger">
+    </form>
+    <form action="/acceptgroup" method="post" id="signupForm">
+        <input type="number" name="groupId" id="groupId" class="shadow" placeholder="gruppe id">
+        <input type="text" name="dabUsername" id="dabUsername" class="shadow" placeholder="brugerens navn">
+        <div id="passFeedbackText"></div>
+        <input type="submit" value="accepter gruppe">
+    </form>
+</body>
+</html>

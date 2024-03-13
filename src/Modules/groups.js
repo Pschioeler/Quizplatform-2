@@ -44,6 +44,7 @@ console.log("successfully fetched group data.");
 //funktion til at oprette ny grupper
 function createGroup(groupId, groupName) {
     try {
+        groupId = parseInt(groupId);
         const groups = loadGroups();
         if (groups.some(group => group.groupId === groupId)) {
             console.log("this groupId is already in use.");
@@ -65,6 +66,7 @@ function createGroup(groupId, groupName) {
 }
 //funktion for at admins kan give adgang til grupper
 function allowGroupAccess(groupId, username) {
+    groupId = parseInt(groupId);
     const foundUser = findUser(username);
     // Kontroller om brugeren allerede er tilmeldt til den givne gruppe
     const existingGroup = foundUser.groups.find(group => group.groupId === groupId);
@@ -87,6 +89,7 @@ function allowGroupAccess(groupId, username) {
 }
 //funktion til at acceptere invitationer til grupper
 function acceptGroupInvitation(groupId, username) {
+    groupId = parseInt(groupId);
     const user = findUser(username);
     const groupToAccept = user.groups.find(group => group.hasOwnProperty("groupId") && group.groupId === groupId);
     if (!groupToAccept) {
@@ -94,6 +97,7 @@ function acceptGroupInvitation(groupId, username) {
     }
     const groups = loadGroups();
     const foundGroup = groups.find(group => group.hasOwnProperty("groupId") && group.groupId === groupId);
+    console.log(foundGroup);
     foundGroup.members.push(username);
     saveToFile(groups, groupsFilePath);
     groupToAccept.isAccepted = true;

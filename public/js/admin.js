@@ -77,9 +77,3 @@ function deleteQuiz(quizId) {
         alert('Failed to delete quiz.');
     });
 }
-
-// Call the function to display quizzes when the page loads
-window.onload = function() {
-    displayQuizzes();
-    setInterval(displayQuizzes, 1000);
-};
