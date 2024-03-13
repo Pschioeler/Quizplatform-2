@@ -10,7 +10,6 @@ const bodyParser = require("body-parser");
 const validatePassword = require("./Modules/passwordValidator");
 //modules:
 const quizController = require("./Modules/quizController");
-const { registerUser, loginUser } = require("./Modules/encryption");
 const app = express();
 const fs = require("fs");
 //brug moduler ved: const myModule = require('./modules/myModule');
@@ -80,8 +79,17 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
 })
 
+
+app.get("/signup", (req, res) => {
+  res.sendFile(path.join(__dirname, '../public', 'signup.html'));
+})
+
 app.get("/dashboard", auth, (req, res) => {
   res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
+})
+
+app.get("/quiz", auth, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public', 'quiz.html'));
 })
 
 app.get("/admin", authAdmin, auth, (req, res) => {
@@ -89,7 +97,7 @@ app.get("/admin", authAdmin, auth, (req, res) => {
 })
 
 //Lav endpoints her via app.get eller lignende
-app.post("/signup", async (req, res) => {
+app.post("/signedup", async (req, res) => {
   const { username, password } = req.body;
   const isValidPassword = validatePassword(password);
   if (!isValidPassword) {
@@ -100,8 +108,8 @@ app.post("/signup", async (req, res) => {
   }
 
   // Register user
-  const result = await registerUser(username, password);
-  res.json({ message: result });
+  const result = await checkCredentials.registerUser(username, password);
+  res.redirect("/")
 });
 
 app.post("/login", async (req, res) => {
