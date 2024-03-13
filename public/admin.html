@@ -11,31 +11,33 @@
     <nav id="admin_menu" class="shadow">
         <h2 class="admin_menu_title">Velkommen tilbage<br>${admin}!</h2>
         <ul class="admin_nav">
-            <li><a href="#"><i class="fa-solid fa-list"></i>Logs</a></li>
-            <li><a href="#"><i class="fa-solid fa-gamepad"></i>Quizzes</a></li>
-            <li><a href="#"><i class="fa-solid fa-users-rectangle"></i>Hold</a></li>
-            <li><a href="#"><i class="fa-solid fa-user-group"></i>Brugere</a></li>
+            <li id="logs_menu_item"><i class="fa-solid fa-list"></i>Logs</li>
+            <li id="quiz_menu_item"><i class="fa-solid fa-gamepad"></i>Quizzes</li>
+            <li id="hold_menu_item"><i class="fa-solid fa-users-rectangle"></i>Hold</li>
+            <li id="user_menu_item"><i class="fa-solid fa-user-group"></i>Brugere</li>
         </ul>
         <div class="logout">
             <a href="/"><i class="fa-solid fa-right-from-bracket"></i>Log ud</a>
         </div>
     </nav>
     <main id="main_content" class="admin_main shadow">
-        <section id="logs_lis" class="hidden">
+        <section id="logs_section" class="hidden">
             <h1>Logs</h1>
         </section>
-        <section id="quiz_list" >
+        <section id="quiz_section">
             <h1>Quizzes</h1>
+            <div id="quiz_list"></div>
             <input type="file" id="fileInput" />
             <button onclick="uploadFile()">Upload Quiz</button>
         </section>
-        <section id="hold_list" class="hidden">
+        <section id="hold_section" class="hidden">
             <h1>Hold</h1>
         </section>
-        <section id="user_list" class="hidden">
+        <section id="user_section" class="hidden">
             <h1>Brugere</h1>
         </section>
     </main>
     <script src="/js/admin.js"></script>
+    <script src="/js/sidemenu.js"></script>
 </body>
 </html>

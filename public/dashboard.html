@@ -11,23 +11,23 @@
     <nav id="admin_menu" class="shadow">
         <h2 class="admin_menu_title">Velkommen tilbage<br>${user}!</h2>
         <ul class="admin_nav">
-            <li><a href="#" class="selected_underline"><i class="fa-solid fa-gamepad"></i>Quizzes</a></li>
-            <li><a href="#"><i class="fa-solid fa-users-rectangle"></i>Mine Hold</a></li>
-            <li><a href="#"><i class="fa-solid fa-square-poll-horizontal"></i>Resultater</a></li>
+            <li id="quiz_menu_item" class="selected_underline"><i class="fa-solid fa-gamepad"></i>Quizzes</li>
+            <li id="hold_menu_item"><i class="fa-solid fa-users-rectangle"></i>Mine Hold</li>
+            <li id="results_menu_item"><i class="fa-solid fa-square-poll-horizontal"></i>Resultater</li>
         </ul>
         <div class="logout">
             <a href="/"><i class="fa-solid fa-right-from-bracket"></i>Log ud</a>
         </div>
     </nav>
     <main id="main_content" class="admin_main shadow">
-        <section id="quiz_list">
+        <section id="quiz_section">
             <h1>Quizzes</h1>
             <a href="/quiz" class="dashboard_button">Gå til quiz<i class="fa-solid fa-chevron-right"></i></i></a></button>
         </section>
-        <section id="hold_list" class="hidden">
+        <section id="hold_section" class="hidden">
             <h1>Mine hold</h1>
         </section>
-        <section id="resultat_list" class="hidden">
+        <section id="results_section" class="hidden">
             <h1>Resultater</h1>
         </section>
     </main>
