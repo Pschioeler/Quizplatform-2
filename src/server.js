@@ -1,5 +1,6 @@
 //Brug express
 const express = require("express");
+const hostname = "81.16.28.180";
 // Bruges til Session ID
 const session = require("express-session");
 //This is for JSON files
@@ -250,7 +251,7 @@ app.post("/delete-quiz", (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const PORT = process.env.PORT || 5000;
+app.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${PORT}/`);
 });
