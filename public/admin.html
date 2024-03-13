@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,14 +17,14 @@
             <li><a href="#"><i class="fa-solid fa-user-group"></i>Brugere</a></li>
         </ul>
         <div class="logout">
-            <a href="#"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+            <a href="/"><i class="fa-solid fa-right-from-bracket"></i>Log ud</a>
         </div>
     </nav>
     <main id="main_content" class="admin_main shadow">
-        <section id="logs_lis">
+        <section id="logs_lis" class="hidden">
             <h1>Logs</h1>
         </section>
-        <section id="quiz_list" class="hidden">
+        <section id="quiz_list" >
             <h1>Quizzes</h1>
             <input type="file" id="fileInput" />
             <button onclick="uploadFile()">Upload Quiz</button>
