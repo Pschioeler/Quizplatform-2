@@ -17,16 +17,10 @@ function loadQuizList() {
 
 function fetchQuestion(quizName) {
   fetch(`/quiz/get-question?quizName=${encodeURIComponent(quizName)}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Problem med at hente quiz spørgsmålet.");
-      }
-      return response.json();
-    })
+    .then((response) => response.json())
     .then((data) => {
-      // Tjek for om quizzen er færdig
       if (data.quizComplete) {
-        showCompletionPopup(); // Viser en afsluttende popup
+        showCompletionPopup();
         return;
       }
 
@@ -38,29 +32,69 @@ function fetchQuestion(quizName) {
       questionText.className = "question-text";
       questionContainer.appendChild(questionText);
 
+      // Hvis det er et multichoice spørgsmål
       if (data.type === "multichoice") {
-        data.answers.forEach((answer) => {
-          const answerButton = document.createElement("button");
-          answerButton.textContent = answer.answertext;
-          answerButton.className = "answer-button multichoice";
-          answerButton.onclick = () =>
-            submitAnswer(quizName, data.id, answer.answertext);
-          questionContainer.appendChild(answerButton);
-        });
+        const correctAnswerCount = data.answers.reduce(
+          (count, answer) => count + (answer.correct ? 1 : 0),
+          0
+        );
+
+        if (correctAnswerCount > 1) {
+          // Brug checkboxes for flere korrekte svar
+          const form = document.createElement("form");
+          form.id = "multi-answer-form";
+          data.answers.forEach((answer, index) => {
+            const checkboxId = `answer-${index}`;
+            const checkbox = document.createElement("input");
+            const label = document.createElement("label");
+            const wrapper = document.createElement("div");
+
+            checkbox.type = "checkbox";
+            checkbox.id = checkboxId;
+            checkbox.name = "answers";
+            checkbox.value = answer.answertext;
+            label.htmlFor = checkboxId;
+            label.textContent = answer.answertext;
+
+            wrapper.appendChild(checkbox);
+            wrapper.appendChild(label);
+            form.appendChild(wrapper);
+          });
+          const submitButton = document.createElement("button");
+          submitButton.textContent = "Indsend svar";
+          submitButton.type = "button"; // Forhindre form submit handling
+          submitButton.onclick = () => {
+            const selectedAnswers = Array.from(
+              form.querySelectorAll("input:checked")
+            ).map((input) => input.value);
+            submitAnswer(quizName, data.id, selectedAnswers);
+          };
+          form.appendChild(submitButton);
+          questionContainer.appendChild(form);
+        } else {
+          // Brug knapper for et enkelt korrekt svar
+          data.answers.forEach((answer) => {
+            const answerButton = document.createElement("button");
+            answerButton.textContent = answer.answertext;
+            answerButton.className = "answer-button";
+            answerButton.onclick = () => {
+              submitAnswer(quizName, data.id, answer.answertext);
+            };
+            questionContainer.appendChild(answerButton);
+          });
+        }
       } else if (data.type === "shortanswer") {
+        // Håndtering af shortanswer spørgsmål
         const answerInput = document.createElement("input");
         answerInput.type = "text";
-        answerInput.id = "short-answer-input";
         answerInput.className = "short-answer-input";
-        questionContainer.appendChild(answerInput);
-
         const submitButton = document.createElement("button");
         submitButton.textContent = "Indsend";
         submitButton.className = "submit-button shortanswer";
         submitButton.onclick = () => {
-          const input = document.getElementById("short-answer-input");
-          submitAnswer(quizName, data.id, input.value);
+          submitAnswer(quizName, data.id, answerInput.value);
         };
+        questionContainer.appendChild(answerInput);
         questionContainer.appendChild(submitButton);
       }
     })
@@ -88,7 +122,19 @@ function startQuiz() {
 }
 
 function submitAnswer(quizName, questionId, selectedAnswer) {
-  const payload = { quizName, questionId, answer: selectedAnswer };
+  let payload;
+
+  if (Array.isArray(selectedAnswer) && selectedAnswer.length > 1) {
+    payload = { quizName, questionId, answer: selectedAnswer };
+  } else {
+    payload = {
+      quizName,
+      questionId,
+      answer: Array.isArray(selectedAnswer)
+        ? selectedAnswer[0]
+        : selectedAnswer,
+    };
+  }
 
   fetch("/quiz/submit-answer", {
     method: "POST",
@@ -100,7 +146,8 @@ function submitAnswer(quizName, questionId, selectedAnswer) {
     .then((response) => response.json())
     .then((result) => {
       alert(result.correct ? "Korrekt svar!" : "Forkert svar.");
-      fetchQuestion(quizName); // Hent det næste spørgsmål
+      // Hent det næste spørgsmål
+      fetchQuestion(quizName);
     })
     .catch((error) => {
       console.error("Fejl under indsendelse af svar:", error);

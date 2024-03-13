@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const sanitize = require("sanitize-filename");
 const processXML = require("./processXML");
 
 let quizzes = {};
@@ -64,53 +65,147 @@ function getQuestion(req, res) {
   });
 }
 
-// Tilføj en funktion til at logge resultaterne
-function logResult(user, quizId, questionId, isCorrect) {
-  // Læs den eksisterende results.json fil
-  const resultsPath = path.join(__dirname, "../DB/results.json");
-  const resultsData = JSON.parse(fs.readFileSync(resultsPath, "utf8"));
-
-  // Tilføj det nye resultat
-  const result = {
-    user,
-    quizId,
-    questionId,
-    isCorrect,
-    timestamp: new Date(),
-  };
-  resultsData.push(result);
-
-  // Gem det opdaterede resultater tilbage til results.json
-  fs.writeFileSync(resultsPath, JSON.stringify(resultsData, null, 2));
+// Function to ensure the results directory exists
+function ensureResultsDirectory() {
+  const resultsDir = path.normalize(path.join(__dirname, "../DB/results"));
+  if (!fs.existsSync(resultsDir)) {
+    fs.mkdirSync(resultsDir, { recursive: true });
+  }
+  return resultsDir;
 }
 
 function submitAnswer(req, res) {
-  try {
-    console.log("Anmodning modtaget til /quiz/submit-answer", req.body);
-    const { quizName, questionId, answer } = req.body;
-    const quiz = quizzes[quizName];
-    if (!quiz) {
-      return res.status(404).send("Quizzen blev ikke fundet.");
-    }
+  console.log("Anmodning modtaget for /quiz/submit-answer", req.body);
+  const { quizName, questionId, answer } = req.body;
+  const user = req.session.user;
 
-    const question = quiz.find((q) => q.id === questionId);
-    if (!question) {
-      return res.status(404).send("Spørgsmålet blev ikke fundet.");
-    }
+  // Find quizzen og spørgsmålet
+  const quiz = quizzes[quizName];
+  if (!quiz) return res.status(404).send("Quizzen blev ikke fundet.");
 
-    const isCorrect = question.answers.some(
-      (ans) =>
-        ans.correct && ans.answertext.toLowerCase() === answer.toLowerCase()
+  const question = quiz.find((q) => q.id === questionId);
+  if (!question) return res.status(404).send("Spørgsmålet blev ikke fundet.");
+
+  let isCorrect = false;
+  if (Array.isArray(answer) && question.answers.some((ans) => ans.correct)) {
+    // Scenarie med flere korrekte svar
+    const correctAnswers = question.answers
+      .filter((ans) => ans.correct)
+      .map((ans) => ans.answertext.toLowerCase());
+    const providedAnswers = answer.map((ans) => ans.toLowerCase());
+    // Tjek om alle valgte svar er korrekte og at ingen ekstra forkerte svar er valgt
+    isCorrect =
+      providedAnswers.every((ans) => correctAnswers.includes(ans)) &&
+      providedAnswers.length === correctAnswers.length;
+  } else if (question.type === "shortanswer" || question.answers.length === 1) {
+    // Scenarie med ét korrekt svar eller short-answer
+    const providedAnswer = answer.toLowerCase();
+    isCorrect = question.answers.some(
+      (ans) => ans.correct && ans.answertext.toLowerCase() === providedAnswer
     );
-
-    // Log resultatet
-    logResult(req.session.user, quizName, questionId, isCorrect); // Antager 'user' er sat i session
-
-    res.json({ correct: isCorrect });
-  } catch (err) {
-    console.error("Server fejl under håndtering af /quiz/submit-answer:", err);
-    res.status(500).send("Intern serverfejl");
   }
+
+  // Log resultatet med bruger id
+  logResult(/*userId, */ quizName, questionId, isCorrect);
+
+  const resultTimestamp = new Date().toISOString().replace(/:/g, "-"); // Ensuring invalid characters are replaced
+  const safeQuizName = sanitize(quizName);
+  const userResultFilename = `result-${safeQuizName}-${resultTimestamp}.json`;
+  const resultsDir = ensureResultsDirectory();
+
+  // Ensure that the results directory exists when the server starts
+  if (!fs.existsSync(resultsDir)) {
+    fs.mkdirSync(resultsDir, { recursive: true });
+  }
+
+  const userResultPath = path.normalize(
+    path.join(resultsDir, userResultFilename)
+  );
+
+  const resultData = {
+    quizName: quizName,
+    questionId: questionId,
+    answer: answer,
+    isCorrect: isCorrect,
+    timestamp: resultTimestamp,
+  };
+
+  console.log("Attempting to write to:", userResultPath); // Debugging
+  fs.writeFile(userResultPath, JSON.stringify(resultData, null, 2), (err) => {
+    if (err) {
+      console.error("Error writing file:", err);
+      return res.status(500).send("Internal server error");
+    }
+    res.json({ correct: isCorrect });
+  });
+}
+function logResult(quizName, questionId, isCorrect) {
+  // For now, we don't have userId, so we'll use a placeholder
+  // const userId = "placeholder-userId";
+
+  const resultsDir = ensureResultsDirectory();
+  if (!fs.existsSync(resultsDir)) {
+    fs.mkdirSync(resultsDir);
+  }
+
+  // Format dato og tid for at undgå problemer med filnavne
+  const date = new Date();
+  const dateString = date.toISOString().split("T")[0];
+  // const timeString = date
+  //   .toISOString()
+  //   .split("T")[1]
+  //   .replace(/:/g, "-")
+  //   .split(".")[0];
+
+  // Opbyg filnavnet med korrekt datoformat
+  const resultFilename = `result-${quizName}-${dateString}.json`;
+  const resultFilePath = path.normalize(path.join(resultsDir, resultFilename));
+
+  let resultsArray;
+  try {
+    if (fs.existsSync(resultFilePath)) {
+      resultsArray = JSON.parse(fs.readFileSync(resultFilePath, "utf8"));
+    } else {
+      resultsArray = [];
+    }
+  } catch (error) {
+    console.error("Fejl ved læsning af resultater:", error);
+    return;
+  }
+
+  const resultData = {
+    // userId, // This is a temporary line
+    quizName,
+    questionId,
+    isCorrect,
+    timestamp: date.toISOString(), // Use ISO string for consistency
+  };
+
+  resultsArray.push(resultData);
+  fs.writeFileSync(
+    resultFilePath,
+    JSON.stringify(resultsArray, null, 2),
+    "utf8"
+  );
+}
+
+// Ny funktion til at hente resultater for en bruger
+function getResultsForUser(req, res) {
+  //  const userId = req.session.user;
+  const resultsDir = ensureResultsDirectory();
+  const userResults = [];
+
+  fs.readdirSync(resultsDir).forEach((file) => {
+    // Filter filer baseret på userId (vil blive tilføjet senere)
+    // if (file.startsWith(`result-${userId}-`)) {
+    const result = JSON.parse(
+      fs.readFileSync(path.join(resultsDir, file), "utf8")
+    );
+    userResults.push(result);
+    // }
+  });
+
+  res.json(userResults);
 }
 
 function getResults(req, res) {
@@ -125,4 +220,5 @@ module.exports = {
   getResults,
   loadQuizzes,
   quizzes,
+  getResultsForUser,
 };

@@ -1,30 +1,28 @@
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/styles.css" />
-    <style>
-      .completion-popup {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        background-color: white;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        text-align: center;
-      }
-    </style>
-  </head>
-  <body>
-    <select id="quiz-select">
-      <!-- Dynamisk indlæste quiz options -->
-    </select>
-    <button onclick="startQuiz()">Start Quiz</button>
-    <div id="question-container"></div>
-  </body>
-  <script src="/js/quiz.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PBWQuiz | Login</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="login_body">
+    <header class="login_header">
+        <h1>Web Development Quiz</h1>
+    </header>
+    <main class="login_main">
+        <section class="formWrapper shadow">
+            <h2>Log Ind</h2>
+            <form action="/login" method="post" id="signupForm">
+                <input type="text" name="username" id="username" class="shadow" placeholder="Brugernavn">
+                <input type="password" name="password" id="password" class="shadow" placeholder="Kodeord">
+                <div id="passFeedbackText"></div>
+                <input type="submit" value="Log Ind">
+            </form>
+            <p>Har du ikke en bruger endnu?</p><a href="/signup.html">Opret bruger her</a>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 PBW - Pop Quiz Program | All rights reserved</p>
+    </footer>
+</body>
 </html>
