@@ -34,7 +34,10 @@ button:hover {
   box-shadow: 6px 6px 21px 0px rgba(189, 189, 189, 1);
 }
 .hidden {
-  display: none;
+  display: none !important;
+}
+.selected_underline {
+  border-bottom: 3px solid var(--accent-color) !important;
 }
 .login_body {
   height: 100dvh;
@@ -155,6 +158,13 @@ footer {
   max-width: 1500px;
   border-radius: 15px;
 }
+.admin_main>section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .index_wrapper, #question-container {
  display: flex;
  flex-direction: column;
@@ -216,6 +226,26 @@ footer {
 }
 .startQuiz_button, .completion-popup>button, .shortanswer {
   color: var(--secondary-color)
+}
+.dashboard_button {
+  background-color: var(--accent-color);
+  border-radius: 15px;
+}
+.dashboard_button {
+  font-size: 30px;
+  text-decoration: none;
+  padding: .5em 1em;
+  color: var(--secondary-color);
+}
+.dashboard_button>i {
+  margin: 0 0 0 .3em;
+  transition: 100ms ease-in-out;
+}
+.dashboard_button:hover {
+  background-color: var(--accent-hover);
+}
+.dashboard_button:hover>i {
+  margin: 0 0 0 .7em;
 }
 
 /* --------------------- iPad Version -----------------------*/ 

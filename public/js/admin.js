@@ -32,7 +32,7 @@ function displayQuizzes() {
     fetch('http://localhost:3000/quizzes')
     .then(response => response.json())
     .then(quizIds => {
-        const quizListElement = document.getElementById('quizList');
+        const quizListElement = document.getElementById('quiz_list');
         // Clear existing content
         quizListElement.innerHTML = '';
         // Create and append a link and a delete button for each quiz

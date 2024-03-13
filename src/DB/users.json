@@ -7,7 +7,17 @@
     "password": "$2b$10$87Og.YL2oURE631J73cvfODGEMlnXkwORRqE6Oa2eH4kwbbjlsgke",
     "isAdmin": false,
     "isSuperAdmin": false,
-    "timelogs": []
+    "timelogs": [],
+    "groups": [
+      {
+        "groupId": 1,
+        "isAccepted": true
+      },
+      {
+        "groupId": 2,
+        "isAccepted": true
+      }
+    ]
   },
   {
     "username": "admin",
@@ -17,6 +27,29 @@
     "password": "$2b$10$o7BfCZ896VVaysK4yo0XBuC9BWk8lgXsPwD/ZOF2DKX5IFQyd6UFW",
     "isAdmin": true,
     "isSuperAdmin": false,
-    "timelogs": []
+    "timelogs": [],
+    "groups": []
+  },
+  {
+    "username": "walo",
+    "usernameSalt": "$2b$10$dGuuIRgU2DV/tdddI9BxNO",
+    "hashedUser": "$2b$10$dGuuIRgU2DV/tdddI9BxNO9p0DF2jB/PlQeuxnFyXDvet62S4YhFS",
+    "passwordSalt": "$2b$10$rv85FRmSlMzsG/unMbe9bu",
+    "password": "$2b$10$rv85FRmSlMzsG/unMbe9bueG2u6wFgJhUpIrkYQ1Iwxww6l5PumQW",
+    "isAdmin": false,
+    "isSuperAdmin": false,
+    "timelogs": [],
+    "group": []
+  },
+  {
+    "username": "lmao",
+    "usernameSalt": "$2b$10$DaEhG0FKsCwnfnnGYMW/Mu",
+    "hashedUser": "$2b$10$DaEhG0FKsCwnfnnGYMW/Mu4wj/yYaqDp8IbMkM00PppH.Llf77a7u",
+    "passwordSalt": "$2b$10$V2qPFaoS/DLw5VLYmkXwDe",
+    "password": "$2b$10$V2qPFaoS/DLw5VLYmkXwDe8M6E/omqbwasXHjM.5KX0BCl7A.pHAG",
+    "isAdmin": false,
+    "isSuperAdmin": false,
+    "timelogs": [],
+    "group": []
   }
 ]
