@@ -244,5 +244,365 @@
     "questionId": "6",
     "isCorrect": false,
     "timestamp": "2024-03-12T19:57:24.412Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "12",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:06:14.018Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "1",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:06:16.971Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "3",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:06:21.635Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "4",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:06:25.111Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "13",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:06:27.569Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "9",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:06:29.052Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "11",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:06:30.801Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "6",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:06:32.580Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:06:34.197Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "5",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:06:35.430Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "10",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:06:36.911Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "7",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:06:38.417Z"
+  },
+  {
+    "quizId": "if statement",
+    "questionId": "8",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:06:39.958Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "1",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:07:53.025Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "5",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:07:54.996Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "3",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:07:56.622Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "8",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:07:57.764Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "6",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:07:59.191Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "9",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:08:20.800Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "4",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:08:22.669Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:08:23.906Z"
+  },
+  {
+    "quizId": "Operatorer",
+    "questionId": "7",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:08:25.195Z"
+  },
+  {
+    "quizId": "truthy-falsy",
+    "questionId": "4",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:11:46.578Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "8",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:19:15.858Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "4",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:19:20.216Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "7",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:19:28.998Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "10",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:21:15.660Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "11",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:23:06.587Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:25:23.979Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "3",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:25:25.838Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "6",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:25:27.147Z"
+  },
+  {
+    "quizId": "Data- og variabeltyper",
+    "questionId": "5",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:25:28.296Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "5",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:25:42.930Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "8",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:25:44.438Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "4",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:25:46.322Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "7",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:25:47.782Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "1",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:25:49.390Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "2",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:25:50.886Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "3",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:25:51.962Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "10",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:25:53.753Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "6",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:25:54.976Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "9",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:25:55.966Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "9",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:25:56.893Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "9",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:25:58.189Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "9",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:25:59.631Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "9",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:27:17.390Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "9",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:27:22.933Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "9",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:27:59.482Z"
+  },
+  {
+    "quizId": "for-løkke",
+    "questionId": "9",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:28:01.105Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "10",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:29:47.430Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "4",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:30:01.402Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "7",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:30:22.845Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "5",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:30:29.186Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "2",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:30:43.181Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "9",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:30:51.593Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "8",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:30:58.542Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "1",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:31:09.802Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "6",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:31:26.096Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "3",
+    "isCorrect": true,
+    "timestamp": "2024-03-13T08:31:43.782Z"
+  },
+  {
+    "quizId": "while, do...while-statement",
+    "questionId": "11",
+    "isCorrect": false,
+    "timestamp": "2024-03-13T08:31:50.513Z"
   }
 ]

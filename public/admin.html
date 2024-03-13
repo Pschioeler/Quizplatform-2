@@ -20,19 +20,19 @@
             <a href="#"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
         </div>
     </nav>
-    <main class="admin_main shadow">
-        <section id="logs_lis" style="display: none;">
+    <main id="main_content" class="admin_main shadow">
+        <section id="logs_lis">
             <h1>Logs</h1>
         </section>
-        <section id="quiz_list">
+        <section id="quiz_list" class="hidden">
             <h1>Quizzes</h1>
             <input type="file" id="fileInput" />
             <button onclick="uploadFile()">Upload Quiz</button>
         </section>
-        <section id="hold_list" style="display: none;">
+        <section id="hold_list" class="hidden">
             <h1>Hold</h1>
         </section>
-        <section id="user_list" style="display: none;">
+        <section id="user_list" class="hidden">
             <h1>Brugere</h1>
         </section>
     </main>
