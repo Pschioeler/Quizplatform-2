@@ -7,7 +7,17 @@
     "password": "$2b$10$87Og.YL2oURE631J73cvfODGEMlnXkwORRqE6Oa2eH4kwbbjlsgke",
     "isAdmin": false,
     "isSuperAdmin": false,
-    "timelogs": []
+    "timelogs": [],
+    "groups": [
+      {
+        "groupId": 1,
+        "isAccepted": true
+      },
+      {
+        "groupId": 2,
+        "isAccepted": true
+      }
+    ]
   },
   {
     "username": "admin",
@@ -17,6 +27,7 @@
     "password": "$2b$10$o7BfCZ896VVaysK4yo0XBuC9BWk8lgXsPwD/ZOF2DKX5IFQyd6UFW",
     "isAdmin": true,
     "isSuperAdmin": false,
-    "timelogs": []
+    "timelogs": [],
+    "groups": []
   }
 ]
