@@ -19,7 +19,9 @@ const { error } = require("console");
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, "..", "public")));
+//app.use(express.static(path.join(__dirname, "..", "public"), {extensions: ['html']}));
+
+app.use(logger);
 
 app.use(
   session({
@@ -50,22 +52,32 @@ const requireAuth = (req, res, next) => {
   }
 };
 
-app.get("/logon.html", (req, res) => {
-    
+function auth(req, res, next) {
+  if (req.session.authenticated) {
+    console.log("authentication happend")
+    next(); // User is authenticated, continue to next middleware
+  } else {
+    res.redirect("/logon"); // User is not authenticated, redirect to login page
+  }
+}
+
+function logger(req, res, next) {
+  console.log(req.originalUrl)
+  next();
+}
+
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'test.html'));
 })
 
-app.get("/index.html", requireAuth, (req, res) => {
-    
+app.get("/users", auth, (req, res) => {
+  res.send("User page")
 })
 
-app.get("/test.html", requireAuth, (req, res) => {
-    
+app.get("/logon", (req, res) => {
+  res.sendFile(path.join(__dirname, '../public', 'logon.html'));
 })
-
-app.get("/test", requireAuth, (req, res) => {
-    
-})
-
 
 //Lav endpoints her via app.get eller lignende
 app.post("/signup", async (req, res) => {
@@ -100,8 +112,9 @@ console.log(req.body);
             res.redirect("/admin");
           } else {
             console.log("i got here to user");
+            req.method = 'get';
             //res.redirect("/index.html");
-            res.redirect("/test.html")
+            res.redirect("/users")
           }
       }
   } catch (error) {
