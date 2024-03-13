@@ -75,69 +75,53 @@ function ensureResultsDirectory() {
 }
 
 function submitAnswer(req, res) {
-  console.log("Anmodning modtaget for /quiz/submit-answer", req.body);
+  console.log("Request received for /quiz/submit-answer", req.body);
   const { quizName, questionId, answer } = req.body;
-  const user = req.session.user;
 
-  // Find quizzen og spørgsmålet
   const quiz = quizzes[quizName];
-  if (!quiz) return res.status(404).send("Quizzen blev ikke fundet.");
+  if (!quiz) {
+    console.log(`Quiz not found: ${quizName}`);
+    return res.status(404).send("Quiz not found.");
+  }
 
   const question = quiz.find((q) => q.id === questionId);
-  if (!question) return res.status(404).send("Spørgsmålet blev ikke fundet.");
+  if (!question) {
+    console.log(`Question not found: ID ${questionId}`);
+    return res.status(404).send("Question not found.");
+  }
 
   let isCorrect = false;
-  if (Array.isArray(answer) && question.answers.some((ans) => ans.correct)) {
-    // Scenarie med flere korrekte svar
+  if (question.type === "multichoice") {
+    // Handle multiple choice questions
     const correctAnswers = question.answers
       .filter((ans) => ans.correct)
-      .map((ans) => ans.answertext.toLowerCase());
-    const providedAnswers = answer.map((ans) => ans.toLowerCase());
-    // Tjek om alle valgte svar er korrekte og at ingen ekstra forkerte svar er valgt
+      .map((ans) => ans.answertext.toLowerCase()); // Assume case-insensitivity
+    const providedAnswers = Array.isArray(answer)
+      ? answer.map((ans) => ans.toLowerCase())
+      : [answer.toLowerCase()];
     isCorrect =
-      providedAnswers.every((ans) => correctAnswers.includes(ans)) &&
-      providedAnswers.length === correctAnswers.length;
-  } else if (question.type === "shortanswer" || question.answers.length === 1) {
-    // Scenarie med ét korrekt svar eller short-answer
-    const providedAnswer = answer.toLowerCase();
-    isCorrect = question.answers.some(
-      (ans) => ans.correct && ans.answertext.toLowerCase() === providedAnswer
+      correctAnswers.sort().join(",") === providedAnswers.sort().join(",");
+    console.log(
+      `Expected answers: [${correctAnswers}], Provided answers: [${providedAnswers}], Is correct: ${isCorrect}`
     );
+  } else if (question.type === "shortanswer" || question.answers.length === 1) {
+    // Handle short answer questions
+    const providedAnswer = answer.toLowerCase().trim(); // Assume case-insensitivity and trim spaces
+    isCorrect = question.answers.some(
+      (ans) =>
+        ans.correct && ans.answertext.toLowerCase().trim() === providedAnswer
+    );
+    console.log(
+      `Expected answer: ${question.answers[0].answertext
+        .toLowerCase()
+        .trim()}, Provided answer: ${providedAnswer}, Is correct: ${isCorrect}`
+    );
+  } else {
+    console.log("Question type not supported:", question.type);
   }
 
-  // Log resultatet med bruger id
-  logResult(/*userId, */ quizName, questionId, isCorrect);
-
-  const resultTimestamp = new Date().toISOString().replace(/:/g, "-"); // Ensuring invalid characters are replaced
-  const safeQuizName = sanitize(quizName);
-  const userResultFilename = `result-${safeQuizName}-${resultTimestamp}.json`;
-  const resultsDir = ensureResultsDirectory();
-
-  // Ensure that the results directory exists when the server starts
-  if (!fs.existsSync(resultsDir)) {
-    fs.mkdirSync(resultsDir, { recursive: true });
-  }
-
-  const userResultPath = path.normalize(
-    path.join(resultsDir, userResultFilename)
-  );
-
-  const resultData = {
-    quizName: quizName,
-    questionId: questionId,
-    answer: answer,
-    isCorrect: isCorrect,
-    timestamp: resultTimestamp,
-  };
-
-  console.log("Attempting to write to:", userResultPath); // Debugging
-  fs.writeFile(userResultPath, JSON.stringify(resultData, null, 2), (err) => {
-    if (err) {
-      console.error("Error writing file:", err);
-      return res.status(500).send("Internal server error");
-    }
-    res.json({ correct: isCorrect });
-  });
+  logResult(quizName, questionId, isCorrect);
+  res.json({ correct: isCorrect });
 }
 function logResult(quizName, questionId, isCorrect) {
   // For now, we don't have userId, so we'll use a placeholder
@@ -163,25 +147,27 @@ function logResult(quizName, questionId, isCorrect) {
 
   let resultsArray;
   try {
+    // If the file exists, read it and parse it into an array.
     if (fs.existsSync(resultFilePath)) {
       resultsArray = JSON.parse(fs.readFileSync(resultFilePath, "utf8"));
     } else {
+      // If the file does not exist, start with an empty array.
       resultsArray = [];
     }
   } catch (error) {
-    console.error("Fejl ved læsning af resultater:", error);
+    console.error("Error reading results:", error);
     return;
   }
 
+  // Append the new result to the array.
   const resultData = {
-    // userId, // This is a temporary line
     quizName,
     questionId,
     isCorrect,
-    timestamp: date.toISOString(), // Use ISO string for consistency
+    timestamp: new Date().toISOString(),
   };
-
   resultsArray.push(resultData);
+
   fs.writeFileSync(
     resultFilePath,
     JSON.stringify(resultsArray, null, 2),
